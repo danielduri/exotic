@@ -33,7 +33,21 @@ class Item
     }
 
     public static function getItem($itemID){
+        $conn = getConexionBD();
+        $query = sprintf("SELECT * FROM `itemscursos` WHERE `idCurso`='%d'", $conn->real_escape_string($courseID));
 
+        $curso = null;
+
+        $rs = $conn->query($query);
+
+        if ($rs && $rs->num_rows == 1) {
+            $registro = $rs->fetch_assoc();
+            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description']);
+        }
+
+        $rs->free();
+
+        return $curso;
     }
 
 
