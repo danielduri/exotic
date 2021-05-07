@@ -56,26 +56,31 @@ function obtenerCursosJuegoParaDisplay($juego): string
  */
 function obtenerJuegoParaDisplay($juego): string
 {
+    $nombre = $juego->getName();
+    $descripcion = $juego->getDescription();
 
-    $html = "<h1>";
-    $html.=$juego->getName();
-    $html.="</h1>";
+    $html=<<<EOF
+        <div class="cards">
+            <article class="card">
+                <header>
+                    $nombre
+                </header>    
+                <img class= "card img" src="images/$nombre.png" alt="$nombre">
+                <div class="content">
+                    <p>$descripcion</p>
+                </div>
+                <footer>
+                    <form method = "post" action="verCursos.php">
+                    <button value="$nombre" name="explore" type="submit">Explorar cursos</button>
+                    </form>
+                </footer>
+            </article>
+        <div class="cards">
+EOF;
 
-    $html.="<p>";
-    $html.=$juego->getDescription();
-    $html.="</p>";
-
-    $html.='<form method = "post" action="verCursos.php';
-        $html.='"><button value="';
-        $html.=$juego->getName();
-        $html.='"name="explore" type="submit">Explorar cursos</button>';
-    $html.='</form>';
     return $html;
 }
 
-/*
- * Obtener el nombre del juego formateado como opcion en un formulario
- */
 function obtenerJuegoParaFormulario($juego): string
 {
     $html='<option value="';
