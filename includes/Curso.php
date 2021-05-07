@@ -134,4 +134,26 @@ class Curso
 
         return $curso;
     }
+
+    public function getProgreso($userID){
+        if (self::existeCompra($userID, self::getID())){
+            $conn = getConexionBD();
+            $courseID = self::getID();
+            $query = sprintf("SELECT `completed` FROM `purchases` WHERE `userID`='%d' AND `courseID`='$courseID'", $conn->real_escape_string($userID));
+            $rs = $conn->query($query);
+            if ($rs && $rs->num_rows == 1) {
+                $registro = $rs->fetch_assoc();
+                $rs->free();
+                return $registro['completed'];
+            }
+            $rs->free();
+            return false;
+        }
+        return false;
+    }
+
+    public function getItem($idItem)
+    {
+
+    }
 }

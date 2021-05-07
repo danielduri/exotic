@@ -46,7 +46,7 @@ function obtenerMiCursoDisplay($curso): string
     $html.=$curso->getDescription();
     $html.="</p>";
 
-    $html.='<form method = "post" action="#">';
+    $html.='<form method = "post" action="content.php">';
     $html.='<button value="';
     $html.=$curso->getID();
     $html.='"name="course" type="submit">Ir a curso</button>';
