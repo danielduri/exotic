@@ -12,6 +12,7 @@ class Item
     private $html;
     private $esTest;
     private $numTest;
+    private $test;
 
     /**
      * Item constructor.
@@ -30,24 +31,27 @@ class Item
         $this->html = $html;
         $this->esTest = $esTest;
         $this->numTest = $numTest;
+        if($esTest){
+            $test = Test
+        }
     }
 
     public static function getItem($itemID){
         $conn = getConexionBD();
         $query = sprintf("SELECT * FROM `itemscursos` WHERE `idCurso`='%d'", $conn->real_escape_string($courseID));
 
-        $curso = null;
+        $item = null;
 
         $rs = $conn->query($query);
 
         if ($rs && $rs->num_rows == 1) {
             $registro = $rs->fetch_assoc();
-            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description']);
+            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['html'], $registro['esTest'], $registro['numTest']);
         }
 
         $rs->free();
 
-        return $curso;
+        return $item;
     }
 
 
