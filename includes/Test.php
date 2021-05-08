@@ -46,7 +46,7 @@ class Test extends \es\fdi\ucm\aw\Form
 
     protected function generaCamposFormulario($datosIniciales, $errores = array())
     {
-        $html="<h1>Test</h1><ol>";
+        $html="<p><h1>Test</h1><ol>";
 
         $count=0;
         $showAnswer=false;
@@ -67,7 +67,7 @@ class Test extends \es\fdi\ucm\aw\Form
                     <h3>$tituloPregunta</h3>
                     
                     <div>
-                        <input type="radio" name="question-$count-answers" id="question-$count-answers-A" value="$respuestas[0]" />
+                        <input type="radio" name="question-$count-answers" id="question-$count-answers-A" value="$respuestas[0]"/>
                         <label for="question-$count-answers-A">A) $respuestas[0] </label>
                     </div>
                     
@@ -93,7 +93,7 @@ class Test extends \es\fdi\ucm\aw\Form
             $count++;
         }
         $html.="</ol>";
-        $html.='<input type="submit" value="Submit" class="submitbtn" />';
+        $html.='<input type="submit" value="Submit" class="submitbtn" /></p>';
         return $html;
     }
 

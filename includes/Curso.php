@@ -22,7 +22,6 @@ class Curso
         $this->level = $level;
         $this->duration = $duration;
         $this->description = $description;
-
     }
 
     //Getters
@@ -159,6 +158,45 @@ class Curso
             return $item->getTest()->gestiona();
         }else{
             return $item->html();
+        }
+    }
+
+    public function obtenerNumItems(){
+        $conn = getConexionBD();
+        $query="SELECT COUNT(`idItem`) FROM `itemscursos` WHERE `idCurso`= `$this->id`";
+        $rs = $conn->query($query);
+
+        if ($rs) {
+            $registro = $rs->current_field;
+            $rs->free();
+            echo $registro;
+            return $registro;
+        }
+        return 0;
+    }
+
+    public function avanzar($usuario)
+    {
+        $conn = getConexionBD();
+        $query= sprintf("UPDATE `purchases` SET `completed` = `completed` + 1 WHERE `courseID` = $this->id AND `userID` = %d", $conn->real_escape_string($usuario));
+        $rs = $conn->query($query);
+        if ($rs){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function retroceder($usuario)
+    {
+        $conn = getConexionBD();
+        $query= sprintf("UPDATE `purchases` SET `completed` = `completed` - 1 WHERE `courseID` = $this->id AND `userID` = %d", $conn->real_escape_string($usuario));
+        echo $query;
+        $rs = $conn->query($query);
+        if ($rs){
+            return true;
+        }else{
+            return false;
         }
     }
 }
