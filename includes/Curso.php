@@ -152,9 +152,9 @@ class Curso
         return false;
     }
 
-    public function getItem($idItem)
+    public function getItem($orden)
     {
-        $item = Item::getItem($idItem);
+        $item = Item::getItem($this->getID(), $orden);
         if($item->esTest()){
             return $item->getTest()->gestiona();
         }else{

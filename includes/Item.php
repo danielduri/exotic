@@ -36,9 +36,9 @@ class Item
         }
     }
 
-    public static function getItem($itemID){
+    public static function getItem($courseID, $orden){
         $conn = getConexionBD();
-        $query = sprintf("SELECT * FROM `itemscursos` WHERE `idCurso`='%d'", $conn->real_escape_string($itemID));
+        $query = sprintf("SELECT * FROM `itemscursos` WHERE `idCurso`='%d' AND `orden`='%d'", $conn->real_escape_string($courseID), $conn->real_escape_string($orden));
 
         $item = null;
 

@@ -6,6 +6,8 @@ class Test extends \es\fdi\ucm\aw\Form
 {
     private $testID;
     private $preguntas;
+    private $respuestas;
+    private $puntuacion;
 
     /**
      * Test constructor.
@@ -22,9 +24,10 @@ class Test extends \es\fdi\ucm\aw\Form
 
     public static function getTestFromID($testID){
         $conn = getConexionBD();
-        $query = sprintf("SELECT * FROM `preguntastest` WHERE `idPregunta`='%d'", $conn->real_escape_string($testID));
+        $query = sprintf("SELECT * FROM `preguntastest` WHERE `idTest`='%d'", $conn->real_escape_string($testID));
 
         $test = null;
+        $preguntas=[];
 
         $rs = $conn->query($query);
 
@@ -44,12 +47,24 @@ class Test extends \es\fdi\ucm\aw\Form
     protected function generaCamposFormulario($datosIniciales, $errores = array())
     {
         $html="<h1>Test</h1><ol>";
+
         $count=0;
+        $showAnswer=false;
+
+        if ($this->respuestas!=null){
+            //$htmlResultados = mostrarResultados($errores);
+            $count=count($this->respuestas);
+            $html.="<h1>Puntuación: $this->puntuacion/$count</h1>";
+            $showAnswer=true;
+            //$html.=$htmlResultados;
+        }
+
         foreach ($this->preguntas as $pregunta){
             $respuestas = $pregunta->getRespuestas();
+            $tituloPregunta = $pregunta->getPregunta();
             $html.=<<<EOF
             <li>
-                    <h3>$pregunta->getPregunta()</h3>
+                    <h3>$tituloPregunta</h3>
                     
                     <div>
                         <input type="radio" name="question-$count-answers" id="question-$count-answers-A" value="$respuestas[0]" />
@@ -98,7 +113,9 @@ class Test extends \es\fdi\ucm\aw\Form
             $count++;
         }
 
-        $html = "<h1>$score/$count</h1>";
-        return $html;
+        $this->respuestas=$respuestas;
+        $this->puntuacion=$score;
+
+        return $incorrecta;
     }
 }

@@ -20,6 +20,7 @@ class Pregunta
     {
         $this->pregunta = $pregunta;
         $this->respuestaCorrecta = $respuestaCorrecta;
+        $this->respuestas=[];
         array_push($this->respuestas, $respuestaCorrecta);
         array_push($this->respuestas, $respuesta1);
         array_push($this->respuestas, $respuesta2);
