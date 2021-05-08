@@ -53,3 +53,7 @@ function obtenerMiCursoDisplay($curso): string
     $html.='</form>';
     return $html;
 }
+
+function obtenerTestParaDisplay($item){
+
+}

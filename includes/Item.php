@@ -54,5 +54,23 @@ class Item
         return $item;
     }
 
+    public function html()
+    {
+        return $this->html;
+    }
+
+    public function esTest()
+    {
+        return $this->esTest;
+    }
+
+    /**
+     * @return Test|null
+     */
+    public function getTest(): ?Test
+    {
+        return $this->test;
+    }
+
 
 }

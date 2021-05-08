@@ -154,6 +154,11 @@ class Curso
 
     public function getItem($idItem)
     {
-
+        $item = Item::getItem($idItem);
+        if($item->esTest()){
+            return $item->getTest()->gestiona();
+        }else{
+            return $item->html();
+        }
     }
 }

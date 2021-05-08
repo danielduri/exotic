@@ -35,4 +35,30 @@ class Pregunta
         }
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPregunta()
+    {
+        return $this->pregunta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRespuestaCorrecta()
+    {
+        return $this->respuestaCorrecta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRespuestas()
+    {
+        return $this->respuestas;
+    }
+
+
+
 }

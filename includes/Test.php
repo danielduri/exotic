@@ -40,4 +40,65 @@ class Test extends \es\fdi\ucm\aw\Form
 
         return $test;
     }
+
+    protected function generaCamposFormulario($datosIniciales, $errores = array())
+    {
+        $html="<h1>Test</h1><ol>";
+        $count=0;
+        foreach ($this->preguntas as $pregunta){
+            $respuestas = $pregunta->getRespuestas();
+            $html.=<<<EOF
+            <li>
+                    <h3>$pregunta->getPregunta()</h3>
+                    
+                    <div>
+                        <input type="radio" name="question-$count-answers" id="question-$count-answers-A" value="$respuestas[0]" />
+                        <label for="question-$count-answers-A">A) $respuestas[0] </label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="question-$count-answers" id="question-$count-answers-B" value="$respuestas[1]" />
+                        <label for="question-$count-answers-B">B) $respuestas[1]</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="question-$count-answers" id="question-$count-answers-C" value="$respuestas[2]" />
+                        <label for="question-$count-answers-C">C) $respuestas[2]</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="question-$count-answers" id="question-$count-answers-D" value="$respuestas[3]" />
+                        <label for="question-$count-answers-D">D) $respuestas[3]</label>
+                    </div>
+                
+                </li>
+            
+            
+            EOF;
+            $count++;
+        }
+        $html.="</ol>";
+        $html.='<input type="submit" value="Submit" class="submitbtn" />';
+        return $html;
+    }
+
+    protected function procesaFormulario($datos)
+    {
+        $count = 0;
+        $score = 0;
+        $respuestas = [];
+        $incorrecta = [];
+        foreach ($this->preguntas as $pregunta){
+            $respuestas[$count] = $_POST["question-$count-answers"];
+            if($pregunta->comprobarRespuesta($respuestas[$count])){
+                $score++;
+            }else{
+                $incorrecta[$count]=true;
+            }
+            $count++;
+        }
+
+        $html = "<h1>$score/$count</h1>";
+        return $html;
+    }
 }
