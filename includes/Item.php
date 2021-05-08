@@ -32,13 +32,13 @@ class Item
         $this->esTest = $esTest;
         $this->numTest = $numTest;
         if($esTest){
-            $test = Test
+            $this->test = Test::getTestFromID($numTest);
         }
     }
 
     public static function getItem($itemID){
         $conn = getConexionBD();
-        $query = sprintf("SELECT * FROM `itemscursos` WHERE `idCurso`='%d'", $conn->real_escape_string($courseID));
+        $query = sprintf("SELECT * FROM `itemscursos` WHERE `idCurso`='%d'", $conn->real_escape_string($itemID));
 
         $item = null;
 
@@ -46,7 +46,7 @@ class Item
 
         if ($rs && $rs->num_rows == 1) {
             $registro = $rs->fetch_assoc();
-            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['html'], $registro['esTest'], $registro['numTest']);
+            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['codigo'], $registro['esTest'], $registro['idTest']);
         }
 
         $rs->free();
