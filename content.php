@@ -12,9 +12,6 @@ $numItem = $curso->getProgreso($usuario->id());
 
 $contenidoPrincipal=$curso->getItem($numItem);
 
-echo $numItem;
-echo $curso->obtenerNumItems();
-
 if($numItem>1){
     $contenidoPrincipal.='<form method = "post" action="anteriorItem.php">';
     $contenidoPrincipal.='<button value="';
@@ -23,7 +20,7 @@ if($numItem>1){
     $contenidoPrincipal.='</form>';
 }
 
-if($numItem<$curso->obtenerNumItems()){
+if($numItem<$curso->getNumItems()){
     $contenidoPrincipal.='<form method = "post" action="siguienteItem.php">';
     $contenidoPrincipal.='<button value="';
     $contenidoPrincipal.=$curso->getID();

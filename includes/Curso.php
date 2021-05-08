@@ -12,8 +12,9 @@ class Curso
     private $level;
     private $duration;
     private $description;
+    private $numItems;
 
-    public function __construct($id, $game, $price, $courseName, $level, $duration, $description)
+    public function __construct($id, $game, $price, $courseName, $level, $duration, $description, $numItems)
     {
         $this->id = $id;
         $this->game = $game;
@@ -22,6 +23,7 @@ class Curso
         $this->level = $level;
         $this->duration = $duration;
         $this->description = $description;
+        $this->numItems = $numItems;
     }
 
     //Getters
@@ -54,6 +56,14 @@ class Curso
     public function getID()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumItems()
+    {
+        return $this->numItems;
     }
 
     /*
@@ -104,7 +114,7 @@ class Curso
 
         if ($rs && $rs->num_rows == 1) {
             $registro = $rs->fetch_assoc();
-            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description']);
+            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description'], $registro['numItems']);
         }
 
         $rs->free();
@@ -126,7 +136,7 @@ class Curso
 
         if ($rs && $rs->num_rows == 1) {
             $registro = $rs->fetch_assoc();
-            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description']);
+            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description'], $registro['numItems']);
         }
 
         $rs->free();
@@ -159,20 +169,6 @@ class Curso
         }else{
             return $item->html();
         }
-    }
-
-    public function obtenerNumItems(){
-        $conn = getConexionBD();
-        $query="SELECT COUNT(`idItem`) FROM `itemscursos` WHERE `idCurso`= `$this->id`";
-        $rs = $conn->query($query);
-
-        if ($rs) {
-            $registro = $rs->current_field;
-            $rs->free();
-            echo $registro;
-            return $registro;
-        }
-        return 0;
     }
 
     public function avanzar($usuario)

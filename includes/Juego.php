@@ -76,7 +76,7 @@ class Juego
 
         $rs = $conn->query($query);
         while ($registro = $rs->fetch_assoc()) {
-            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description']);
+            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description'], $registro['numItems']);
             array_push($this->courses, $curso);
         }
         $rs->free();
