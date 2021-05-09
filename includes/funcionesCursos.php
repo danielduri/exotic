@@ -13,15 +13,9 @@ function obtenerInfoDisplay($curso): string
     $html.=$curso->getCourseName();
     $html.="</h2>";
     $html.=    "</header>";
-    if($curso->getGame()=='Chess'){
-        $html.=    "<img src=images/CHESS-Aperturas.png alt=CHESS-Aperturas>";
-    }
-    else if($curso->getGame()=='Call of Duty: Warzone'){
-        $html.=    "<img src=images/wz.png alt=Call of Duty Warzone>";
-    }
-    else if($curso->getGame()=='Animal Crossing: New Horizons'){
-        $html.=    "<img src=images/crossing.png alt=Animal Crossing>";
-    }
+    $html.="<img src=images/cursos/";
+    $html.=$curso->getID();
+    $html.=".png>";
 
     $html.=   "<div class=mainTitle>";
     $html.=      "<p>";
