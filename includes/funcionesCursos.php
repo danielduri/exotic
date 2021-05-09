@@ -5,21 +5,38 @@
  */
 function obtenerInfoDisplay($curso): string
 {
-    $html="<h1>";
+
+    $html="<div class=cards>";
+    $html.="<article class=card>";
+    $html.=    "<header>";
+    $html.=       " <h2>";
     $html.=$curso->getCourseName();
-    $html.="</h1>";
+    $html.="</h2>";
+    $html.=    "</header>";
+    if($curso->getGame()=='Chess'){
+        $html.=    "<img src=images/CHESS-Aperturas.png alt=CHESS-Aperturas>";
+    }
+    else if($curso->getGame()=='Call of Duty: Warzone'){
+        $html.=    "<img src=images/wz.png alt=Call of Duty Warzone>";
+    }
+    else if($curso->getGame()=='Animal Crossing: New Horizons'){
+        $html.=    "<img src=images/crossing.png alt=Animal Crossing>";
+    }
 
-    $html.="<p>";
-    $html.=$curso->getDescription();
-    $html.="</p>";
+    $html.=   "<div class=mainTitle>";
+    $html.=      "<p>";
+    $html.=		$curso->getDescription();
+    $html.=		"</p>";
+    $html.=      "<p>";
+    $html.=		$curso->getPrice();
+    $html.=		"</p>";
+    $html.=      "<p>";
+    $html.=		$curso->getDuration();
+    $html.=		"</p>";
+    $html.=    "</div>";
 
-    $html.="<p> Precio: ";
-    $html.=$curso->getPrice();
-    $html.="€ </p>";
-
-    $html.="<p> Duración: ";
-    $html.=$curso->getDuration();
-    $html.="</p>";
+    $html.= "</article>";
+    $html.="</div>";
 
     $html.='<form method = "post" action="contentTable.php?id=';
     $html.=$curso->getID();
