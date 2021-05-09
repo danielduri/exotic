@@ -58,6 +58,11 @@ class Curso
         return $this->id;
     }
 
+    public function getGame()
+    {
+        return $this->game;
+    }
+
     /**
      * @return mixed
      */
