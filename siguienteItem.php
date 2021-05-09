@@ -7,6 +7,7 @@ $curso = \es\fdi\ucm\aw\Curso::buscarCursoPorID($id);
 $usuario = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
 
 if($curso->avanzar($usuario->id())){
-    header('Location: content.php');
+    $idItem=$curso->getItemIDforUser($usuario->id());
+    header('Location: content.php?id='.$idItem);
 }
 

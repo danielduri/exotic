@@ -21,6 +21,14 @@ function obtenerInfoDisplay($curso): string
     $html.=$curso->getDuration();
     $html.="</p>";
 
+    $html.='<form method = "post" action="contentTable.php?id=';
+    $html.=$curso->getID();
+    $html.='"><button value="';
+    $html.=$curso->getID();
+    $html.='"name="course" type="submit">Ver contenidos</button>';
+    $html.='</form>';
+
+
     if(isset($_SESSION['login']) && $_SESSION['login']){
         $html.='<form method = "post" action="procesarCompra.php">';
         $html.='<button value="';
@@ -46,26 +54,31 @@ function obtenerMiCursoDisplay($curso): string
     $html.=$curso->getDescription();
     $html.="</p>";
 
-    $html.='<form method = "post" action="content.php">';
-    $html.='<button value="';
+    $idItem=$curso->getProgreso($_SESSION["userID"]);
+
+    $html.='<form method = "post" action="content.php?id=';
+    $html.=$idItem;
+    $html.='"><button value="';
     $html.=$curso->getID();
     $html.='"name="course" type="submit">Ir a curso</button>';
     $html.='</form>';
     return $html;
 }
 
-function getItemTable($items){
-    $html="<ul>";
+function getItemTableForDisplay($items){
+    $html="<ol>";
     foreach ($items as $item){
+        $itemName = $item->getNombre();
+        $itemID = $item->getID();
         $html.=<<<EOS
 <li>
-
+<a href="content.php?id=$itemID">$itemName</a>
 </li>
 
 EOS;
 
     }
-    $html.="</ul>";
+    $html.="</ol>";
 
     return $html;
 

@@ -2,32 +2,35 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$tituloPagina = 'Exotic Games Academy - Curso';
+$tituloPagina = 'Exotic Games Academy - ';
 
-$id = isset($_POST["course"]) ? $_POST["course"] : $_SESSION["course"];
-$_SESSION["course"]=$id;
-$curso = \es\fdi\ucm\aw\Curso::buscarCursoPorID($id);
-$usuario = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
-$numItem = $curso->getProgreso($usuario->id());
+$id = $_GET["id"];
+$item = \es\fdi\ucm\aw\Item::getItemFromID($id);
 
-$tituloPagina .= $curso->getCourseName();
+$tituloPagina .= $item->getNombre();
 
-$contenidoPrincipal=$curso->getItem($numItem);
+if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())){
+    $contenidoPrincipal=$item->getItemForDisplay();
+    $numItem=$item->getOrden();
 
-if($numItem>1){
-    $contenidoPrincipal.='<form method = "post" action="anteriorItem.php">';
-    $contenidoPrincipal.='<button value="';
-    $contenidoPrincipal.=$curso->getID();
-    $contenidoPrincipal.='"name="course" type="submit">Anterior</button>';
-    $contenidoPrincipal.='</form>';
+    if($numItem>1){
+        $contenidoPrincipal.='<form method = "post" action="anteriorItem.php">';
+        $contenidoPrincipal.='<button value="';
+        $contenidoPrincipal.=$item->getIdCurso();
+        $contenidoPrincipal.='"name="course" type="submit">Anterior</button>';
+        $contenidoPrincipal.='</form>';
+    }
+
+    if($numItem<(\es\fdi\ucm\aw\Curso::buscarCursoPorID($item->getIdCurso())->getNumItems())){
+        $contenidoPrincipal.='<form method = "post" action="siguienteItem.php">';
+        $contenidoPrincipal.='<button value="';
+        $contenidoPrincipal.=$item->getIdCurso();
+        $contenidoPrincipal.='"name="course" type="submit">Siguiente</button>';
+        $contenidoPrincipal.='</form>';
+    }
+}else{
+    $contenidoPrincipal="<h1>No tienes permiso para acceder a este curso</h1>";
 }
 
-if($numItem<$curso->getNumItems()){
-    $contenidoPrincipal.='<form method = "post" action="siguienteItem.php">';
-    $contenidoPrincipal.='<button value="';
-    $contenidoPrincipal.=$curso->getID();
-    $contenidoPrincipal.='"name="course" type="submit">Siguiente</button>';
-    $contenidoPrincipal.='</form>';
-}
 
 require __DIR__.'/includes/comun/layout.php';

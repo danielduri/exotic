@@ -107,7 +107,6 @@ class Curso
     {
         $conn = getConexionBD();
         $query = sprintf("SELECT * FROM `courses` WHERE `courseID`='%d'", $conn->real_escape_string($courseID));
-
         $curso = null;
 
         $rs = $conn->query($query);
@@ -164,11 +163,7 @@ class Curso
     public function getItem($orden)
     {
         $item = Item::getItem($this->getID(), $orden);
-        if($item->esTest()){
-            return $item->getTest()->gestiona();
-        }else{
-            return $item->html();
-        }
+        return $item->getItemForDisplay();
     }
 
     public function avanzar($usuario)
@@ -200,9 +195,28 @@ class Curso
     {
         $items = [];
         for ($i = 1; $i <= $this->numItems; $i++){
-            $item = $this->getItem($i);
+            $item = Item::getItem($this->id, $i);
             array_push($items, $item);
         }
-        return getItemTable($items);
+        return getItemTableForDisplay($items);
+    }
+
+    public function getItemIDforUser($id)
+    {
+        return $this->getItemIDfromOrder($this->getProgreso($id));
+    }
+
+    public function getItemIDfromOrder($order){
+        $conn = getConexionBD();
+        $courseID = self::getID();
+        $query = sprintf("SELECT `idItem` FROM `itemscursos` WHERE `orden`='%d' AND `idCurso`='%d'", $conn->real_escape_string($order), $conn->real_escape_string($this->getID()));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $registro = $rs->fetch_assoc();
+            $rs->free();
+            return $registro['idItem'];
+        }
+        $rs->free();
+        return false;
     }
 }
