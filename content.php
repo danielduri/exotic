@@ -10,7 +10,10 @@ $item = \es\fdi\ucm\aw\Item::getItemFromID($id);
 $tituloPagina .= $item->getNombre();
 
 if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())){
-    $contenidoPrincipal=$item->getItemForDisplay();
+    $contenidoPrincipal="<h1>";
+    $contenidoPrincipal.=$item->getNombre();
+    $contenidoPrincipal.="</h1>";
+    $contenidoPrincipal.=$item->getItemForDisplay();
     $numItem=$item->getOrden();
 
     if($numItem>1){

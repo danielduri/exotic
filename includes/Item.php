@@ -48,7 +48,7 @@ class Item
 
         if ($rs && $rs->num_rows == 1) {
             $registro = $rs->fetch_assoc();
-            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['codigo'], $registro['esTest'], $registro['idTest'], "POR IMPL");
+            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['codigo'], $registro['esTest'], $registro['idTest'], $registro["nombreItem"]);
         }
 
         $rs->free();
@@ -124,7 +124,7 @@ class Item
 
         if ($rs && $rs->num_rows == 1) {
             $registro = $rs->fetch_assoc();
-            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['codigo'], $registro['esTest'], $registro['idTest'], "POR IMPL");
+            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['codigo'], $registro['esTest'], $registro['idTest'], $registro["nombreItem"]);
         }
 
         $rs->free();

@@ -54,7 +54,7 @@ function obtenerMiCursoDisplay($curso): string
     $html.=$curso->getDescription();
     $html.="</p>";
 
-    $idItem=$curso->getProgreso($_SESSION["userID"]);
+    $idItem=$curso->getItemIDforUser($_SESSION["userID"]);
 
     $html.='<form method = "post" action="content.php?id=';
     $html.=$idItem;
