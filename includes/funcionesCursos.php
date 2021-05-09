@@ -54,6 +54,19 @@ function obtenerMiCursoDisplay($curso): string
     return $html;
 }
 
-function obtenerTestParaDisplay($item){
+function getItemTable($items){
+    $html="<ul>";
+    foreach ($items as $item){
+        $html.=<<<EOS
+<li>
+
+</li>
+
+EOS;
+
+    }
+    $html.="</ul>";
+
+    return $html;
 
 }

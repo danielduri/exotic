@@ -195,4 +195,14 @@ class Curso
             return false;
         }
     }
+
+    public function getItemTable()
+    {
+        $items = [];
+        for ($i = 1; $i <= $this->numItems; $i++){
+            $item = $this->getItem($i);
+            array_push($items, $item);
+        }
+        return getItemTable($items);
+    }
 }

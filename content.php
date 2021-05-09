@@ -10,6 +10,8 @@ $curso = \es\fdi\ucm\aw\Curso::buscarCursoPorID($id);
 $usuario = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
 $numItem = $curso->getProgreso($usuario->id());
 
+$tituloPagina .= $curso->getCourseName();
+
 $contenidoPrincipal=$curso->getItem($numItem);
 
 if($numItem>1){
