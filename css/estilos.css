@@ -29,6 +29,7 @@
 }
 .card img{
     transition: all .5s cubic-bezier(.8,.5,.2,1.4);
+    height: 100%;
 }
 .descriptions{
     position: absolute;
