@@ -19,10 +19,11 @@ function obtenerJuegosParaFormulario($juegos): string
 */
 function obtenerJuegosParaDisplay($array): string
 {
-    $html="";
+    $html = '<div class="wrapper">';
     foreach ($array as $item) {
         $html.=obtenerJuegoParaDisplay($item);
     }
+    $html.= '</div>';
     return $html;
 }
 
@@ -31,10 +32,12 @@ function obtenerJuegosParaDisplay($array): string
 */
 function obtenerCursosParaDisplay($array): string
 {
-    $html="";
+    $html = '<div class="wrapper">';
     foreach ($array as $item) {
+
         $html.=obtenerCursosJuegoParaDisplay($item);
     }
+    $html.= '</div>';
     return $html;
 }
 
@@ -60,22 +63,20 @@ function obtenerJuegoParaDisplay($juego): string
     $descripcion = $juego->getDescription();
 
     $html=<<<EOF
-        <div class="cards">
-            <article class="card">
-                <header>
-                    $nombre
-                </header>    
-                <img class= "card img" src="images/$nombre.png" alt="$nombre">
-                <div class="content">
-                    <p>$descripcion</p>
-                </div>
-                <footer>
-                    <form method = "post" action="verCursos.php">
-                    <button value="$nombre" name="explore" type="submit">Explorar cursos</button>
-                    </form>
-                </footer>
-            </article>
-        <div class="cards">
+
+
+        <div class="card">
+            <img src="images/$nombre.png">
+            <div class="descriptions">
+                <h1>$nombre</h1>
+                <p>
+                  $descripcion
+                </p>
+                <button>
+                    Ver cursos
+                </button>
+            </div>
+        </div>
 EOF;
 
     return $html;
