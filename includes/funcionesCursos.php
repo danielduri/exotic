@@ -6,49 +6,38 @@
 function obtenerInfoDisplay($curso): string
 {
 
-    $html="<div class=cards>";
-    $html.="<article class=card>";
-    $html.=    "<header>";
-    $html.=       " <h2>";
-    $html.=$curso->getCourseName();
-    $html.="</h2>";
-    $html.=    "</header>";
-    $html.="<img src=images/cursos/";
-    $html.=$curso->getID();
-    $html.=".png>";
-
-    $html.=   "<div class=mainTitle>";
-    $html.=      "<p>";
-    $html.=		$curso->getDescription();
-    $html.=		"</p>";
-    $html.=      "<p>";
-    $html.=		$curso->getPrice();
-    $html.=		"</p>";
-    $html.=      "<p>";
-    $html.=		$curso->getDuration();
-    $html.=		"</p>";
-    $html.=    "</div>";
-
-    $html.= "</article>";
-    $html.="</div>";
-
-    $html.='<form method = "post" action="contentTable.php?id=';
-    $html.=$curso->getID();
-    $html.='"><button value="';
-    $html.=$curso->getID();
-    $html.='"name="course" type="submit">Ver contenidos</button>';
-    $html.='</form>';
-
+    $nombre = $curso->getCourseName();
+    $descripcion = $curso->getDescription();
+    $precio = $curso->getPrice();
+    $duracion = $curso->getDuration();
+    $id = $curso->getID();
+    $btnInscribirse = "";
 
     if(isset($_SESSION['login']) && $_SESSION['login']){
-        $html.='<form method = "post" action="procesarCompra.php">';
-        $html.='<button value="';
-        $html.=$curso->getID();
-        $html.='"name="course" type="submit">Inscribirse</button>';
-        $html.='</form>';
+        $btnInscribirse ='<form method = "post" action="procesarCompra.php">';
+        $btnInscribirse.='<button value="';
+        $btnInscribirse.=$curso->getID();
+        $btnInscribirse.='"name="course" type="submit">Inscribirse</button>';
+        $btnInscribirse.='</form>';
     }
+    $html=<<<EOF
 
-
+        <div class="card">
+            <img src="images/cursos/$id.png">
+            <div class="descriptions">
+                <h1>$nombre</h1>
+                <p>
+                  $descripcion
+                  $precio
+                  $duracion
+                  <form method = "post" action="contentTable.php?id=$id">
+                  <button value="$id" name="course" type="submit">Ver contenidos </button>
+                  </form>
+                  $btnInscribirse 
+                </p>
+            </div>
+        </div>
+EOF;
     return $html;
 }
 
