@@ -27,16 +27,20 @@ function obtenerInfoDisplay($curso): string
             <div class="descriptions">
                 <h1>$nombre</h1>
                 <p>
-                  $descripcion
-                  $precio
-                  $duracion
+$descripcion
+<div class="bttn">
+
+$btnInscribirse
+                  
                   <form method = "post" action="contentTable.php?id=$id">
                   <button value="$id" name="course" type="submit">Ver contenidos </button>
                   </form>
-                  $btnInscribirse 
-                </p>
+                  </p>
             </div>
         </div>
+
+</div>
+
 EOF;
     return $html;
 }
