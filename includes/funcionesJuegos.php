@@ -72,7 +72,7 @@ function obtenerJuegoParaDisplay($juego): string
 
 
         <div class="card">
-            <img src="images/$nombre.png">
+            <img src="images/juegos/$nombre.png">
             <div class="descriptions">
                 <h1>$nombre</h1>
                 <p>$descripcion</p>

@@ -7,7 +7,7 @@
 
 <body>
 
-<img class="centerBanner" src="images/banner_logo.png" height="133" width="970" alt=""/>
+<img class="centerBanner" src="images/recursos/banner_logo.png" height="133" width="970" alt=""/>
 
 <div class="navbar">
     <a href="index.php">Inicio</a>
