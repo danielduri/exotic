@@ -134,7 +134,7 @@ abstract class Form
      *
      * @return boolean Devuelve <code>true</code> si <code>$formId</code> existe como clave en <code>$params</code>
      */
-    private function formularioEnviado(&$params)
+    protected function formularioEnviado(&$params)
     {
         return isset($params['action']) && $params['action'] == $this->formId;
     }
@@ -148,7 +148,7 @@ abstract class Form
      *
      * @return string HTML asociado al formulario.
      */
-    private function generaFormulario(&$datos = array(), &$errores = array())
+    protected function generaFormulario(&$datos = array(), &$errores = array())
     {
         $htmlCamposFormularios = $this->generaCamposFormulario($datos, $errores);
 

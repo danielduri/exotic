@@ -4,13 +4,13 @@ require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Exotic Games Academy - ';
 
-$id = $_GET["id"];
+$id = isset($_GET["id"]) ? $_GET["id"] : $_POST["id"];
 $item = \es\fdi\ucm\aw\Item::getItemFromID($id);
 
 $tituloPagina .= $item->getNombre();
 
 if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())){
-    $contenidoPrincipal="<h1>";
+    $contenidoPrincipal="<h1 class='mainTitle'>";
     $contenidoPrincipal.=$item->getNombre();
     $contenidoPrincipal.="</h1>";
     $contenidoPrincipal.=$item->getItemForDisplay();

@@ -187,7 +187,44 @@ p{
 }
 
 h1{
+    margin-left: 50px;
     font-family: sans-serif;
+}
+
+.score{
+    margin-left: 75px;
+    font-family: sans-serif;
+}
+
+h3{
+    margin-left: 50px;
+    font-family: sans-serif;
+}
+
+.testQ{
+    margin-left: 100px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.testCorrect{
+    margin-left: 100px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.testCorrect label{
+    background-color: chartreuse;
+}
+
+.testWrong{
+    margin-left: 100px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.testWrong label{
+    background-color: #f56868;
 }
 
 

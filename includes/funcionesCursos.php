@@ -75,9 +75,9 @@ function getItemTableForDisplay($items){
         $itemName = $item->getNombre();
         $itemID = $item->getID();
         $html.=<<<EOS
-<li>
-<a href="content.php?id=$itemID">$itemName</a>
-</li>
+            <li class="ItemCurso">
+            <a href="content.php?id=$itemID">$itemName</a>
+            </li>
 
 EOS;
 
