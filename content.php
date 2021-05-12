@@ -16,11 +16,12 @@ if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["u
     $contenidoPrincipal.=$item->getItemForDisplay();
     $numItem=$item->getOrden();
 
+    $contenidoPrincipal.='<div class="navigationButton">';
     if($numItem>1){
         $contenidoPrincipal.='<form method = "post" action="anteriorItem.php">';
         $contenidoPrincipal.='<button value="';
         $contenidoPrincipal.=$item->getIdCurso();
-        $contenidoPrincipal.='"name="course" type="submit">Anterior</button>';
+        $contenidoPrincipal.='"name="course" type="submit"> < Anterior</button>';
         $contenidoPrincipal.='</form>';
     }
 
@@ -28,9 +29,11 @@ if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["u
         $contenidoPrincipal.='<form method = "post" action="siguienteItem.php">';
         $contenidoPrincipal.='<button value="';
         $contenidoPrincipal.=$item->getIdCurso();
-        $contenidoPrincipal.='"name="course" type="submit">Siguiente</button>';
+        $contenidoPrincipal.='"name="course" type="submit">Siguiente > </button>';
         $contenidoPrincipal.='</form>';
     }
+    $contenidoPrincipal.='</div>';
+
 }else{
     $contenidoPrincipal="<h1>No tienes permiso para acceder a este curso</h1>";
 }

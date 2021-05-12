@@ -227,5 +227,10 @@ h3{
     background-color: #f56868;
 }
 
+.navigationButton{
+    display: flex;
+    justify-content: center;
+}
+
 
 
