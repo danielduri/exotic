@@ -14,7 +14,9 @@ class Pregunta
      * Pregunta constructor.
      * @param $pregunta
      * @param $respuestaCorrecta
-     * @param $respuestas
+     * @param $respuesta1
+     * @param $respuesta2
+     * @param $respuesta3
      */
     public function __construct($pregunta, $respuestaCorrecta, $respuesta1, $respuesta2, $respuesta3)
     {
@@ -53,7 +55,7 @@ class Pregunta
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getRespuestas()
     {

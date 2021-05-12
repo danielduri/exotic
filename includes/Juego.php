@@ -88,7 +88,7 @@ class Juego
     public static function obtenerTodosLosJuegos(){
         $array = [];
         $conn = getConexionBD();
-        $query = sprintf("SELECT * FROM `games`");
+        $query = "SELECT * FROM `games`";
 
         $rs = $conn->query($query);
 

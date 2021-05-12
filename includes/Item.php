@@ -23,6 +23,7 @@ class Item
      * @param $html
      * @param $esTest
      * @param $numTest
+     * @param $nombre
      */
     public function __construct($idItem, $idCurso, $orden, $html, $esTest, $numTest, $nombre)
     {

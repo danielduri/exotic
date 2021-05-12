@@ -11,7 +11,7 @@ class Test extends \es\fdi\ucm\aw\Form
 
     /**
      * Test constructor.
-     * @param $testID
+     * @param $itemID
      * @param $preguntas
      */
     public function __construct($itemID, $preguntas)
