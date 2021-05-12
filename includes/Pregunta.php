@@ -30,13 +30,19 @@ class Pregunta
         shuffle($this->respuestas);
     }
 
-    public function comprobarRespuesta($respuesta){
+    /*
+     * comprueba si la respuesta pasada por parámetro es la respuesta correcta
+     */
+    public function comprobarRespuesta($respuesta): bool
+    {
         if($respuesta==$this->respuestaCorrecta){
             return true;
         }else{
             return false;
         }
     }
+
+    //GETTERS
 
     /**
      * @return mixed

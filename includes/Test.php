@@ -4,10 +4,11 @@ namespace es\fdi\ucm\aw;
 
 class Test extends \es\fdi\ucm\aw\Form
 {
-    private $itemID;
-    private $preguntas;
-    private $respuestas;
-    private $puntuacion;
+    private $itemID; /* necesario para que cuando el formulario se procese content.php pueda volver a
+                                recuperar el test, se pasa por $_POST junto con el resto de campos*/
+    private $preguntas; //array de preguntas
+    private $respuestas; //array de respuestas dadas por el usuario
+    private $puntuacion; //puntuación obtenida por el usuario (número de respuestas correctas)
 
     /**
      * Test constructor.
@@ -21,7 +22,12 @@ class Test extends \es\fdi\ucm\aw\Form
         parent::__construct("test");
     }
 
-    public static function getTestFromID($itemID, $testID){
+    /*
+     * obtiene el test cuyo testID se pasa por parámetro.
+     * el parámetro itemID es necesario para que content.php pueda volver a recuperar el test al procesar el formulario
+     */
+    public static function getTestFromID($itemID, $testID): ?Test
+    {
         $conn = getConexionBD();
         $query = sprintf("SELECT * FROM `preguntastest` WHERE `idTest`='%d'", $conn->real_escape_string($testID));
 

@@ -63,9 +63,6 @@ class Curso
         return $this->game;
     }
 
-    /**
-     * @return mixed
-     */
     public function getNumItems()
     {
         return $this->numItems;
@@ -148,6 +145,10 @@ class Curso
         return $curso;
     }
 
+    /*
+     * retorna el numero de item por el que va el usuario del que se pasa su idendificador
+     * si existe la compra, false en caso contrario
+     */
     public function getProgreso($userID){
         if (self::existeCompra($userID, self::getID())){
             $conn = getConexionBD();
@@ -165,13 +166,19 @@ class Curso
         return false;
     }
 
-    public function getItem($orden)
+    /*
+     * retorna el html del item del curso cuyo orden dentro del curso se ha pasado por parámetro
+     */
+    public function getItem($orden): string
     {
         $item = Item::getItem($this->getID(), $orden);
         return $item->getItemForDisplay();
     }
 
-    public function avanzar($usuario)
+    /*
+     * actualiza el progreso del usuario
+     */
+    public function avanzar($usuario): bool
     {
         $conn = getConexionBD();
         $query= sprintf("UPDATE `purchases` SET `completed` = `completed` + 1 WHERE `courseID` = $this->id AND `userID` = %d", $conn->real_escape_string($usuario));
@@ -183,7 +190,10 @@ class Curso
         }
     }
 
-    public function retroceder($usuario)
+    /*
+    * actualiza el progreso del usuario
+    */
+    public function retroceder($usuario): bool
     {
         $conn = getConexionBD();
         $query= sprintf("UPDATE `purchases` SET `completed` = `completed` - 1 WHERE `courseID` = $this->id AND `userID` = %d", $conn->real_escape_string($usuario));
@@ -196,7 +206,10 @@ class Curso
         }
     }
 
-    public function getItemTable()
+    /*
+     * retorna el html de la tabla de contenidos del curso para mostrar al usuario
+     */
+    public function getItemTable(): string
     {
         $items = [];
         for ($i = 1; $i <= $this->numItems; $i++){
@@ -206,11 +219,17 @@ class Curso
         return getItemTableForDisplay($items);
     }
 
+    /*
+     * retorna el item que el usuario cuyo identificador se pasa tiene como "progreso"
+     */
     public function getItemIDforUser($id)
     {
         return $this->getItemIDfromOrder($this->getProgreso($id));
     }
 
+    /*
+     * retorna el ID del item cuyo orden dentro del curso se ha pasado
+     */
     public function getItemIDfromOrder($order){
         $conn = getConexionBD();
         $courseID = self::getID();

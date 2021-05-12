@@ -69,6 +69,9 @@ function obtenerMiCursoDisplay($curso): string
     return $html;
 }
 
+/*
+ * obtener la tabla de contenidos del curso
+ */
 function getItemTableForDisplay($items){
     $html="<ol>";
     foreach ($items as $item){

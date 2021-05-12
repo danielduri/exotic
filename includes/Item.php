@@ -39,6 +39,9 @@ class Item
         }
     }
 
+    /*
+     * retorna el objeto item cuyo curso y orden dentro del mismo se pasan por parámetro
+     */
     public static function getItem($courseID, $orden){
         $conn = getConexionBD();
         $query = sprintf("SELECT * FROM `itemscursos` WHERE `idCurso`='%d' AND `orden`='%d'", $conn->real_escape_string($courseID), $conn->real_escape_string($orden));
@@ -56,6 +59,40 @@ class Item
 
         return $item;
     }
+
+    /*
+     * retorna el codigo html del item
+     */
+    public function getItemForDisplay(){
+        if($this->esTest()){
+            return $this->getTest()->gestiona();
+        }else{
+            return $this->html();
+        }
+    }
+
+    /*
+     * retorna el objeto item cuyo identificador se pasa por parámetro
+     */
+    public static function getItemFromID($id){
+        $conn = getConexionBD();
+        $query = sprintf("SELECT * FROM `itemscursos` WHERE `idItem`='%d'", $conn->real_escape_string($id));
+
+        $item = null;
+
+        $rs = $conn->query($query);
+
+        if ($rs && $rs->num_rows == 1) {
+            $registro = $rs->fetch_assoc();
+            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['codigo'], $registro['esTest'], $registro['idTest'], $registro["nombreItem"]);
+        }
+
+        $rs->free();
+
+        return $item;
+    }
+
+    //GETTERS
 
     public function html()
     {
@@ -106,32 +143,4 @@ class Item
     {
         return $this->orden;
     }
-
-    public function getItemForDisplay(){
-        if($this->esTest()){
-            return $this->getTest()->gestiona();
-        }else{
-            return $this->html();
-        }
-    }
-
-    public static function getItemFromID($id){
-        $conn = getConexionBD();
-        $query = sprintf("SELECT * FROM `itemscursos` WHERE `idItem`='%d'", $conn->real_escape_string($id));
-
-        $item = null;
-
-        $rs = $conn->query($query);
-
-        if ($rs && $rs->num_rows == 1) {
-            $registro = $rs->fetch_assoc();
-            $item = new Item($registro['idItem'], $registro['idCurso'], $registro['orden'], $registro['codigo'], $registro['esTest'], $registro['idTest'], $registro["nombreItem"]);
-        }
-
-        $rs->free();
-
-        return $item;
-    }
-
-
 }
