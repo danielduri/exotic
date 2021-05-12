@@ -22,30 +22,28 @@ class FormularioRegistro extends Form
         $errorFecha = self::createMensajeError($errores, 'Date', 'span', array('class' => 'error'));
 
         $html = <<<EOF
+        
+                <h1>Crea una cuenta gratuita</h1>
+                
                 $htmlErroresGlobales
                 
-                <p>Nombre de usuario:</p>
-                <p><input type="text" name="Username" required/></p> $errorNombreUsuario
-                <p>Contraseña:</p>
-                <p><input type="password" name="Password" required/></p> $errorPassword
-                <p>Repite tu contraseña:</p>
-                <p><input type="password" name="Password2" required/></p> $errorPassword2
-                <p>Nombre:</p>
-                <p><input type="text" name="Given" required/></p> $errorNombre
-                <p>Apellido:</p>
-                <p><input type="text" name="Last" required/></p> $errorApellido
-                <p>E-mail:</p>
-                <p><input type="text" name="E-mail" required/></p> $errorEmail
-                <p>Fecha de nacimiento:</p>
-                <p><input type="date" name="Date" required/></p> $errorFecha
-                <p>Género</p>
-                <p><select id="Gender" name="Gender">
+                <p><input type="text" name="Username" placeholder="Nombre de usuario" required/></p> $errorNombreUsuario
+                <p><input type="password" name="Password" placeholder="Contraseña" required/></p> $errorPassword
+                <p><input type="password" name="Password2" placeholder="Repite tu contraseña:" required/></p> $errorPassword2
+                <p><input type="text" name="Given" placeholder="Nombre" required/></p> $errorNombre
+                <p><input type="text" name="Last" placeholder="Apellido(s)" required/></p> $errorApellido
+                <p><input type="text" name="E-mail" placeholder="Correo electrónico" required/></p> $errorEmail
+                
+                <p><label>Fecha de nacimiento  </label><input type="date" name="Date"  placeholder="Fecha de nacimiento" required/></p> $errorFecha
+
+                <p><label>Género</label>
+                <select id="Gender" name="Gender">
                     <option value=0>Masculino</option>
                     <option value=1>Femenino</option>
                     <option value=2>No-binario/Prefiero no decir</option>
                 </select></p>
 
-                <p><input type="submit" name="Registro"/></p>
+                <p class="submit"><input type="submit" name="Registro" value="¡Todo listo!"/></p>
         EOF;
         return $html;
     }

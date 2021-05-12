@@ -8,9 +8,10 @@ $procesamiento = $formulario->gestiona();
 
 $contenidoPrincipal= <<<EOS
 
-<h1>Iniciar sesión:</h1>
+<div class="login">
 $procesamiento
-<p><a href="register.php"><button>Regístrate</button></a></p>
+<p><a href="register.php">¿Sin cuenta? ¡Regístrate aquí!</a></p>
+</div>
 
 EOS;
 

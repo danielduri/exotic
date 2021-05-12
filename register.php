@@ -9,8 +9,10 @@ $tituloPagina = 'Exotic Games Academy - Registro';
 
 $contenidoPrincipal= <<<EOS
 
-<h1>¡Bienvenido a Exotic Games Academy! Crea una cuenta gratuita</h1>
+<h1 class="mainTitle">¡Bienvenido a Exotic Games Academy!</h1>
+<div class="login">
 $procesamiento
+</div>
 EOS;
 
 require __DIR__.'/includes/comun/layout.php';

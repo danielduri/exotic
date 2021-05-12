@@ -21,50 +21,54 @@ class FormularioPerfil extends Form
             $errorEmail = self::createMensajeError($errores, 'E-mail', 'span', array('class' => 'error'));
             $errorFecha = self::createMensajeError($errores, 'Date', 'span', array('class' => 'error'));
 
+            $perfil = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
+            $nombreUsuario = $perfil->username();
+            $nombre = $perfil->given();
+            $apellido = $perfil->last();
+            $email = $perfil->email();
+            $fecha = $perfil->dob();
+            $descripcion = $perfil->description();
+            if($descripcion==""){
+                $descripcion="Escribe aquí tu descripción";
+            }
+            $juego = $perfil->favg();
+
             $juegos = \es\fdi\ucm\aw\Juego::obtenerTodosLosJuegos();
             $juegosForm = obtenerJuegosParaFormulario($juegos);
 
             $html = <<<EOF
                 $htmlErroresGlobales
-                    
+                
                 <p>
-                <label>Nombre de usuario:</label>
-                <input type="text" name="Username" /> $errorNombreUsuario
+                <input type="text" name="Username" placeholder=$nombreUsuario/> $errorNombreUsuario
                 </p>
                 
                 <p>
-                <label>Nombre:</label>
-                <input type="text" name="Given" /> $errorNombre
+                <input type="text" name="Given" placeholder=$nombre/> $errorNombre
                 </p>
                 
                 <p>
-                <label>Apellido:</label>
-                <input type="text" name="Last" /> $errorApellido
+                <input type="text" name="Last" placeholder=$apellido/> $errorApellido
                 </p>
                 
                 <p>
-                <label>Nueva contraseña:</label>
-                <input type="password" name="Password" /> $errorPassword
+                <input type="password" name="Password" placeholder="Nueva contraseña" /> $errorPassword
                 </p>
                 
                 <p>
-                <label>Vuelva a escribir la nueva contraseña:</label>
-                <input type="password" name="Password2" /> $errorPassword2
+                <input type="password" name="Password2" placeholder="Vuelva a escribir la nueva contraseña"/> $errorPassword2
                 </p>
                 
                 <p>
-                <label>Email:</label>
-                <input type="text" name="E-mail" /> $errorEmail
+                <input type="text" name="E-mail" placeholder=$email/> $errorEmail
                 </p>
                 
                 <p>
-                <label>Fecha de nacimiento:</label>
-                <input type="date" name="Date" /> $errorFecha
+                <input type="date" name="Date" placeholder=$fecha/> $errorFecha
                 </p>
                 
                 <p>
-                <label></label>
-                <textarea name="Description" rows="10" cols="40" placeholder="Escribe aquí tu descripción"></textarea>
+                <textarea name="Description" rows="10" cols="40" placeholder=$descripcion></textarea>
                 </p>
                 
                 <p>

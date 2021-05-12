@@ -197,7 +197,6 @@ class Curso
     {
         $conn = getConexionBD();
         $query= sprintf("UPDATE `purchases` SET `completed` = `completed` - 1 WHERE `courseID` = $this->id AND `userID` = %d", $conn->real_escape_string($usuario));
-        echo $query;
         $rs = $conn->query($query);
         if ($rs){
             return true;
