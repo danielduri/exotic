@@ -320,6 +320,13 @@ body {
     box-shadow: 0 1px whitesmoke;
 }
 
+.contenido iframe{
+    display: flex;
+    justify-content: center;
+    width: 875px;
+    height: 492px;
+}
+
 .submitbtn{
     font-size: 16px;
     display: flex;
