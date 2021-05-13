@@ -19,7 +19,6 @@ class FormularioPerfil extends Form
             $errorPassword2 = self::createMensajeError($errores, 'Password2', 'span', array('class' => 'error'));
             $errorApellido = self::createMensajeError($errores, 'Last', 'span', array('class' => 'error'));
             $errorEmail = self::createMensajeError($errores, 'E-mail', 'span', array('class' => 'error'));
-            $errorFecha = self::createMensajeError($errores, 'Date', 'span', array('class' => 'error'));
 
             $perfil = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
             $nombreUsuario = $perfil->username();
@@ -31,7 +30,6 @@ class FormularioPerfil extends Form
             if($descripcion==""){
                 $descripcion="Escribe aquí tu descripción";
             }
-            $juego = $perfil->favg();
 
             $juegos = \es\fdi\ucm\aw\Juego::obtenerTodosLosJuegos();
             $juegosForm = obtenerJuegosParaFormulario($juegos);
@@ -40,35 +38,31 @@ class FormularioPerfil extends Form
                 $htmlErroresGlobales
                 
                 <p>
-                <input type="text" name="Username" placeholder=$nombreUsuario/> $errorNombreUsuario
+                <input type="text" name="Username" placeholder=$nombreUsuario> $errorNombreUsuario
                 </p>
                 
                 <p>
-                <input type="text" name="Given" placeholder=$nombre/> $errorNombre
+                <input type="text" name="Given" placeholder=$nombre> $errorNombre
                 </p>
                 
                 <p>
-                <input type="text" name="Last" placeholder=$apellido/> $errorApellido
+                <input type="text" name="Last" placeholder=$apellido> $errorApellido
                 </p>
                 
                 <p>
-                <input type="password" name="Password" placeholder="Nueva contraseña" /> $errorPassword
+                <input type="password" name="Password" placeholder="Nueva contraseña"> $errorPassword
                 </p>
                 
                 <p>
-                <input type="password" name="Password2" placeholder="Vuelva a escribir la nueva contraseña"/> $errorPassword2
+                <input type="password" name="Password2" placeholder="Vuelva a escribir la nueva contraseña"> $errorPassword2
                 </p>
                 
                 <p>
-                <input type="text" name="E-mail" placeholder=$email/> $errorEmail
+                <input type="text" name="E-mail" placeholder=$email> $errorEmail
                 </p>
                 
                 <p>
-                <input type="date" name="Date" placeholder=$fecha/> $errorFecha
-                </p>
-                
-                <p>
-                <textarea name="Description" rows="10" cols="40" placeholder=$descripcion></textarea>
+                <textarea name="Description" rows="10" cols="40" placeholder="$descripcion"></textarea>
                 </p>
                 
                 <p>
@@ -146,15 +140,6 @@ class FormularioPerfil extends Form
                 $result['E-mail'] = "E-mail inválido";
             }else{
                 $bool = $perfil->cambiaEmail($email);
-            }
-        }
-
-        $dob = isset($_POST["Date"]) ? $_POST["Date"] : null;
-        if($dob != null){
-            if ( empty($dob) ) {
-                $result['Date'] = "Especifique una fecha de nacimiento válida";
-            }else{
-                $bool = $perfil->cambiaDate($dob);
             }
         }
 
