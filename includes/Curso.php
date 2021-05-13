@@ -208,7 +208,7 @@ class Curso
     /*
      * retorna el html de la tabla de contenidos del curso para mostrar al usuario
      */
-    public function getItemTable(): string
+    public function getItemList(): string
     {
         $items = [];
         for ($i = 1; $i <= $this->numItems; $i++){

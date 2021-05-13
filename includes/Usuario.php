@@ -301,14 +301,14 @@ class Usuario
      * funcion que mustra informacion acerca de los cursos que el usuario dispone, para mostrar en la seccion del perfil correspondiente
      */
     public function obtenerMisCursos(){
-        $html="<h1>Mis cursos:</h1>";
-		$contador = 0;
+        $html="<h1 class='mainTitle'>Mis cursos:</h1>";
+		$existeCurso = false;
 		$html.= '<div class="wrapper">';
         foreach ($this->cursos as $item) {
             $html.=obtenerMiCursoDisplay($item);
-			$contador++;
+			$existeCurso=true;
         }
-		if ($contador == 0){
+		if (!$existeCurso){
 			$html.='<h1>No estas suscrito a ningun curso, vaya a <a href="cursos.php"> Cursos disponibles </a> para acceder a uno.</h1>';
 		}
 		$html.= '</div>';

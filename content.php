@@ -37,6 +37,9 @@ if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["u
         $contenidoPrincipal.='</form>';
     }
     $contenidoPrincipal.='</div>';
+    $contenidoPrincipal.='<div class="navigationButton"><a href=contentTable.php?id=';
+    $contenidoPrincipal.=$item->getIdCurso();
+    $contenidoPrincipal.='><button>Volver a contenidos</button></a></div>';
 
 }else{
     $contenidoPrincipal="<h1>No tienes permiso para acceder a este curso</h1>";

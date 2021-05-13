@@ -48,7 +48,7 @@ function obtenerCursosParaDisplay($array): string
  */
 function obtenerCursosJuegoParaDisplay($juego): string
 {
-    $html="<h1>";
+    $html="<h1 class='mainTitle'>";
     $html.=$juego->getName();
     $html.="</h1>";
     $html.= '<div class="wrapper">';

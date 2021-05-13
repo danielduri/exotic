@@ -84,9 +84,17 @@ function getItemListForDisplay($items){
     foreach ($items as $item){
         $itemName = $item->getNombre();
         $itemID = $item->getID();
+        $link = "";
+        if($_SESSION["login"]){
+            $link = <<<EOS
+                <a href="content.php?id=$itemID">$itemName</a>
+            EOS;
+        }else{
+            $link = $itemName;
+        }
         $html.=<<<EOS
             <li class="ItemCurso">
-            <a href="content.php?id=$itemID">$itemName</a>
+            $link
             </li>
 
 EOS;
