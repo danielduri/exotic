@@ -66,7 +66,7 @@ function logout() {
  */
 function datosUsuarioHTML($username): string
 {
-    $html = '<p><table>';
+    $html = '<p><table class="userData">';
     $perfil = \es\fdi\ucm\aw\Usuario::buscaUsuario($username);
     $html .= '<tr><td>';
     $html .= 'Username: ';

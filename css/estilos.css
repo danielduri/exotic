@@ -66,6 +66,7 @@
 .card p{
     line-height: 24px;
     height: 60%;
+    margin-left: 0px;
 }
 .card button{
     width: fit-content;
@@ -94,7 +95,7 @@
 .navbar {
     overflow: hidden;
     background-color: #333;
-    font-family: Arial, sans-serif;
+    font-family: 'Syne Mono', monospace;
 }
 
 /* Links inside the navbar */
@@ -139,6 +140,8 @@
     background-color: #f9f9f9;
     min-width: 160px;
     z-index: 1;
+    font-family: sans-serif;
+
 }
 
 /* Links inside the dropdown */
@@ -173,6 +176,7 @@
     font-size: 25px;
     margin: auto;
     display: block;
+    text-decoration: none;
 }
 
 .centerBanner{
@@ -271,10 +275,6 @@ body {
     background: #f3f3f3;
     border-bottom: 1px solid #cfcfcf;
     border-radius: 3px 3px 0 0;
-    background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
-    background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
-    background-image: -o-linear-gradient(top, whiteffd, #eef2f5);
-    background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
     -webkit-box-shadow: 0 1px whitesmoke;
     box-shadow: 0 1px whitesmoke;
 }
@@ -316,11 +316,42 @@ body {
     background: #f3f3f3;
     border-bottom: 1px solid #cfcfcf;
     border-radius: 3px 3px 0 0;
-    background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
-    background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
-    background-image: -o-linear-gradient(top, whiteffd, #eef2f5);
-    background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
     -webkit-box-shadow: 0 1px whitesmoke;
     box-shadow: 0 1px whitesmoke;
 }
 
+.submitbtn{
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.userData{
+    border-collapse: collapse;
+    display: flex;
+    justify-content: center;
+}
+
+.userData td{
+    padding: 8px;
+}
+
+.userData tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+.userData tr:hover {
+    background-color: #ddd;
+}
+
+.userData td:first-child{
+    background-color: red;
+    color: white;
+}
+
+.itemList{
+    margin-left: 50px;
+    font-family: 'Syne Mono', monospace;
+    font-size: large;
+}

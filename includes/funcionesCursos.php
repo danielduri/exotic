@@ -70,10 +70,10 @@ function obtenerMiCursoDisplay($curso): string
 }
 
 /*
- * obtener la tabla de contenidos del curso
+ * obtener la lista de contenidos del curso
  */
-function getItemTableForDisplay($items){
-    $html="<ol>";
+function getItemListForDisplay($items){
+    $html="<ol class='itemList'>";
     foreach ($items as $item){
         $itemName = $item->getNombre();
         $itemID = $item->getID();

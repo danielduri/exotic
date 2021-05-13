@@ -10,7 +10,7 @@ $user = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
 $contenidoPrincipal=$user->datosUsuario($_SESSION["username"]);
 $contenidoPrincipal.=<<<EOS
 
-<a href = "profileEdit.php"> <button> Modifica tus datos </button></a>
+<a href = "profileEdit.php" class="submitbtn"> <button> Modifica tus datos </button></a>
 
 EOS;
 

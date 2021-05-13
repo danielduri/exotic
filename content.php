@@ -12,6 +12,8 @@ $tituloPagina .= $item->getNombre();
 if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())){
     $contenidoPrincipal="<div class='contenido'>";
     $contenidoPrincipal.="<h1 class='mainTitle'>";
+    $contenidoPrincipal.=$item->getOrden();
+    $contenidoPrincipal.=". ";
     $contenidoPrincipal.=$item->getNombre();
     $contenidoPrincipal.="</h1>";
     $contenidoPrincipal.=$item->getItemForDisplay();

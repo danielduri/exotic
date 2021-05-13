@@ -15,6 +15,7 @@ $contenidoPrincipal= <<<EOS
 <h3>Los campos que dejes en blanco no se modificarán</h3>
 $procesamiento
 </div>
+<a href = "profile.php" class="submitbtn"> <button> Volver </button></a>
 EOS;
 
 require __DIR__.'/includes/comun/layout.php';

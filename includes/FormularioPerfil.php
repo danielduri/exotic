@@ -21,11 +21,14 @@ class FormularioPerfil extends Form
             $errorEmail = self::createMensajeError($errores, 'E-mail', 'span', array('class' => 'error'));
 
             $perfil = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
-            $nombreUsuario = $perfil->username();
-            $nombre = $perfil->given();
-            $apellido = $perfil->last();
-            $email = $perfil->email();
-            $fecha = $perfil->dob();
+            $nombreUsuario = "Nombre de usuario: ";
+            $nombreUsuario .= $perfil->username();
+            $nombre = "Nombre: ";
+            $nombre .= $perfil->given();
+            $apellido = "Apellido: ";
+            $apellido .= $perfil->last();
+            $email = "E-mail: ";
+            $email .= $perfil->email();
             $descripcion = $perfil->description();
             if($descripcion==""){
                 $descripcion="Escribe aquí tu descripción";
@@ -38,15 +41,15 @@ class FormularioPerfil extends Form
                 $htmlErroresGlobales
                 
                 <p>
-                <input type="text" name="Username" placeholder=$nombreUsuario> $errorNombreUsuario
+                <input type="text" name="Username" placeholder="$nombreUsuario"> $errorNombreUsuario
                 </p>
                 
                 <p>
-                <input type="text" name="Given" placeholder=$nombre> $errorNombre
+                <input type="text" name="Given" placeholder="$nombre"> $errorNombre
                 </p>
                 
                 <p>
-                <input type="text" name="Last" placeholder=$apellido> $errorApellido
+                <input type="text" name="Last" placeholder="$apellido"> $errorApellido
                 </p>
                 
                 <p>
@@ -58,7 +61,7 @@ class FormularioPerfil extends Form
                 </p>
                 
                 <p>
-                <input type="text" name="E-mail" placeholder=$email> $errorEmail
+                <input type="text" name="E-mail" placeholder="$email"> $errorEmail
                 </p>
                 
                 <p>

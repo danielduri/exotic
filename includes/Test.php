@@ -168,7 +168,6 @@ class Test extends \es\fdi\ucm\aw\Form
             EOF;
                     $count++;
                 }
-                $html .= "</ol>";
                 $html .= '<button type="submit" name= "id" value="';
                 $html .=$this->itemID;
                 $html .='" class="submitbtn"/>Enviar</button></p>';

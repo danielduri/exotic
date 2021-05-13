@@ -215,7 +215,7 @@ class Curso
             $item = Item::getItem($this->id, $i);
             array_push($items, $item);
         }
-        return getItemTableForDisplay($items);
+        return getItemListForDisplay($items);
     }
 
     /*
