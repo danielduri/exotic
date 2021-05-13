@@ -302,9 +302,16 @@ class Usuario
      */
     public function obtenerMisCursos(){
         $html="<h1>Mis cursos:</h1>";
+		$contador = 0;
+		$html.= '<div class="wrapper">';
         foreach ($this->cursos as $item) {
             $html.=obtenerMiCursoDisplay($item);
+			$contador++;
         }
+		if ($contador == 0){
+			$html.='<h1>No estas suscrito a ningun curso, vaya a <a href="cursos.php"> Cursos disponibles </a> para acceder a uno.</h1>';
+		}
+		$html.= '</div>';
         return $html;
     }
 

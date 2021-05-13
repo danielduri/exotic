@@ -50,22 +50,28 @@ EOF;
  */
 function obtenerMiCursoDisplay($curso): string
 {
-    $html="<h1>";
-    $html.=$curso->getCourseName();
-    $html.="</h1>";
+    $nombre = $curso->getCourseName();
+    $descripcion = $curso->getDescription();
+	$id = $curso->getID();
 
-    $html.="<p>";
-    $html.=$curso->getDescription();
-    $html.="</p>";
+    $html=<<<EOF
 
-    $idItem=$curso->getItemIDforUser($_SESSION["userID"]);
 
-    $html.='<form method = "post" action="content.php?id=';
-    $html.=$idItem;
-    $html.='"><button value="';
-    $html.=$curso->getID();
-    $html.='"name="course" type="submit">Ir a curso</button>';
-    $html.='</form>';
+        <div class="card">
+           <img src="images/cursos/$id.png">
+            <div class="descriptions">
+                <h1>$nombre</h1>
+                <p>$descripcion</p>
+                
+             <form method = "post" action="contentTable.php?id=$id">
+            <button value="$id" name="course" type="submit">
+				Ver Contenidos
+                </button>
+                </form>
+                </div>
+        </div>
+EOF;
+
     return $html;
 }
 
