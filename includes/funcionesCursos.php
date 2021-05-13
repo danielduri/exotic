@@ -52,7 +52,8 @@ function obtenerMiCursoDisplay($curso): string
 {
     $nombre = $curso->getCourseName();
     $descripcion = $curso->getDescription();
-	$id = $curso->getItemIDforUser($_SESSION["userID"]);
+    $id = $curso->getID();
+	$itemId = $curso->getItemIDforUser($_SESSION["userID"]);
 
     $html=<<<EOF
 
@@ -63,7 +64,7 @@ function obtenerMiCursoDisplay($curso): string
                 <h1>$nombre</h1>
                 <p>$descripcion</p>
                 
-             <form method = "post" action="content.php?id=$id">
+             <form method = "post" action="content.php?id=$itemId">
             <button value="$id" name="course" type="submit">
 				Ir a curso
                 </button>
