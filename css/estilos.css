@@ -1,5 +1,56 @@
 /* Navbar container */
 
+.w3-red,.w3-hover-red:hover{color:#fff;background-color:#f44336}
+.w3-container{padding:128px 16px}
+.w3-panel{margin-top:16px;margin-bottom:16px}
+.w3-margin{margin:16px}
+.w3-jumbo{font-size:64px}
+.w3-center{text-align:center}
+
+@keyframes bgcolor{
+	0%{
+		background: #d63031;
+	}
+	
+		20%{
+		background: #2d3436;
+	}
+	
+		40%{
+		background: #d63031;
+	}
+	
+		60%{
+		background: #2d3436;
+	}
+	
+		80%{
+		background: #d63031;
+	}
+	
+		100%{
+		background: #2d3436;
+	}
+	
+	
+}
+
+.inicio{
+	animation: bgcolor infinite 20s;
+}
+
+.roho{
+	background-color: #ff0000;
+}
+
+.centradoV
+{
+    display: table-cell;
+    vertical-align: middle;
+	background: #fff;
+}
+
+
 .wrapper{
     margin-right: auto; /* 1 */
     margin-left:  auto; /* 1 */
@@ -167,6 +218,7 @@
 .mainTitle{
     font-family: 'Syne Mono', monospace;
     text-align: center;
+	
 }
 
 .largeButton{
@@ -232,8 +284,9 @@ h3{
 }
 
 .navigationButton{
-    display: flex;
-    justify-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 body {
