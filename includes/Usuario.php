@@ -278,6 +278,14 @@ class Usuario
         return false;
     }
 
+    /**
+     * @return mixed
+     */
+    public function cursos()
+    {
+        return $this->cursos;
+    }
+
     /*
      * funcion que entra en la base de datos para obtener las compras que el usuario ha realizado
      * y rellena el array de cursos que pertenecen al usuario
@@ -301,18 +309,7 @@ class Usuario
      * funcion que mustra informacion acerca de los cursos que el usuario dispone, para mostrar en la seccion del perfil correspondiente
      */
     public function obtenerMisCursos(){
-        $html="<h1 class='mainTitle'>Mis cursos:</h1>";
-		$existeCurso = false;
-		$html.= '<div class="wrapper">';
-        foreach ($this->cursos as $item) {
-            $html.=obtenerMiCursoDisplay($item);
-			$existeCurso=true;
-        }
-		if (!$existeCurso){
-			$html.='<h1>No estas suscrito a ningun curso, vaya a <a href="cursos.php"> Cursos disponibles </a> para acceder a uno.</h1>';
-		}
-		$html.= '</div>';
-        return $html;
+        return obtenerMisCursosParaDisplay($this);
     }
 
     public function datosUsuario($username)

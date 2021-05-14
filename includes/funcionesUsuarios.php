@@ -121,16 +121,19 @@ function datosUsuarioHTML($username): string
     return $html;
 }
 
-/*
- * funcion que procesa las peticiones de cambio de datos proporcionadas por el usuario.
- * Devuelve true si todos se realizan de manera correcta, false en caso contrario.
- */
-function cambiarDatos($username): bool
-{
 
-    $bool = true;
+function obtenerMisCursosParaDisplay($user){
 
-
-
-    return $bool;
+    $html="<h1 class='mainTitle'>Mis cursos:</h1>";
+    $existeCurso = false;
+    $html.= '<div class="wrapper">';
+    foreach ($user->cursos() as $item) {
+        $html.=obtenerMiCursoDisplay($item);
+        $existeCurso=true;
+    }
+    if (!$existeCurso){
+        $html.='<h1>No estas suscrito a ningun curso, vaya a <a href="cursos.php"> Cursos disponibles </a> para acceder a uno.</h1>';
+    }
+    $html.= '</div>';
+    return $html;
 }
