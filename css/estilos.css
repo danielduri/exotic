@@ -1,11 +1,6 @@
 /* Navbar container */
 
-.w3-red,.w3-hover-red:hover{color:#fff;background-color:#f44336}
-.w3-container{padding:128px 16px}
-.w3-panel{margin-top:16px;margin-bottom:16px}
-.w3-margin{margin:16px}
-.w3-jumbo{font-size:64px}
-.w3-center{text-align:center}
+
 
 @keyframes bgcolor{
 	0%{
@@ -37,19 +32,9 @@
 
 .inicio{
 	animation: bgcolor infinite 20s;
+    height: 700px;
+    align-items: center;
 }
-
-.roho{
-	background-color: #ff0000;
-}
-
-.centradoV
-{
-    display: table-cell;
-    vertical-align: middle;
-	background: #fff;
-}
-
 
 .wrapper{
     margin-right: auto; /* 1 */
@@ -218,7 +203,13 @@
 .mainTitle{
     font-family: 'Syne Mono', monospace;
     text-align: center;
-	
+}
+
+.mainTitlePortada{
+    font-family: 'Syne Mono', monospace;
+    text-align: center;
+    color: white;
+    margin: auto;
 }
 
 .largeButton{
@@ -229,12 +220,20 @@
     margin: auto;
     display: block;
     text-decoration: none;
+    margin-top: 30px;
 }
 
 .centerBanner{
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.centerBanner2{
+    margin-left: 730px;
+    margin-right: auto;
+    margin-bottom: 60px;
+    margin-top: 80px;
 }
 
 p{
