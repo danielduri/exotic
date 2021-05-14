@@ -1,6 +1,3 @@
-/* Navbar container */
-
-
 
 @keyframes bgcolor{
 	0%{
@@ -176,7 +173,7 @@
     background-color: #f9f9f9;
     min-width: 160px;
     z-index: 1;
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 
 }
 
@@ -230,41 +227,41 @@
 }
 
 .centerBanner2{
-    margin-left: 730px;
-    margin-right: auto;
-    margin-bottom: 60px;
-    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    padding: 60px;
 }
 
 p{
     margin-left: 50px;
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 h1{
     margin-left: 50px;
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .score{
     margin-left: 75px;
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 h3{
     margin-left: 50px;
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .testQ{
     margin-left: 100px;
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
 }
 
 .testCorrect{
     margin-left: 100px;
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
 }
 
@@ -274,7 +271,7 @@ h3{
 
 .testWrong{
     margin-left: 100px;
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
 }
 
@@ -283,9 +280,8 @@ h3{
 }
 
 .navigationButton{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    justify-content: center;
 }
 
 body {

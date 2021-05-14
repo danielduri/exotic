@@ -9,7 +9,7 @@ $contenidoPrincipal=<<<EOS
 
 <body>
 <div class="inicio">
-<h1> <img class="centerBanner2" src="images/recursos/favicon.png"></h1>
+<div class="centerBanner2"><img src="images/recursos/favicon.png"></div>
 <h1 class="mainTitlePortada"> Mejora tu juego. Intensifica tu experiencia.</h1>
 <a href="cursos.php"> <button class="largeButton">Explora nuestros programas</button></a>
 
