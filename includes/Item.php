@@ -43,7 +43,8 @@ class Item
      * retorna el objeto item cuyo curso y orden dentro del mismo se pasan por parámetro
      */
     public static function getItem($courseID, $orden){
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `itemscursos` WHERE `idCurso`='%d' AND `orden`='%d'", $conn->real_escape_string($courseID), $conn->real_escape_string($orden));
 
         $item = null;
@@ -75,7 +76,8 @@ class Item
      * retorna el objeto item cuyo identificador se pasa por parámetro
      */
     public static function getItemFromID($id){
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `itemscursos` WHERE `idItem`='%d'", $conn->real_escape_string($id));
 
         $item = null;

@@ -28,7 +28,8 @@ class Test extends \es\fdi\ucm\aw\Form
      */
     public static function getTestFromID($itemID, $testID): ?Test
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `preguntastest` WHERE `idTest`='%d'", $conn->real_escape_string($testID));
 
         $test = null;

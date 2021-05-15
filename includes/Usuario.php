@@ -14,7 +14,8 @@ class Usuario
     {
         $user = self::buscaUsuario($username);
         if ($user && $user->compruebaPassword($password)) {
-//            $conn = getConexionBD();
+//            $app = Aplicacion::getSingleton();
+        //$conn = $app->conexionBd();
 //            $query = sprintf("SELECT R.nombre FROM RolesUsuario RU, Roles R WHERE RU.rol = R.id AND RU.usuario=%s", $conn->real_escape_string($user->id));
 //            $rs = $conn->query($query);
 //            if ($rs) {
@@ -33,7 +34,8 @@ class Usuario
      */
     public static function registrarUsuario($username, $password, $given, $last, $email, $date, $gender): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         if(!self::buscaUsuario($username)){
             $passwordhash = password_hash($password, PASSWORD_DEFAULT);
             $query = sprintf("INSERT INTO `users` (`username`, `given_name`, `last_name`, `date_of_birth`, `gender`, `e-mail`, `password`) 
@@ -52,7 +54,8 @@ class Usuario
      */
     public static function buscaUsuario($username)
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM users WHERE username='%s'", $conn->real_escape_string($username));
 
         $rs = $conn->query($query);
@@ -73,7 +76,8 @@ class Usuario
      */
     public static function buscaPorId($userID)
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM users WHERE userID=%d", $conn->real_escape_string($userID));
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
@@ -142,7 +146,8 @@ class Usuario
 
     public function cambiaUsername($nuevoUsername): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         if(!self::buscaUsuario($nuevoUsername)){
             $query = sprintf("UPDATE `users` SET `username` = '%s' WHERE `users`.`userID` = '%s'", $conn->real_escape_string($nuevoUsername), $conn->real_escape_string($this->id));
             if ($conn->query($query) === TRUE) {
@@ -161,7 +166,8 @@ class Usuario
 
     public function cambiaPassword($nuevoPassword): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $passwordhash = password_hash($nuevoPassword, PASSWORD_DEFAULT);
         $query = sprintf("UPDATE `users` SET `password` = '%s' WHERE `users`.`userID` = '%s'", $conn->real_escape_string($passwordhash), $conn->real_escape_string($this->id));
         if ($conn->query($query) === TRUE) {
@@ -177,7 +183,8 @@ class Usuario
 
     public function cambiaGiven($nuevoGiven): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("UPDATE `users` SET `given_name` = '%s' WHERE `users`.`userID` = '%s'", $conn->real_escape_string($nuevoGiven), $conn->real_escape_string($this->id));
         if ($conn->query($query) === TRUE) {
             $this->given = $nuevoGiven;
@@ -193,7 +200,8 @@ class Usuario
 
     public function cambiaDescription($nuevoDescription): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("UPDATE `users` SET `description` = '%s' WHERE `users`.`userID` = '%s'", $conn->real_escape_string($nuevoDescription), $conn->real_escape_string($this->id));
         if ($conn->query($query) === TRUE) {
             $this->description = $nuevoDescription;
@@ -211,7 +219,8 @@ class Usuario
     public function cambiaLast($nuevoLast): bool
     {
 
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("UPDATE `users` SET `last_name` = '%s' WHERE `users`.`userID` = '%s'", $conn->real_escape_string($nuevoLast), $conn->real_escape_string($this->id));
         if ($conn->query($query) === TRUE) {
             $this->last = $nuevoLast;
@@ -229,7 +238,8 @@ class Usuario
     public function cambiaDate($nuevoDob): bool
     {
 
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("UPDATE `users` SET `date_of_birth` = '%s' WHERE `users`.`userID` = '%s'", $conn->real_escape_string($nuevoDob), $conn->real_escape_string($this->id));
         if ($conn->query($query) === TRUE) {
             $this->dob = $nuevoDob;
@@ -251,7 +261,8 @@ class Usuario
 
     public function cambiaFavg($nuevoFavg): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("UPDATE `users` SET `favorite_game` = '%s' WHERE `users`.`userID` = '%s'", $conn->real_escape_string($nuevoFavg), $conn->real_escape_string($this->id));
         if ($conn->query($query) === TRUE) {
             $this->favg = $nuevoFavg;
@@ -268,7 +279,8 @@ class Usuario
 
     public function cambiaEmail($nuevoEmail): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("UPDATE `users` SET `e-mail` = '%s' WHERE `users`.`userID` = '%s'", $conn->real_escape_string($nuevoEmail), $conn->real_escape_string($this->id));
         if ($conn->query($query) === TRUE) {
             $this->email = $nuevoEmail;
@@ -292,7 +304,8 @@ class Usuario
      */
     public function obtenerCompras(){
         $this->cursos = [];
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT `courseID` FROM `purchases` WHERE `userID` = '%s'", $conn->real_escape_string($this->id));
 
         $rs = $conn->query($query);

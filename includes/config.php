@@ -1,54 +1,38 @@
 <?php
 
-// Varios defines para los parámetros de configuración de acceso a la BD y la URL desde la que se sirve la aplicación
-define('BD_HOST', 'localhost');
+session_start();
+/**
+ * Parámetros de conexión a la BD
+ */
+define('BD_HOST', 'vm03.db.swarm.test');
 define('BD_NAME', 'exoticga');
 define('BD_USER', 'web_user');
 define('BD_PASS', 'web_user');
-define('RUTA_APP', '/exotic');
+define('RUTA_APP', '/');
 define('RUTA_IMGS', RUTA_APP . '/images');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
 define('INSTALADA', true);
 
-if (!INSTALADA) {
-    echo "La aplicación no está configurada";
-    exit();
-}
-
-/* */
-/* Configuración de Codificación */
-/* */
-
+/**
+ * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
+ */
 ini_set('default_charset', 'UTF-8');
 setLocale(LC_ALL, 'es_ES.UTF.8');
+date_default_timezone_set('Europe/Madrid');
 
-/* */
-/* Funciones de gestión de la conexión a la BD */
-/* */
+/**
+ * Función para autocargar clases PHP.
+ *
+ * @see http://www.php-fig.org/psr/psr-4/
+ */
+spl_autoload_register(function ($class) {
 
-$BD = null;
+    // project-specific namespace prefix
+    $prefix = 'es\\fdi\\ucm\\aw\\';
 
-function getConexionBD()
-{
-    global $BD;
-    if (!$BD) {
-        $BD = new mysqli(BD_HOST, BD_USER, BD_PASS, BD_NAME);
-        if ($BD->connect_errno) {
-            echo "Error de conexión a la BD: (" . $BD->connect_errno . ") " . $BD->connect_error;
-            exit();
-        }
-        if (!$BD->set_charset("utf8mb4")) {
-            echo "Error al configurar la codificación de la BD: (" . $BD->errno . ") " . $BD->error;
-            exit();
-        }
-    }
-    return $BD;
-}
-
-spl_autoload_register(function ($class){
-    $prefix = 'es\\fdi\\ucm\\aw';
-    $base_dir = __DIR__;
+    // base directory for the namespace prefix
+    $base_dir = __DIR__ . '/';
 
     // does the class use the namespace prefix?
     $len = strlen($prefix);
@@ -63,25 +47,19 @@ spl_autoload_register(function ($class){
     // replace the namespace prefix with the base directory, replace namespace
     // separators with directory separators in the relative class name, append
     // with .php
-    $file = str_replace('\\', '/', $base_dir . $relative_class) . '.php';
-
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
     // if the file exists, require it
     if (file_exists($file)) {
         require $file;
     }
 });
 
-function cierraConexion()
-{
-    // Sólo hacer uso de global para cerrar la conexion !!
-    global $BD;
-    if (isset($BD) && !$BD->connect_errno) {
-        $BD->close();
-    }
-}
+//Inicializa la aplicación
+$app = \es\fdi\ucm\aw\Aplicacion::getSingleton();
+$app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS));
 
-register_shutdown_function('cierraConexion');
-
-require_once __DIR__.'/Usuario.php';
-
-session_start();
+/**
+ * @see http://php.net/manual/en/function.register-shutdown-function.php
+ * @see http://php.net/manual/en/language.types.callable.php
+ */
+register_shutdown_function(array($app, 'shutdown'));

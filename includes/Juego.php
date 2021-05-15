@@ -26,7 +26,8 @@ class Juego
      */
     public static function buscarJuegoPorNombre($nombre): Juego
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `games` WHERE `name`='%s'", $conn->real_escape_string($nombre));
 
         $juego = null;
@@ -71,7 +72,8 @@ class Juego
      */
     public function getCoursesFromDB()
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `courses` WHERE `game`='%s'", $conn->real_escape_string($this->name));
 
         $rs = $conn->query($query);
@@ -87,7 +89,8 @@ class Juego
      */
     public static function obtenerTodosLosJuegos(){
         $array = [];
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = "SELECT * FROM `games`";
 
         $rs = $conn->query($query);

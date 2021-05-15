@@ -1,6 +1,7 @@
 <?php
 
 namespace es\fdi\ucm\aw;
+
 require_once __DIR__.'/funcionesCursos.php';
 
 class Curso
@@ -75,7 +76,8 @@ class Curso
      */
     public function comprarCurso($userID): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         if(!self::existeCompra($userID, $this->id)){
             $query = sprintf("INSERT INTO `purchases` (`courseID`, `userID`) VALUES ('%d', '%d')", $conn->real_escape_string($this->id), $conn->real_escape_string($userID));
             if ($conn->query($query) === TRUE) {
@@ -91,7 +93,8 @@ class Curso
      */
     public static function existeCompra($userID, $courseID): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT `id` FROM `purchases` WHERE `userID`='%d' AND `courseID`='%d'", $conn->real_escape_string($userID), $conn->real_escape_string($courseID));
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows >= 1) {
@@ -107,7 +110,8 @@ class Curso
      */
     public static function buscarCursoPorID($courseID): Curso
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `courses` WHERE `courseID`='%d'", $conn->real_escape_string($courseID));
         $curso = null;
 
@@ -128,7 +132,8 @@ class Curso
     */
     public static function buscarCursoPorNombre($courseName): Curso
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `courses` WHERE `courseName`='%d'", $conn->real_escape_string($courseName));
 
         $curso = null;
@@ -151,7 +156,8 @@ class Curso
      */
     public function getProgreso($userID){
         if (self::existeCompra($userID, self::getID())){
-            $conn = getConexionBD();
+            $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
             $courseID = self::getID();
             $query = sprintf("SELECT `completed` FROM `purchases` WHERE `userID`='%d' AND `courseID`='$courseID'", $conn->real_escape_string($userID));
             $rs = $conn->query($query);
@@ -180,7 +186,8 @@ class Curso
      */
     public function avanzar($usuario): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query= sprintf("UPDATE `purchases` SET `completed` = `completed` + 1 WHERE `courseID` = $this->id AND `userID` = %d", $conn->real_escape_string($usuario));
         $rs = $conn->query($query);
         if ($rs){
@@ -195,7 +202,8 @@ class Curso
     */
     public function retroceder($usuario): bool
     {
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $query= sprintf("UPDATE `purchases` SET `completed` = `completed` - 1 WHERE `courseID` = $this->id AND `userID` = %d", $conn->real_escape_string($usuario));
         $rs = $conn->query($query);
         if ($rs){
@@ -230,7 +238,8 @@ class Curso
      * retorna el ID del item cuyo orden dentro del curso se ha pasado
      */
     public function getItemIDfromOrder($order){
-        $conn = getConexionBD();
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
         $courseID = self::getID();
         $query = sprintf("SELECT `idItem` FROM `itemscursos` WHERE `orden`='%d' AND `idCurso`='%d'", $conn->real_escape_string($order), $conn->real_escape_string($this->getID()));
         $rs = $conn->query($query);
