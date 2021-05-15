@@ -4,11 +4,21 @@ session_start();
 /**
  * Parámetros de conexión a la BD
  */
-define('BD_HOST', 'vm03.db.swarm.test');
+
+//SI SERVER:
+//define('BD_HOST', 'vm03.db.swarm.test');
+//SI LOCAL:
+define('BD_HOST', 'localhost');
+
 define('BD_NAME', 'exoticga');
 define('BD_USER', 'web_user');
 define('BD_PASS', 'web_user');
-define('RUTA_APP', '/');
+
+//SI SERVER:
+//define('RUTA_APP', '/');
+//SI LOCAL:
+define('RUTA_APP', '/exotic');
+
 define('RUTA_IMGS', RUTA_APP . '/images');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
