@@ -95,9 +95,11 @@ class FormularioRegistro extends Form
             if ( ! $user ) {
                 $result['Username'] = "El usuario ya existe";
             } else {
+                $usuario = Usuario::login($nombreUsuario, $password);
                 $_SESSION["login"] = true;
-                $_SESSION["username"] = $nombreUsuario;
-                $_SESSION["given"] = $nombre;
+                $_SESSION["userID"]=$usuario->id();
+                $_SESSION["username"] = $usuario->username();
+                $_SESSION["given"] = $usuario->given();
                 $result = 'index.php';
             }
         }

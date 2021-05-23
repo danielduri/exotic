@@ -32,9 +32,7 @@ $descripcion
 
 $btnInscribirse
                   
-                  <form method = "post" action="contentTable.php?id=$id">
-                  <button value="$id" name="course" type="submit">Ver contenidos </button>
-                  </form>
+                  <a href="contentTable.php?id=$id"><button>Ver contenidos</button></a>
                   </p>
             </div>
         </div>
@@ -63,13 +61,9 @@ function obtenerMiCursoDisplay($curso): string
             <div class="descriptions">
                 <h1>$nombre</h1>
                 <p>$descripcion</p>
-                
-             <form method = "post" action="content.php?id=$itemId">
-            <button value="$id" name="course" type="submit">
-				Ir a curso
-                </button>
-                </form>
-                </div>
+
+            <a href="content.php?id=$itemId"><button>Ir a curso</button></a>
+            </div>
         </div>
 EOF;
 
@@ -85,7 +79,7 @@ function getItemListForDisplay($items){
         $itemName = $item->getNombre();
         $itemID = $item->getID();
         $link = "";
-        if($_SESSION["login"]){
+        if(isset($_SESSION["login"]) && $_SESSION["login"]){
             $link = <<<EOS
                 <a href="content.php?id=$itemID">$itemName</a>
             EOS;

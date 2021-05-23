@@ -19,22 +19,24 @@ if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["u
     $contenidoPrincipal.=$item->getItemForDisplay();
     $contenidoPrincipal.="</div>";
     $numItem=$item->getOrden();
+    $idCurso=$item->getIdCurso();
 
     $contenidoPrincipal.='<div class="navigationButton">';
     if($numItem>1){
-        $contenidoPrincipal.='<form method = "post" action="anteriorItem.php">';
-        $contenidoPrincipal.='<button value="';
-        $contenidoPrincipal.=$item->getIdCurso();
-        $contenidoPrincipal.='"name="course" type="submit"> < Anterior</button>';
-        $contenidoPrincipal.='</form>';
+        $contenidoPrincipal.=<<<EOS
+
+            <a href="anteriorItem.php?curso=$idCurso"><button>< Anterior</button></a>
+
+EOS;
     }
 
     if($numItem<(\es\fdi\ucm\aw\Curso::buscarCursoPorID($item->getIdCurso())->getNumItems())){
-        $contenidoPrincipal.='<form method = "post" action="siguienteItem.php">';
-        $contenidoPrincipal.='<button value="';
-        $contenidoPrincipal.=$item->getIdCurso();
-        $contenidoPrincipal.='"name="course" type="submit">Siguiente > </button>';
-        $contenidoPrincipal.='</form>';
+
+        $contenidoPrincipal.=<<<EOS
+
+            <a href="siguienteItem.php?curso=$idCurso"><button>Siguiente ></button></a>
+
+EOS;
     }
     $contenidoPrincipal.='</div>';
     $contenidoPrincipal.='<div class="navigationButton"><a href=contentTable.php?id=';
