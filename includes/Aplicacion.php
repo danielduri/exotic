@@ -19,8 +19,7 @@ class Aplicacion
 	public static function getSingleton() {
 		if (  !self::$instancia instanceof self) {
 			self::$instancia = new self;
-		}else{
-        }
+		}
 		return self::$instancia;
 	}
 
