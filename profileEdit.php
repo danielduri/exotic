@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__ . '/includes/funcionesUsuarios.php';
 
 $tituloPagina = 'Exotic Games Academy - Mi perfil';
 $user = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);

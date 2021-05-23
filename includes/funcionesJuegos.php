@@ -99,3 +99,42 @@ function obtenerJuegoParaFormulario($juego): string
 
     return $html;
 }
+
+function obtenerJuegosParaAdmin($juegos){
+    $html="<table class='userData'><th>Imagen</th><th>Nombre</th><th>Descripción</th><th>Categoría</th><th>Editar</th><th>Eliminar</th>";
+    foreach ($juegos as $juego){
+        $html.="<tr>";
+        $html.=obtenerJuegoParaAdmin($juego);
+        $html.="</tr>";
+    }
+    $html.="</table>";
+    return $html;
+}
+
+function obtenerJuegoParaAdmin($juego){
+    $html="<td>";
+    $html.='<img src="images/juegos/';
+    $html.=$juego->getName();
+    $html.='.png">';
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$juego->getName();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$juego->getDescription();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$juego->getCategory();
+    $html.="</td>";
+    $html.="<td>";
+    $html.="<a href='editarJuego.php?juego=";
+    $html.=$juego->getName();
+    $html.="'><button>Editar</button></a>";
+    $html.="</td>";
+    $html.="<td>";
+    $html.="<a href='eliminarJuego.php?juego=";
+    $html.=$juego->getName();
+    $html.="'><button>Eliminar</button></a>";
+    $html.="</td>";
+    return $html;
+}

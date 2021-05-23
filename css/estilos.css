@@ -392,6 +392,12 @@ body {
     padding: 8px;
 }
 
+.userData img{
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+
 .userData tr:nth-child(even){
     background-color: #f2f2f2;
 }

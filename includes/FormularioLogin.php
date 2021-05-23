@@ -59,6 +59,7 @@ class FormularioLogin extends Form
                 $_SESSION["userID"]=$usuario->id();
                 $_SESSION["username"] = $usuario->username();
                 $_SESSION["given"] = $usuario->given();
+                $_SESSION["admin"] = $usuario->esAdmin();
                 $result = 'misCursos.php';
             }
         }

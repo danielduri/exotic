@@ -9,7 +9,7 @@ $item = \es\fdi\ucm\aw\Item::getItemFromID($id);
 
 $tituloPagina .= $item->getNombre();
 
-if(isset($_SESSION["userID"]) && \es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())){
+if(isset($_SESSION["userID"]) && (\es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())||$_SESSION["admin"])){
     $contenidoPrincipal="<div class='contenido'>";
     $contenidoPrincipal.="<h1 class='mainTitle'>";
     $contenidoPrincipal.=$item->getOrden();

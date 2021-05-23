@@ -38,6 +38,12 @@
 <!--                <a href="#">Mensajes</a>-->
                 <a href="misCursos.php">Mis cursos</a>
                 <a href="logout.php">Cerrar sesión</a>
+                <?php
+                if ($_SESSION["admin"]){
+                    echo '<a href="adminJuegos.php">Administrar juegos</a>';
+                    echo '<a href="adminCursos.php">Administrar cursos</a>';
+                }
+                ?>
             <?php
             }else{
                 echo '<a href="register.php">Regístrate</a>';

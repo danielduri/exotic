@@ -61,7 +61,7 @@ class Usuario
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['userID'], $fila['username'], $fila['password'], $fila['given_name'], $fila['last_name'], $fila['date_of_birth'], $fila['date_of_registration'],$fila['favorite_game'], $fila['e-mail'], $fila['description']);
+            $user = new Usuario($fila['userID'], $fila['username'], $fila['password'], $fila['given_name'], $fila['last_name'], $fila['date_of_birth'], $fila['date_of_registration'],$fila['favorite_game'], $fila['e-mail'], $fila['description'], $fila['role']);
 
             $rs->free();
             $user->obtenerCompras();
@@ -82,7 +82,7 @@ class Usuario
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['userID'], $fila['username'], $fila['password'], $fila['given_name'], $fila['last_name'], $fila['date_of_birth'], $fila['date_of_registration'],$fila['favorite_game'], $fila['e-mail'], $fila['description']);
+            $user = new Usuario($fila['userID'], $fila['username'], $fila['password'], $fila['given_name'], $fila['last_name'], $fila['date_of_birth'], $fila['date_of_registration'],$fila['favorite_game'], $fila['e-mail'], $fila['description'], $fila['role']);
 
             $rs->free();
             $user->obtenerCompras();
@@ -101,12 +101,12 @@ class Usuario
     private $favg; //Favorite game, o juego favorito
     private $email;
     private $description;
-    private $roles; //por implementar
+    private $admin;
 
     private $cursos; //array con los cursos que el usuario ha comprado
 
 
-    public function __construct($id, $username, $password, $given, $last, $dob, $dor, $favg, $email, $description)
+    public function __construct($id, $username, $password, $given, $last, $dob, $dor, $favg, $email, $description, $admin)
     {
         $this->id = $id;
         $this->username = $username;
@@ -118,7 +118,7 @@ class Usuario
         $this->favg = $favg;
         $this->email = $email;
         $this->description = $description;
-        $this->roles = [];
+        $this->admin = $admin;
     }
 
 
@@ -129,14 +129,8 @@ class Usuario
         return $this->id;
     }
 
-    public function addRol($role)
-    {
-        $this->roles[] = $role;
-    }
-
-    public function roles()
-    {
-        return $this->roles;
+    public function esAdmin(){
+        return $this->admin;
     }
 
     public function username()

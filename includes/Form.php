@@ -58,7 +58,7 @@ abstract class Form
         $this->action   = $opciones['action'];
 
         if ( !$this->action ) {
-            $this->action = htmlentities($_SERVER['PHP_SELF']);
+            $this->action = htmlentities($_SERVER['REQUEST_URI']);
         }
     }
 
