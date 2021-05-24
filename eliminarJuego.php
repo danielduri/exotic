@@ -1,4 +1,5 @@
 <?php
-require_once "../includes/config.php";
+require_once __DIR__ . "/includes/config.php";
 $juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($_GET["juego"]);
-echo $juego->getName();
+$juego->eliminar();
+header("Location: adminJuegos.php");

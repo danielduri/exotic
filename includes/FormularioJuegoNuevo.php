@@ -3,7 +3,7 @@
 namespace es\fdi\ucm\aw;
 
 
-class FormularioJuego extends Form
+class FormularioJuegoNuevo extends Form
 {
     public function __construct() {
         parent::__construct('formPerfil');
@@ -11,22 +11,15 @@ class FormularioJuego extends Form
 
     protected function generaCamposFormulario($datos, $errores = array())
     {
-        $errorNombre="";
         if ($errores!=null){
             $errorNombre = $errores["nombre"];
+            $errorDesc = $errores["description"];
+            $errorCat = $errores["cat"];
         }
 
-        $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
-        $nombre = $juego->getName();
-        $descripcion = $juego->getDescription();
-        $categoria = $juego->getCategory();
-
         $nombreJuego = "Nombre: ";
-        $nombreJuego .= $nombre;
         $descripcionJuego = "Descripción: ";
-        $descripcionJuego .= $descripcion;
         $categoriaJuego = "Categoria: ";
-        $categoriaJuego .= $categoria;
 
         $html = <<<EOF
                 
@@ -36,10 +29,11 @@ class FormularioJuego extends Form
                 
                 <p>
                 <textarea type="textarea" name="Descripcion" placeholder="$descripcionJuego" rows="10" cols="40"></textarea>
+                $errorDesc
                 </p>
                 
                 <p>
-                <input type="text" name="Categoria" placeholder="$categoriaJuego"> 
+                <input type="text" name="Categoria" placeholder="$categoriaJuego"> $errorCat
                 </p>
                     
                 <p>
@@ -56,29 +50,29 @@ class FormularioJuego extends Form
         $result = array();
         $bool = false;
 
-        $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
-
         $nuevoNombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
-        if($nuevoNombre!=null){
-            if (!filter_var($nuevoNombre, FILTER_SANITIZE_SPECIAL_CHARS)) {
-                $result['nombre'] = "El nombre no puede contener caracteres especiales.";
-            }else{
-                $bool = $juego->cambiaNombre($nuevoNombre);
-            }
+        if(empty($nuevoNombre)){
+            $result['nombre'] = "Introduce un nombre";
         }
 
         $description = isset($datos["Descripcion"]) ? $datos["Descripcion"] : null;
-        if($description!=null){
-            $bool = $juego->cambiaDescription($description);
+        if(empty($description)){
+            $result['description'] = "Introduce una descripcion";
         }
 
         $cat = isset($datos["Categoria"]) ? $datos["Categoria"] : null;
-        if($cat!=null){
-            $bool = $juego->cambiaCat($cat);
+        if(empty($cat)){
+            $result['cat'] = "Introduce una categoria";
         }
 
         if(count($result) != 0){
             $bool=false;
+        }else{
+            $bool=Juego::nuevoJuegoenBD($nuevoNombre, $description, $cat);
+            if(!$bool){
+                $result["nombre"]="Ya existe un juego con ese nombre";
+
+            }
         }
 
         if ($bool){

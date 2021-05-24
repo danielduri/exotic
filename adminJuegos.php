@@ -7,10 +7,9 @@ $tituloPagina = 'Exotic Games Academy - Administrar juegos';
 if(isset($_SESSION["userID"]) && $_SESSION["admin"]){
     $juegos = \es\fdi\ucm\aw\Juego::obtenerTodosLosJuegos();
     $contenidoPrincipal=obtenerJuegosParaAdmin($juegos);
+    $contenidoPrincipal.='<a href="nuevoJuego.php"><button class="centerButton">Nuevo Juego</button></a>';
 }else{
     $contenidoPrincipal="<h1>No tiene permiso para acceder a esta página</h1>";
 }
-
-
 
 require __DIR__.'/includes/comun/layout.php';

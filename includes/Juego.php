@@ -24,7 +24,20 @@ class Juego
     /*
      * funcion que retorna un objeto de tipo juego dado su nombre
      */
-    public static function buscarJuegoPorNombre($nombre): Juego
+    public static function nuevoJuegoenBD(?string $nombre, $description, $cat)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("INSERT INTO `games` (`name`, `description`, `category`) 
+                VALUES ('%s', '%s', '%s')", $conn->real_escape_string($nombre),
+            $conn->real_escape_string($description), $conn->real_escape_string($cat));
+        if ($conn->query($query) === TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function buscarJuegoPorNombre($nombre)
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
@@ -101,6 +114,57 @@ class Juego
         }
         $rs->free();
         return $array;
+    }
+
+    public function cambiaNombre(string $nuevoNombre)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        if(self::buscarJuegoPorNombre($nuevoNombre)==null){
+            $query = sprintf("UPDATE `games` SET `name` = '%s' WHERE `games`.`name` = '%s'", $conn->real_escape_string($nuevoNombre), $conn->real_escape_string($this->name));
+            if ($conn->query($query) === TRUE) {
+                $this->name = $nuevoNombre;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function cambiaDescription(string $description)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("UPDATE `games` SET `description` = '%s' WHERE `games`.`name` = '%s'", $conn->real_escape_string($description), $conn->real_escape_string($this->name));
+        if ($conn->query($query) === TRUE) {
+            $this->description = $description;
+            return true;
+        }
+        return false;
+    }
+
+    public function cambiaCat(string $cat)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("UPDATE `games` SET `category` = '%s' WHERE `games`.`name` = '%s'", $conn->real_escape_string($cat), $conn->real_escape_string($this->name));
+        if ($conn->query($query) === TRUE) {
+            $this->category= $cat;
+            return true;
+        }
+        return false;
+    }
+
+    public function eliminar()
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("DELETE FROM `games` WHERE `games`.`name` = '%s'", $conn->real_escape_string($this->name));
+        if ($conn->query($query) === TRUE) {
+            return true;
+        }
+        return false;
+
+
     }
 
 }

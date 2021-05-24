@@ -220,6 +220,11 @@
     margin-top: 30px;
 }
 
+.centerButton{
+    margin: auto;
+    display: block;
+}
+
 .centerBanner{
     display: block;
     margin-left: auto;

@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/Juego.php';
 
 $tituloPagina = 'Exotic Games Academy - Editar Juego';
 
-$juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($_GET["juego"]);
-$formulario = new \es\fdi\ucm\aw\FormularioJuego();
+$formulario = new \es\fdi\ucm\aw\FormularioJuegoNuevo();
 $procesamiento = $formulario->gestiona();
 
 if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
