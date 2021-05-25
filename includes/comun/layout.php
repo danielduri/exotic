@@ -5,6 +5,12 @@
     <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS.'/estilos.css'?>" />
     <title><?= $tituloPagina ?></title>
     <link rel="icon" type="image/png" href="images/recursos/favicon.png"/>
+    <script src="https://cdn.tiny.cloud/1/3u7vohf8qw766n4wn3akgcvojww2l1k01o98bhxdcl6ba79c/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
 </head>
 <body>
 <div id="contenedor">

@@ -7,7 +7,7 @@ use es\fdi\ucm\aw\Juego;
 use es\fdi\ucm\aw\Aplicacion;
 use es\fdi\ucm\aw\Form;
 
-class FormularioCurso extends Form
+class FormularioCursoNuevo extends Form
 {
     public function __construct() {
         parent::__construct('formPerfil');
@@ -20,29 +20,18 @@ class FormularioCurso extends Form
             $errorNombre = $errores["nombre"];
         }
 
-        $curso = Curso::buscarCursoPorID($_GET["id"]);
-        $nombre = $curso->getCourseName();
-        $precio = $curso->getPrice();
-        $nivel = $curso->getLevel();
-        $duracion = $curso->getDuration();
-        $descripcion = $curso->getDescription();
-        $juego = $curso->getGame();
+        $errorNombre = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
+        $errorDesc = self::createMensajeError($errores, 'description', 'span', array('class' => 'error'));
+        $errorPrecio = self::createMensajeError($errores, 'cat', 'span', array('class' => 'error'));
+        $errorNivel = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
+        $errorDuracion = self::createMensajeError($errores, 'description', 'span', array('class' => 'error'));
+        $errorCat = self::createMensajeError($errores, 'cat', 'span', array('class' => 'error'));
 
         $nombreCurso = "Nombre: ";
-        $nombreCurso .= $nombre;
         $precioCurso = "Precio: ";
-        $precioCurso .= $precio;
         $nivelCurso = "Nivel: ";
-        $nivelCurso .= $nivel;
         $duracionCurso = "Duración: ";
-        $duracionCurso .= $duracion;
         $descripcionCurso = "Descripción: ";
-        $descripcionCurso .= $descripcion;
-        $juegoCurso = "Juego: ";
-        $juegoCurso .= $juego;
-
-        $juegos = Juego::obtenerTodosLosJuegos();
-        $juegosForm = obtenerJuegosParaFormulario($juegos);
 
         $html = <<<EOF
                 
@@ -51,27 +40,21 @@ class FormularioCurso extends Form
                 </p>
                 
                 <p>
-                <input type="number" step="0.01" min="0" name="Precio" placeholder="$precioCurso">
+                <input type="number" step="0.01" min="0" name="Precio" placeholder="$precioCurso"> $errorPrecio
                 </p>
                 
                 <p>
-                <input type="number" name="Nivel" placeholder="$nivelCurso">
+                <input type="number" name="Nivel" placeholder="$nivelCurso"> $errorNivel
                 </p>
                 
                 <p>
-                <input type="time" name="Duracion" value="$duracion">
+                <input type="time" name="Duracion" value="$duracionCurso"> $errorDuracion
                 </p>
                 
                 <p>
-                <textarea type="textarea" name="Descripcion" placeholder="$descripcionCurso" rows="10" cols="40"></textarea>
+                <textarea type="textarea" name="Descripcion" placeholder="$descripcionCurso" rows="10" cols="40"></textarea> $errorDesc
                 </p>
                 
-                <p>
-                <label>Juego:</label>
-                <select name="Juego">
-                    $juegosForm;		
-                </select>
-                </p>
                     
                 <p>
                 <input type="submit" name="enviar" value= "Enviar" />

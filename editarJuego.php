@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/config.php';
 
 $tituloPagina = 'Exotic Games Academy - Editar Juego';
 
-$juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($_GET["juego"]);
+use es\fdi\ucm\aw\Juego;
 $formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioJuego();
 $procesamiento = $formulario->gestiona();
 

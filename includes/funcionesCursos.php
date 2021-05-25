@@ -75,7 +75,9 @@ EOF;
  */
 function getItemListForDisplay($items){
     $html="<ol class='itemList'>";
+    $cursoID = null;
     foreach ($items as $item){
+        $cursoID = $item->getIdCurso();
         $itemName = $item->getNombre();
         $itemID = $item->getID();
         $link = "";
@@ -83,6 +85,16 @@ function getItemListForDisplay($items){
             $link = <<<EOS
                 <a href="content.php?id=$itemID">$itemName</a>
             EOS;
+            if ($_SESSION["admin"]){
+                $link.="<p>";
+                $link.='<a href="editarItem.php?id=';
+                $link.=$item->getID();
+                $link.='"><button>Editar</button></a>';
+                $link.='<a href="eliminarItem.php?id=';
+                $link.=$item->getID();
+                $link.='"><button>Eliminar</button></a>';
+                $link.="</p>";
+            }
         }else{
             $link = $itemName;
         }
@@ -96,6 +108,12 @@ EOS;
     }
     $html.="</ol>";
 
+    if(isset($_SESSION["username"]) && $_SESSION["admin"]){
+        $html.='<a href="nuevoItem.php?id=';
+        $html.=$cursoID;
+        $html.='"><button>Nuevo Item</button></a>';
+    }
+
     return $html;
 
 }
@@ -106,7 +124,7 @@ function obtenerCursosParaAdmin($juegos){
         $html.="<h1 class='mainTitle'>";
         $html.=$juego->getName();
         $html.="</h1>";
-        $html.="<table class='userData'><th>ID</th><th>Nombre</th><th>Precio</th><th>Nivel</th><th>Duración</th><th>Descripción</th><th>Núm. Ítems</th><th>Opciones</th><th>Eliminar</th>";
+        $html.="<table class='userData'><th>ID</th><th>Imagen</th><th>Nombre</th><th>Precio</th><th>Nivel</th><th>Duración</th><th>Descripción</th><th>Núm. Ítems</th><th>Opciones</th><th>Eliminar</th>";
         foreach ($juego->getCourses() as $curso){
             $html.=obtenerHTMLParaAdmin($curso);
         }
@@ -120,6 +138,9 @@ function obtenerCursosParaAdmin($juegos){
 
 function obtenerHTMLParaAdmin($curso){
     $html="<tr>";
+    $html.="<td>";
+    $html.=$curso->getID();
+    $html.="</td>";
     $html.="<td>";
     $html.='<img src="images/cursos/';
     $html.=$curso->getID();
