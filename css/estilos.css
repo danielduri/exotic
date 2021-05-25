@@ -421,4 +421,7 @@ body {
     font-family: 'Syne Mono', monospace;
     font-size: large;
 }
-¡
+
+.marginbtn{
+    margin: 20px;
+}

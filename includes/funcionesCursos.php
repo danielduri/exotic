@@ -100,3 +100,62 @@ EOS;
 
 }
 
+function obtenerCursosParaAdmin($juegos){
+    $html="";
+    foreach ($juegos as $juego){
+        $html.="<h1 class='mainTitle'>";
+        $html.=$juego->getName();
+        $html.="</h1>";
+        $html.="<table class='userData'><th>ID</th><th>Nombre</th><th>Precio</th><th>Nivel</th><th>Duración</th><th>Descripción</th><th>Núm. Ítems</th><th>Opciones</th><th>Eliminar</th>";
+        foreach ($juego->getCourses() as $curso){
+            $html.=obtenerHTMLParaAdmin($curso);
+        }
+        $html.="</table>";
+        $html.='<a href="nuevoCurso.php?juego=';
+        $html.=$juego->getName();
+        $html.='"><button class="marginbtn">Nuevo Curso</button></a>';
+    }
+    return $html;
+}
+
+function obtenerHTMLParaAdmin($curso){
+    $html="<tr>";
+    $html.="<td>";
+    $html.='<img src="images/cursos/';
+    $html.=$curso->getID();
+    $html.='.png">';
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$curso->getCourseName();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$curso->getPrice();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$curso->getLevel();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$curso->getDuration();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$curso->getDescription();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$curso->getNumItems();
+    $html.="</td>";
+    $html.="<td>";
+    $html.="<a href='editarCurso.php?id=";
+    $html.=$curso->getID();
+    $html.="'><button>Editar</button></a>";
+    $html.="<a href='contentTable.php?id=";
+    $html.=$curso->getID();
+    $html.="'><button>Contenidos</button></a>";
+    $html.="</td>";
+    $html.="<td>";
+    $html.="<a href='eliminarCurso.php?id=";
+    $html.=$curso->getID();
+    $html.="'><button>Eliminar</button></a>";
+    $html.="</td>";
+    $html.="</tr>";
+    return $html;
+}
