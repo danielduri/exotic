@@ -163,8 +163,6 @@ class Juego
             return true;
         }
         return false;
-
-
     }
 
 }

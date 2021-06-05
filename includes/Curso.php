@@ -270,4 +270,91 @@ class Curso
         $rs->free();
         return false;
     }
+
+    public function cambiaNombre(string $nuevoNombre)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+            $query = sprintf("UPDATE `courses` SET `courseName` = '%s' WHERE `courses`.`courseID` = '%s'", $conn->real_escape_string($nuevoNombre), $conn->real_escape_string($this->id));
+            echo $query;
+            if ($conn->query($query) === TRUE) {
+                $this->courseName = $nuevoNombre;
+                return true;
+            }
+
+        return false;
+    }
+
+    public function cambiaPrecio(string $nuevoPrecio)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+        $query = sprintf("UPDATE `courses` SET `price` = '%s' WHERE `courses`.`courseID` = '%s'", $conn->real_escape_string($nuevoPrecio), $conn->real_escape_string($this->id));
+        if ($conn->query($query) === TRUE) {
+            $this->price = $nuevoPrecio;
+            return true;
+        }
+
+        return false;
+    }
+
+    public function cambiaNivel(string $nuevoNivel)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+        $query = sprintf("UPDATE `courses` SET `level` = '%s' WHERE `courses`.`courseID` = '%s'", $conn->real_escape_string($nuevoNivel), $conn->real_escape_string($this->id));
+        if ($conn->query($query) === TRUE) {
+            $this->level = $nuevoNivel;
+            return true;
+        }
+
+        return false;
+    }
+
+    public function cambiaDuracion(string $nuevoDuration)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+        $query = sprintf("UPDATE `courses` SET `duration` = '%s' WHERE `courses`.`courseID` = '%s'", $conn->real_escape_string($nuevoDuration), $conn->real_escape_string($this->id));
+        if ($conn->query($query) === TRUE) {
+            $this->duration = $nuevoDuration;
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public function cambiaDescription(string $nuevaDescripcion)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+        $query = sprintf("UPDATE `courses` SET `description` = '%s' WHERE `courses`.`courseID` = '%s'", $conn->real_escape_string($nuevaDescripcion), $conn->real_escape_string($this->id));
+        if ($conn->query($query) === TRUE) {
+            $this->description = $nuevaDescripcion;
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /*
+    * elimina el curso seleccionado
+    */
+    public function eliminar()
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("DELETE FROM `courses` WHERE `courses`.`courseID` = '%s'", $conn->real_escape_string($this->id));
+        if ($conn->query($query) === TRUE) {
+            return true;
+        }
+        return false;
+    }
 }

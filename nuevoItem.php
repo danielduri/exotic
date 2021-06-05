@@ -1,20 +1,16 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 
-use es\fdi\ucm\aw\Juego;
-
 $tituloPagina = 'Exotic Games Academy - Nuevo Item';
+
+$formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioItemsNuevo();
+$procesamiento = $formulario->gestiona();
 
 if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
     $contenidoPrincipal = <<<EOS
-    
-      <h1>TinyMCE Quick Start Guide</h1>
-      <form method="post">
-        <textarea id="mytextarea" name="mytextarea">
-          Hello, World!
-        </textarea>
-      </form>
-
+    <h1>Nuevo item: </h1>
+    $procesamiento
+    <a href = "adminCursos.php" class="submitbtn"> <button> Volver </button></a>
     EOS;
 }else{
     $contenidoPrincipal="<h1>No tiene permiso para acceder a esta página</h1>";

@@ -38,11 +38,6 @@ class FormularioCurso extends Form
         $duracionCurso .= $duracion;
         $descripcionCurso = "Descripción: ";
         $descripcionCurso .= $descripcion;
-        $juegoCurso = "Juego: ";
-        $juegoCurso .= $juego;
-
-        $juegos = Juego::obtenerTodosLosJuegos();
-        $juegosForm = obtenerJuegosParaFormulario($juegos);
 
         $html = <<<EOF
                 
@@ -65,13 +60,6 @@ class FormularioCurso extends Form
                 <p>
                 <textarea type="textarea" name="Descripcion" placeholder="$descripcionCurso" rows="10" cols="40"></textarea>
                 </p>
-                
-                <p>
-                <label>Juego:</label>
-                <select name="Juego">
-                    $juegosForm;		
-                </select>
-                </p>
                     
                 <p>
                 <input type="submit" name="enviar" value= "Enviar" />
@@ -87,25 +75,25 @@ class FormularioCurso extends Form
         $result = array();
         $bool = false;
 
-        $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
+        $curso = Curso::buscarCursoPorID($_GET["id"]);
 
         $nuevoNombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
         if($nuevoNombre!=null){
             if (!filter_var($nuevoNombre, FILTER_SANITIZE_SPECIAL_CHARS)) {
                 $result['nombre'] = "El nombre no puede contener caracteres especiales.";
             }else{
-                $bool = $juego->cambiaNombre($nuevoNombre);
+                $bool = $curso->cambiaNombre($nuevoNombre);
             }
         }
 
         $description = isset($datos["Descripcion"]) ? $datos["Descripcion"] : null;
         if($description!=null){
-            $bool = $juego->cambiaDescription($description);
+            $bool = $curso->cambiaDescription($description);
         }
 
-        $cat = isset($datos["Categoria"]) ? $datos["Categoria"] : null;
-        if($cat!=null){
-            $bool = $juego->cambiaCat($cat);
+        $precio = isset($datos["Precio"]) ? $datos["Precio"] : null;
+        if($precio!=null){
+            $bool = $curso->cambiaPrecio($precio);
         }
 
         $nivel = isset($datos["Nivel"]) ? $datos["Nivel"] : null;
@@ -123,7 +111,7 @@ class FormularioCurso extends Form
         }
 
         if ($bool){
-            $result='adminJuegos.php';
+            $result='adminCursos.php';
         }
 
         return $result;
