@@ -108,6 +108,16 @@ class FormularioCurso extends Form
             $bool = $juego->cambiaCat($cat);
         }
 
+        $nivel = isset($datos["Nivel"]) ? $datos["Nivel"] : null;
+        if($nivel!=null){
+            $bool = $curso->cambiaNivel($nivel);
+        }
+
+        $duracion = isset($datos["Duracion"]) ? $datos["Duracion"] : null;
+        if($duracion!=null){
+            $bool = $curso->cambiaDuracion($duracion);
+        }
+
         if(count($result) != 0){
             $bool=false;
         }

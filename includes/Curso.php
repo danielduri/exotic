@@ -117,7 +117,7 @@ class Curso
         $conn = $app->conexionBd();
         $query = sprintf("INSERT INTO `courses` (`courseName`, `price`, `game`,`level`,`duration`, `description`) 
                 VALUES ('%s', '%s', '%s','%s', '%s','%s')", $conn->real_escape_string($nombre),
-            $conn->real_escape_string($precio), $conn->real_escape_string($juego), $conn->real_escape_string($nivel), $conn->real_escape_string($duracion));
+            $conn->real_escape_string($precio), $conn->real_escape_string($juego), $conn->real_escape_string($nivel), $conn->real_escape_string($duracion), $conn->real_escape_string($description));
         if ($conn->query($query) === TRUE) {
             return true;
         }

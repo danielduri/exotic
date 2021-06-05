@@ -145,4 +145,18 @@ class Item
     {
         return $this->orden;
     }
+
+
+    public static function nuevoItemenBD(?string $nombre, $contenido, $curso, $ordenCurso)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("INSERT INTO `itemscursos` (`nombreitem`, `codigo`, `idCurso`, `orden`, `esTest`) 
+                VALUES ('%s', '%s', '%s', '%s', '%s')", $conn->real_escape_string($nombre),
+            $conn->real_escape_string($contenido) ,$conn->real_escape_string($curso) ,$conn->real_escape_string($ordenCurso),0);
+        if ($conn->query($query) === TRUE) {
+            return true;
+        }
+        return false;
+    }
 }

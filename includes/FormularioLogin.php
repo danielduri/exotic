@@ -29,7 +29,7 @@ class FormularioLogin extends Form
                 <p class="submit"><input type="submit" name="login" value="Login"></p>
 
 
-        EOF;
+EOF;
         return $html;
     }
 
