@@ -28,6 +28,7 @@ class Curso
     }
 
     //Getters
+
     public function getPrice()
     {
         return $this->price;
@@ -102,6 +103,24 @@ class Curso
             return true;
         }
         $rs->free();
+        return false;
+    }
+
+
+
+    /*
+    * crear un nuevo curso dentro de la base de datos con los parámetros dados
+    */
+    public static function nuevoCursoenBD($juego, ?string $nombre, ?string $description, ?string $precio, ?string $nivel, ?string $duracion)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("INSERT INTO `courses` (`courseName`, `price`, `game`,`level`,`duration`, `description`) 
+                VALUES ('%s', '%s', '%s','%s', '%s','%s')", $conn->real_escape_string($nombre),
+            $conn->real_escape_string($precio), $conn->real_escape_string($juego), $conn->real_escape_string($nivel), $conn->real_escape_string($duracion));
+        if ($conn->query($query) === TRUE) {
+            return true;
+        }
         return false;
     }
 

@@ -15,17 +15,14 @@ class FormularioCursoNuevo extends Form
 
     protected function generaCamposFormulario($datos, $errores = array())
     {
-        $errorNombre="";
-        if ($errores!=null){
-            $errorNombre = $errores["nombre"];
-        }
 
-        $errorNombre = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
+
+        $errorNombre1 = self::createMensajeError($errores, 'nombre1', 'span', array('class' => 'error'));
+        $errorNombre2 = self::createMensajeError($errores, 'nombre2', 'span', array('class' => 'error'));
         $errorDesc = self::createMensajeError($errores, 'description', 'span', array('class' => 'error'));
-        $errorPrecio = self::createMensajeError($errores, 'cat', 'span', array('class' => 'error'));
-        $errorNivel = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
-        $errorDuracion = self::createMensajeError($errores, 'description', 'span', array('class' => 'error'));
-        $errorCat = self::createMensajeError($errores, 'cat', 'span', array('class' => 'error'));
+        $errorPrecio = self::createMensajeError($errores, 'precio', 'span', array('class' => 'error'));
+        $errorNivel = self::createMensajeError($errores, 'nivel', 'span', array('class' => 'error'));
+        $errorDuracion = self::createMensajeError($errores, 'duracion', 'span', array('class' => 'error'));
 
         $nombreCurso = "Nombre: ";
         $precioCurso = "Precio: ";
@@ -36,7 +33,7 @@ class FormularioCursoNuevo extends Form
         $html = <<<EOF
                 
                 <p>
-                <input type="text" name="Nombre" placeholder="$nombreCurso"> $errorNombre
+                <input type="text" name="Nombre" placeholder="$nombreCurso"> $errorNombre1 $errorNombre2
                 </p>
                 
                 <p>
@@ -67,36 +64,48 @@ class FormularioCursoNuevo extends Form
 
     protected function procesaFormulario($datos)
     {
+
         $result = array();
         $bool = false;
 
-        $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
-
-        $nuevoNombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
-        if($nuevoNombre!=null){
-            if (!filter_var($nuevoNombre, FILTER_SANITIZE_SPECIAL_CHARS)) {
-                $result['nombre'] = "El nombre no puede contener caracteres especiales.";
-            }else{
-                $bool = $juego->cambiaNombre($nuevoNombre);
-            }
+        $nombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
+        if(empty($nombre)){
+            $result['nombre1'] = "Introduce un nombre";
+        }else if (!filter_var($nombre, FILTER_SANITIZE_SPECIAL_CHARS)) {
+                $result['nombre2'] = "El nombre no puede contener caracteres especiales.";
         }
 
         $description = isset($datos["Descripcion"]) ? $datos["Descripcion"] : null;
-        if($description!=null){
-            $bool = $juego->cambiaDescription($description);
+        if(empty($description)){
+            $result['description'] = "Introduce una descripcion";
         }
 
-        $cat = isset($datos["Categoria"]) ? $datos["Categoria"] : null;
-        if($cat!=null){
-            $bool = $juego->cambiaCat($cat);
+        $precio = isset($datos["Precio"]) ? $datos["Precio"] : null;
+        if(empty($precio)){
+            $result['precio'] = "Introduce un precio";
+        }
+
+        $nivel = isset($datos["Nivel"]) ? $datos["Nivel"] : null;
+        if(empty($nivel)){
+            $result['nivel'] = "Introduce un nivel";
+        }
+
+        $duracion = isset($datos["Duracion"]) ? $datos["Duracion"] : null;
+        if(empty($precio)){
+            $result['duracion'] = "Introduce una duracion";
         }
 
         if(count($result) != 0){
             $bool=false;
+        }else{
+            $bool=Curso::nuevoCursoenBD($_GET["juego"], $nombre, $description, $precio, $nivel, $duracion);
+            if(!$bool){
+                $result["nombre"]="Ya existe un curso con ese nombre";
+            }
         }
 
         if ($bool){
-            $result='adminJuegos.php';
+            $result='adminCursos.php';
         }
 
         return $result;
