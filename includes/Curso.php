@@ -277,7 +277,6 @@ class Curso
         $conn = $app->conexionBd();
 
             $query = sprintf("UPDATE `courses` SET `courseName` = '%s' WHERE `courses`.`courseID` = '%s'", $conn->real_escape_string($nuevoNombre), $conn->real_escape_string($this->id));
-            echo $query;
             if ($conn->query($query) === TRUE) {
                 $this->courseName = $nuevoNombre;
                 return true;

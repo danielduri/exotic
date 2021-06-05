@@ -146,6 +146,20 @@ class Item
         return $this->orden;
     }
 
+    public function eliminar(){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("DELETE FROM `itemsCursos` WHERE `itemsCursos`.`idItem` = '%s'", $conn->real_escape_string($this->idItem));
+        if ($conn->query($query) === TRUE) {
+            $query = sprintf("UPDATE `itemsCursos` SET `itemsCursos`.`orden`=`itemsCursos`.`orden`-1 
+                WHERE `itemsCursos`.`idCurso` = '%s' AND `itemsCursos`.`orden` > %s", $conn->real_escape_string($this->idCurso), $conn->real_escape_string($this->orden));
+            if ($conn->query($query) === TRUE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static function nuevoItemenBD(?string $nombre, $contenido, $curso, $ordenCurso)
     {

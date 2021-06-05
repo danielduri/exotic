@@ -42,6 +42,10 @@ class FormularioRegistro extends Form
                     <option value=1>Femenino</option>
                     <option value=2>No-binario/Prefiero no decir</option>
                 </select></p>
+                
+                <p><input type="checkbox" name="Admin"/><label>Administrador</label></p>
+
+                
 
                 <p class="submit"><input type="submit" name="Registro" value="¡Todo listo!"/></p>
         EOF;
@@ -65,8 +69,8 @@ class FormularioRegistro extends Form
         }
 
         $apellido = $datos['Last'] ?? null;
-        if ( empty($nombre) || mb_strlen($nombre) < 5 ) {
-            $result['Last'] = "El apellido tiene que tener una longitud de al menos 5 caracteres.";
+        if ( empty($apellido) || mb_strlen($apellido) < 3 ) {
+            $result['Last'] = "El apellido tiene que tener una longitud de al menos 3 caracteres.";
         }
 
         $password = $datos['Password'] ?? null;
@@ -90,8 +94,10 @@ class FormularioRegistro extends Form
 
         $genero = $datos['Gender'] ?? 2;
 
+        $admin = isset($datos['Admin']);
+
         if (count($result) === 0) {
-            $user = Usuario::registrarUsuario($nombreUsuario, $password, $nombre, $apellido, $email, $dob, $genero);
+            $user = Usuario::registrarUsuario($nombreUsuario, $password, $nombre, $apellido, $email, $dob, $genero, $admin);
             if ( ! $user ) {
                 $result['Username'] = "El usuario ya existe";
             } else {

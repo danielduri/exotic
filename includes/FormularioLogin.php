@@ -59,7 +59,11 @@ EOF;
                 $_SESSION["userID"]=$usuario->id();
                 $_SESSION["username"] = $usuario->username();
                 $_SESSION["given"] = $usuario->given();
-                $_SESSION["admin"] = $usuario->esAdmin();
+                if($usuario->esAdmin()){
+                    $_SESSION["admin"]=true;
+                }else{
+                    $_SESSION["admin"]=false;
+                }
                 $result = 'misCursos.php';
             }
         }

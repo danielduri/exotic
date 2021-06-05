@@ -7,8 +7,9 @@ $tituloPagina = 'Exotic Games Academy - ';
 $id = $_GET["id"] ?? null;
 $item = \es\fdi\ucm\aw\Item::getItemFromID($id);
 
-
-if($_GET["id"]!==null && $_GET["id"]!=="" && (isset($_SESSION["userID"]) && (\es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())||$_SESSION["admin"]))){
+if(!isset($_GET["id"]) || $_GET["id"]==""){
+    header('Location: cursos.php');
+}else if((isset($_SESSION["userID"]) && (\es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())||$_SESSION["admin"]))){
     $tituloPagina .= $item->getNombre();
     $contenidoPrincipal="<div class='contenido'>";
     $contenidoPrincipal.="<h1 class='mainTitle'>";

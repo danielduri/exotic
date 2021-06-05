@@ -116,6 +116,13 @@ function datosUsuarioHTML($username): string
     $html .= $perfil->favg();
     $html .= '</td></tr>';
 
+    if($perfil->esAdmin()){
+        $html .= '<tr><td>';
+        $html .= '</td><td>';
+        $html .= 'Administrador';
+        $html .= '</td></tr>';
+    }
+
     $html .= '</table></p>';
 
     return $html;

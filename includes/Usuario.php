@@ -14,16 +14,6 @@ class Usuario
     {
         $user = self::buscaUsuario($username);
         if ($user && $user->compruebaPassword($password)) {
-//            $app = Aplicacion::getSingleton();
-        //$conn = $app->conexionBd();
-//            $query = sprintf("SELECT R.nombre FROM RolesUsuario RU, Roles R WHERE RU.rol = R.id AND RU.usuario=%s", $conn->real_escape_string($user->id));
-//            $rs = $conn->query($query);
-//            if ($rs) {
-//                while($fila = $rs->fetch_assoc()) {
-//                    $user->addRol($fila['nombre']);
-//                }
-//                $rs->free();
-//            }
             return $user;
         }
         return false;
@@ -32,14 +22,18 @@ class Usuario
     /*
      * funcion que entra en la base de datos para dar de alta un nuevo usuario, dados todos los campos necesarios
      */
-    public static function registrarUsuario($username, $password, $given, $last, $email, $date, $gender): bool
+    public static function registrarUsuario($username, $password, $given, $last, $email, $date, $gender, $admin): bool
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         if(!self::buscaUsuario($username)){
             $passwordhash = password_hash($password, PASSWORD_DEFAULT);
-            $query = sprintf("INSERT INTO `users` (`username`, `given_name`, `last_name`, `date_of_birth`, `gender`, `e-mail`, `password`) 
-                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", $conn->real_escape_string($username),
+            $role=0;
+            if($admin){
+                $role=1;
+            }
+            $query = sprintf("INSERT INTO `users` (`username`, `given_name`, `last_name`, `date_of_birth`, `gender`, `e-mail`, `password`, `role`) 
+                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', $role)", $conn->real_escape_string($username),
                 $conn->real_escape_string($given), $conn->real_escape_string($last), $conn->real_escape_string($date), $conn->real_escape_string($gender),
                 $conn->real_escape_string($email), $conn->real_escape_string($passwordhash));
             if ($conn->query($query) === TRUE) {
@@ -61,7 +55,8 @@ class Usuario
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['userID'], $fila['username'], $fila['password'], $fila['given_name'], $fila['last_name'], $fila['date_of_birth'], $fila['date_of_registration'],$fila['favorite_game'], $fila['e-mail'], $fila['description'], $fila['role']);
+            $admin = ($fila['role']==1);
+            $user = new Usuario($fila['userID'], $fila['username'], $fila['password'], $fila['given_name'], $fila['last_name'], $fila['date_of_birth'], $fila['date_of_registration'],$fila['favorite_game'], $fila['e-mail'], $fila['description'], $admin);
 
             $rs->free();
             $user->obtenerCompras();

@@ -2,8 +2,8 @@
 
 namespace es\fdi\ucm\aw\FormulariosAdmin;
 
+use es\fdi\ucm\aw\Item;
 use es\fdi\ucm\aw\Juego;
-use es\fdi\ucm\aw\Aplicacion;
 use es\fdi\ucm\aw\Form;
 
 class FormularioItems extends Form
@@ -19,17 +19,12 @@ class FormularioItems extends Form
             $errorNombre = $errores["nombre"];
         }
 
-        $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
-        $nombre = $juego->getName();
-        $descripcion = $juego->getDescription();
-        $categoria = $juego->getCategory();
+        $item = Item::getItemFromID($_GET["id"]);
+        $nombre = $item->getNombre();
+        $contenido = $item->html();
 
         $nombreJuego = "Nombre: ";
         $nombreJuego .= $nombre;
-        $descripcionJuego = "Descripción: ";
-        $descripcionJuego .= $descripcion;
-        $categoriaJuego = "Categoria: ";
-        $categoriaJuego .= $categoria;
 
         $html = <<<EOF
                 
@@ -38,11 +33,7 @@ class FormularioItems extends Form
                 </p>
                 
                 <p>
-                <textarea type="textarea" name="Descripcion" placeholder="$descripcionJuego" rows="10" cols="40"></textarea>
-                </p>
-                
-                <p>
-                <input type="text" name="Categoria" placeholder="$categoriaJuego"> 
+                <textarea id="mytextarea" name="Contenido" placeholder="$contenido"></textarea>
                 </p>
                     
                 <p>
@@ -59,7 +50,10 @@ class FormularioItems extends Form
         $result = array();
         $bool = false;
 
-        $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
+        $item = Item::getItemFromID($_GET["id"]);
+
+        /*PROCESAR
+         * $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
 
         $nuevoNombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
         if($nuevoNombre!=null){
@@ -79,13 +73,15 @@ class FormularioItems extends Form
         if($cat!=null){
             $bool = $juego->cambiaCat($cat);
         }
+         */
 
         if(count($result) != 0){
             $bool=false;
         }
 
         if ($bool){
-            $result='adminJuegos.php';
+            $result='contentTable.php?id=';
+            $result.=$item->getIdCurso();
         }
 
         return $result;
