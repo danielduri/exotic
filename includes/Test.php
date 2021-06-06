@@ -2,6 +2,8 @@
 
 namespace es\fdi\ucm\aw;
 
+require_once __DIR__.'/funcionesTests.php';
+
 class Test extends \es\fdi\ucm\aw\Form
 {
     private $itemID; /* necesario para que cuando el formulario se procese content.php pueda volver a
@@ -22,6 +24,14 @@ class Test extends \es\fdi\ucm\aw\Form
         parent::__construct("test");
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPreguntas()
+    {
+        return $this->preguntas;
+    }
+
     /*
      * obtiene el test cuyo testID se pasa por parámetro.
      * el parámetro itemID es necesario para que content.php pueda volver a recuperar el test al procesar el formulario
@@ -39,12 +49,12 @@ class Test extends \es\fdi\ucm\aw\Form
 
         if ($rs && $rs->num_rows >= 1) {
             while ($registro = $rs->fetch_assoc()) {
-                $pregunta = new Pregunta($registro['pregunta'], $registro['respuestaCorrecta'], $registro['respuestaIncorrecta1'], $registro['respuestaIncorrecta2'], $registro['respuestaIncorrecta3']);
+                $pregunta = new Pregunta($registro['pregunta'], $registro['respuestaCorrecta'], $registro['respuestaIncorrecta1'], $registro['respuestaIncorrecta2'], $registro['respuestaIncorrecta3'], $registro['idPregunta']);
                 array_push($preguntas, $pregunta);
             }
             $test = new Test($itemID, $preguntas);
         } else if ($rs && $rs->num_rows == 0){
-            $pregunta = new Pregunta('No se han añadido preguntas aún. Puedes probar el test a continuación:', 'Respuesta Correcta', 'Respuesta Incorrecta 1', 'Respuesta Incorrecta 2', 'Respuesta Incorrecta 3');
+            $pregunta = new Pregunta('No se han añadido preguntas aún. Puedes probar el test a continuación:', 'Respuesta Correcta', 'Respuesta Incorrecta 1', 'Respuesta Incorrecta 2', 'Respuesta Incorrecta 3', null);
             array_push($preguntas, $pregunta);
             $test = new Test($itemID, $preguntas);
         }
@@ -182,7 +192,13 @@ class Test extends \es\fdi\ucm\aw\Form
             $classTestC = "testQ";
             $classTestD = "testQ";
                 foreach ($this->preguntas as $pregunta) {
-                    $respuestas = $pregunta->getRespuestas();
+                    $respuestas=[];
+                    array_push($respuestas, $pregunta->getRespuestaCorrecta());
+                    array_push($respuestas, $pregunta->getRespuesta1());
+                    array_push($respuestas, $pregunta->getRespuesta2());
+                    array_push($respuestas, $pregunta->getRespuesta3());
+                    shuffle($respuestas);
+
                     $tituloPregunta = $pregunta->getPregunta();
                     $html .= <<<EOF
                     <h3>$tituloPregunta</h3>

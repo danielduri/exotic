@@ -147,6 +147,14 @@ class Item
         return $this->orden;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIDTest()
+    {
+        return $this->numTest;
+    }
+
     public function eliminar(){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();

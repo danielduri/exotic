@@ -94,12 +94,12 @@ function getItemListForDisplay($items){
                     $link.='<a href="editarNombreTest.php?id=';
                     $link.=$item->getID();
                     $link.='"><button>Editar nombre</button></a>';
+                    $link.='<a href="adminPreguntas.php?id=';
+                    $link.=$item->getIDTest();
+                    $link.='"><button>Editar preguntas</button></a>';
                     $link.='<a href="eliminarItem.php?id=';
                     $link.=$item->getID();
                     $link.='"><button>Eliminar</button></a>';
-                    $link.='<a href="editarPreguntas.php?id=';
-                    $link.=$item->getID();
-                    $link.='"><button>Editar preguntas</button></a>';
                     $link.="</p>";
                 }else{
                     $link.="<p><label>Item ID: ";
