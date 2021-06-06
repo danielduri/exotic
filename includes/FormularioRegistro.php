@@ -34,8 +34,7 @@ class FormularioRegistro extends Form
                 <p><input type="text" name="Last" placeholder="Apellido(s)" required/></p> $errorApellido
                 <p><input type="text" name="E-mail" placeholder="Correo electrónico" required/></p> $errorEmail
                 
-                <p><label>Fecha de nacimiento  </label><input type="date" name="Date"  placeholder="Fecha de nacimiento" required/></p> $errorFecha
-
+               <p><label>Fecha de nacimiento  </label><input type="date" name="Date"  placeholder="Fecha de nacimiento" required/></p> $errorFecha
                 <p><label>Género</label>
                 <select id="Gender" name="Gender">
                     <option value=0>Masculino</option>
@@ -44,9 +43,6 @@ class FormularioRegistro extends Form
                 </select></p>
                 
                 <p><input type="checkbox" name="Admin"/><label>Administrador</label></p>
-
-                
-
                 <p class="submit"><input type="submit" name="Registro" value="¡Todo listo!"/></p>
         EOF;
         return $html;

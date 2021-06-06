@@ -101,7 +101,13 @@ class Test extends \es\fdi\ucm\aw\Form
                 $classTestC = "testQ";
                 $classTestD = "testQ";
 
-                $respuestas = $pregunta->getRespuestas();
+                $respuestas=[];
+                array_push($respuestas, $pregunta->getRespuestaCorrecta());
+                array_push($respuestas, $pregunta->getRespuesta1());
+                array_push($respuestas, $pregunta->getRespuesta2());
+                array_push($respuestas, $pregunta->getRespuesta3());
+                shuffle($respuestas);
+
                 $tituloPregunta = $pregunta->getPregunta();
                 $checkedA = "";
                 $checkedB = "";
@@ -230,4 +236,5 @@ class Test extends \es\fdi\ucm\aw\Form
 
         return $respuestas;
     }
+
 }

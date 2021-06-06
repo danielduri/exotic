@@ -2,11 +2,11 @@
 
 namespace es\fdi\ucm\aw\FormulariosAdmin;
 
-use es\fdi\ucm\aw\Item;
 use es\fdi\ucm\aw\Juego;
+use es\fdi\ucm\aw\Aplicacion;
 use es\fdi\ucm\aw\Form;
 
-class FormularioItems extends Form
+class FormularioPreguntaEditar extends Form
 {
     public function __construct() {
         parent::__construct('formPerfil');
@@ -19,12 +19,17 @@ class FormularioItems extends Form
             $errorNombre = $errores["nombre"];
         }
 
-        $item = Item::getItemFromID($_GET["id"]);
-        $nombre = $item->getNombre();
-        $contenido = $item->html();
+        $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
+        $nombre = $juego->getName();
+        $descripcion = $juego->getDescription();
+        $categoria = $juego->getCategory();
 
         $nombreJuego = "Nombre: ";
         $nombreJuego .= $nombre;
+        $descripcionJuego = "Descripción: ";
+        $descripcionJuego .= $descripcion;
+        $categoriaJuego = "Categoria: ";
+        $categoriaJuego .= $categoria;
 
         $html = <<<EOF
                 
@@ -33,7 +38,11 @@ class FormularioItems extends Form
                 </p>
                 
                 <p>
-                <textarea id="mytextarea" name="Contenido" placeholder="$contenido"></textarea>
+                <textarea type="textarea" name="Descripcion" placeholder="$descripcionJuego" rows="10" cols="40"></textarea>
+                </p>
+                
+                <p>
+                <input type="text" name="Categoria" placeholder="$categoriaJuego"> 
                 </p>
                     
                 <p>
@@ -50,25 +59,25 @@ class FormularioItems extends Form
         $result = array();
         $bool = false;
 
-
-
-        /*PROCESAR
-        */
-
-        $item = Item::getItemFromID($_GET["id"]);
+        $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
 
         $nuevoNombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
         if($nuevoNombre!=null){
             if (!filter_var($nuevoNombre, FILTER_SANITIZE_SPECIAL_CHARS)) {
                 $result['nombre'] = "El nombre no puede contener caracteres especiales.";
             }else{
-                $bool = $item->cambiaNombre($nuevoNombre);
+                $bool = $juego->cambiaNombre($nuevoNombre);
             }
         }
 
-        $contenido = isset($datos["Contenido"]) ? $datos["Contenido"] : null;
-        if($contenido!=null){
-            $bool = $item->cambiaContenido($contenido);
+        $description = isset($datos["Descripcion"]) ? $datos["Descripcion"] : null;
+        if($description!=null){
+            $bool = $juego->cambiaDescription($description);
+        }
+
+        $cat = isset($datos["Categoria"]) ? $datos["Categoria"] : null;
+        if($cat!=null){
+            $bool = $juego->cambiaCat($cat);
         }
 
         if(count($result) != 0){
@@ -76,8 +85,7 @@ class FormularioItems extends Form
         }
 
         if ($bool){
-            $result='contentTable.php?id=';
-            $result.=$item->getIdCurso();
+            $result='adminJuegos.php';
         }
 
         return $result;

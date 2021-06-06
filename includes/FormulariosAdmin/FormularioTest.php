@@ -6,7 +6,7 @@ use es\fdi\ucm\aw\Item;
 use es\fdi\ucm\aw\Juego;
 use es\fdi\ucm\aw\Form;
 
-class FormularioItems extends Form
+class FormularioTest extends Form
 {
     public function __construct() {
         parent::__construct('formPerfil');
@@ -30,10 +30,6 @@ class FormularioItems extends Form
                 
                 <p>
                 <input type="text" name="Nombre" placeholder="$nombreJuego"> $errorNombre
-                </p>
-                
-                <p>
-                <textarea id="mytextarea" name="Contenido" placeholder="$contenido"></textarea>
                 </p>
                     
                 <p>
@@ -64,11 +60,6 @@ class FormularioItems extends Form
             }else{
                 $bool = $item->cambiaNombre($nuevoNombre);
             }
-        }
-
-        $contenido = isset($datos["Contenido"]) ? $datos["Contenido"] : null;
-        if($contenido!=null){
-            $bool = $item->cambiaContenido($contenido);
         }
 
         if(count($result) != 0){

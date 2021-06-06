@@ -44,6 +44,15 @@ class Pregunta
 
     //GETTERS
 
+
+    /**
+     * @return mixed
+     */
+    public function getIDPregunta()
+    {
+        return $this->idPregunta;
+    }
+
     /**
      * @return mixed
      */

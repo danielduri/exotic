@@ -169,9 +169,39 @@ class Item
         $query = sprintf("INSERT INTO `itemscursos` (`nombreitem`, `codigo`, `idCurso`, `orden`, `esTest`) 
                 VALUES ('%s', '%s', '%s', '%s', '%s')", $conn->real_escape_string($nombre),
             $conn->real_escape_string($contenido) ,$conn->real_escape_string($curso) ,$conn->real_escape_string($ordenCurso),0);
+
         if ($conn->query($query) === TRUE) {
             return true;
         }
+        return false;
+    }
+
+    public function cambiaNombre(string $nuevoNombre)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+        $query = sprintf("UPDATE `itemscursos` SET `nombreItem` = '%s' WHERE `itemscursos`.`idItem` = '%s'", $conn->real_escape_string($nuevoNombre), $conn->real_escape_string($this->idItem));
+        echo $query;
+        if ($conn->query($query) === TRUE) {
+            $this->nombre = $nuevoNombre;
+            return true;
+        }
+
+        return false;
+    }
+
+    public function cambiaContenido(string $nuevoCodigo)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+        $query = sprintf("UPDATE `itemscursos` SET `codigo` = '%s' WHERE `itemscursos`.`iDItem` = '%s'", $conn->real_escape_string($nuevoCodigo), $conn->real_escape_string($this->idItem));
+        if ($conn->query($query) === TRUE) {
+            $this->html = $nuevoCodigo;
+            return true;
+        }
+
         return false;
     }
 }
