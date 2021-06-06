@@ -86,10 +86,12 @@ function getItemListForDisplay($items){
                 <a href="content.php?id=$itemID">$itemName</a>
             EOS;
             if ($_SESSION["admin"]){
+                $link.="<p><label>ItemID=";
+                $link.=$itemID;
                 if($item->esTest()){
-                    $link.="<p><label>Item ID: ";
-                    $link.=$itemID;
-                    $link.=" - Tipo: test</label>";
+                    $link.=" - Tipo: test (TestID=";
+                    $link.=$item->getIDTest();
+                    $link.=")</label>";
                     $link.="</p><p>";
                     $link.='<a href="editarNombreTest.php?id=';
                     $link.=$item->getID();
@@ -97,23 +99,17 @@ function getItemListForDisplay($items){
                     $link.='<a href="adminPreguntas.php?id=';
                     $link.=$item->getIDTest();
                     $link.='"><button>Editar preguntas</button></a>';
-                    $link.='<a href="eliminarItem.php?id=';
-                    $link.=$item->getID();
-                    $link.='"><button>Eliminar</button></a>';
-                    $link.="</p>";
                 }else{
-                    $link.="<p><label>Item ID: ";
-                    $link.=$itemID;
                     $link.=" - Tipo: item</label>";
                     $link.="</p><p>";
                     $link.='<a href="editarItem.php?id=';
                     $link.=$item->getID();
                     $link.='"><button>Editar</button></a>';
-                    $link.='<a href="eliminarItem.php?id=';
-                    $link.=$item->getID();
-                    $link.='"><button>Eliminar</button></a>';
-                    $link.="</p>";
                 }
+                $link.='<a href="eliminarItem.php?id=';
+                $link.=$item->getID();
+                $link.='"><button>Eliminar</button></a>';
+                $link.="</p>";
             }
         }else{
             $link = $itemName;

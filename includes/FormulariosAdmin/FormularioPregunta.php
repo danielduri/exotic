@@ -8,7 +8,7 @@ use es\fdi\ucm\aw\Form;
 use es\fdi\ucm\aw\Pregunta;
 
 
-class FormularioPreguntaNueva extends Form
+class FormularioPregunta extends Form
 {
     public function __construct() {
         parent::__construct('formPerfil');
@@ -17,39 +17,41 @@ class FormularioPreguntaNueva extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
 
-        $errorPregunta = self::createMensajeError($errores, 'pregunta', 'span', array('class' => 'error'));
-        $errorRespuestas = self::createMensajeError($errores, 'respuesta', 'span', array('class' => 'error'));
+        $item=Pregunta::obtenerPreguntaporID($_GET["id"]);
 
         $pregunta = "Pregunta: ";
+        $pregunta .= $item->getPregunta();
         $rC = "Respuesta correcta: ";
+        $rC .= $item->getRespuestaCorrecta();
         $r1 = "Respuesta incorrecta 1: ";
+        $r1 .= $item->getRespuesta1();
         $r2 = "Respuesta incorrecta 2: ";
+        $r2 .= $item->getRespuesta2();
         $r3 = "Respuesta incorrecta 3: ";
+        $r3 .= $item->getRespuesta3();
 
         $html = <<<EOF
                 
                 <p>
-                <input type="text" name="Pregunta" placeholder="$pregunta" required> $errorPregunta
+                <input type="text" name="Pregunta" placeholder="$pregunta">
                 </p>
                 
                 <p>
-                <input type="text" name="rC" placeholder="$rC" required> 
+                <input type="text" name="rC" placeholder="$rC"> 
                 </p>
                 
                 <p>
-                <input type="text" name="r1" placeholder="$r1" required> 
+                <input type="text" name="r1" placeholder="$r1"> 
                 </p>
                 
                 <p>
-                <input type="text" name="r2" placeholder="$r2" required> 
+                <input type="text" name="r2" placeholder="$r2"> 
                 </p>
                 
                 <p>
-                <input type="text" name="r3" placeholder="$r3" required>
+                <input type="text" name="r3" placeholder="$r3">
                 </p>
-                    
-                $errorRespuestas
-                    
+                     
                 <p>
                 <input type="submit" name="enviar" value= "Enviar" />
                 <input type="reset" name="borrar" value="Borrar" />		
@@ -62,42 +64,38 @@ class FormularioPreguntaNueva extends Form
     protected function procesaFormulario($datos)
     {
         $result = array();
-        $bool = false;
+        $bool = true;
+
+        $item = Pregunta::obtenerPreguntaporID($_GET["id"]);
 
         $p = isset($datos["Pregunta"]) ? $datos["Pregunta"] : null;
-        if(empty($p)){
-            $result['nombre'] = "Introduce una pregunta";
+        if(!empty($p)){
+            $bool = $item->cambiaPregunta($p);
         }
 
         $rC = isset($datos["rC"]) ? $datos["rC"] : null;
-        if(empty($rC)){
-            $result['respuesta'] = "Rellena todas las opciones de respuesta";
+        if(!empty($rC)){
+            $bool = $item->cambiaRespuestaCorrecta($rC);
         }
 
         $r1 = isset($datos["r1"]) ? $datos["r1"] : null;
-        if(empty($r1)){
-            $result['respuesta'] = "Rellena todas las opciones de respuesta";
+        if(!empty($r1)){
+            $bool = $item->cambiaRespuesta1($r1);
         }
 
         $r2 = isset($datos["r2"]) ? $datos["r2"] : null;
-        if(empty($r2)){
-            $result['respuesta'] = "Rellena todas las opciones de respuesta";
+        if(!empty($r2)){
+            $bool = $item->cambiaRespuesta2($r2);
         }
 
         $r3 = isset($datos["r3"]) ? $datos["r3"] : null;
-        if(empty($r3)){
-            $result['respuesta'] = "Rellena todas las opciones de respuesta";
-        }
-
-        if(count($result) != 0){
-            $bool=false;
-        }else{
-            $bool=Pregunta::nuevaPreguntaenBD($_GET["id"], $p, $rC, $r1, $r2, $r3);
+        if(!empty($r3)){
+            $bool = $item->cambiaRespuesta3($r3);
         }
 
         if ($bool){
             $result='adminPreguntas.php?id=';
-            $result.=$_GET["id"];
+            $result.=$_GET["idTest"];
         }
 
         return $result;

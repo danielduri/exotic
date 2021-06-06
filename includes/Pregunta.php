@@ -101,7 +101,7 @@ class Pregunta
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 
-        $query = sprintf("UPDATE `preguntastest` SET `pregunta` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaPregunta), $conn->real_escape_string($this->id));
+        $query = sprintf("UPDATE `preguntastest` SET `pregunta` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaPregunta), $conn->real_escape_string($this->idPregunta));
         if ($conn->query($query) === TRUE) {
             $this->pregunta = $nuevaPregunta;
             return true;
@@ -115,7 +115,7 @@ class Pregunta
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 
-        $query = sprintf("UPDATE `preguntastest` SET `respuestaCorrecta` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaRespuestaCorrecta), $conn->real_escape_string($this->id));
+        $query = sprintf("UPDATE `preguntastest` SET `respuestaCorrecta` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaRespuestaCorrecta), $conn->real_escape_string($this->idPregunta));
         if ($conn->query($query) === TRUE) {
             $this->respuestaCorrecta = $nuevaRespuestaCorrecta;
             return true;
@@ -129,7 +129,8 @@ class Pregunta
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 
-        $query = sprintf("UPDATE `preguntastest` SET `respuesta1` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaRespuesta1), $conn->real_escape_string($this->id));
+        $query = sprintf("UPDATE `preguntastest` SET `respuestaIncorrecta1` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaRespuesta1), $conn->real_escape_string($this->idPregunta));
+
         if ($conn->query($query) === TRUE) {
             $this->respuesta1 = $nuevaRespuesta1;
             return true;
@@ -143,7 +144,7 @@ class Pregunta
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 
-        $query = sprintf("UPDATE `preguntastest` SET `respuesta2` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaRespuesta2), $conn->real_escape_string($this->id));
+        $query = sprintf("UPDATE `preguntastest` SET `respuestaIncorrecta2` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaRespuesta2), $conn->real_escape_string($this->idPregunta));
         if ($conn->query($query) === TRUE) {
             $this->respuesta2 = $nuevaRespuesta2;
             return true;
@@ -157,7 +158,7 @@ class Pregunta
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 
-        $query = sprintf("UPDATE `preguntastest` SET `respuesta3` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaRespuesta3), $conn->real_escape_string($this->id));
+        $query = sprintf("UPDATE `preguntastest` SET `respuestaIncorrecta3` = '%s' WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($nuevaRespuesta3), $conn->real_escape_string($this->idPregunta));
         if ($conn->query($query) === TRUE) {
             $this->respuesta3 = $nuevaRespuesta3;
             return true;
@@ -170,11 +171,42 @@ class Pregunta
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("DELETE FROM `preguntastest` WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($this->id));
+        $query = sprintf("DELETE FROM `preguntastest` WHERE `preguntastest`.`idPregunta` = '%s'", $conn->real_escape_string($this->idPregunta));
         if ($conn->query($query) === TRUE) {
             return true;
         }
         return false;
+    }
+
+    public static function nuevaPreguntaenBD(?string $idTest, $pregunta, $rC, $r1, $r2, $r3)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("INSERT INTO `preguntastest` (`idTest`, `pregunta`, `respuestaCorrecta`, `respuestaIncorrecta1`, `respuestaIncorrecta2`, `respuestaIncorrecta3`) 
+                VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", $conn->real_escape_string($idTest),
+            $conn->real_escape_string($pregunta), $conn->real_escape_string($rC), $conn->real_escape_string($r1), $conn->real_escape_string($r2), $conn->real_escape_string($r3));
+        if ($conn->query($query) === TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function obtenerPreguntaporID($idPregunta)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM `preguntastest` WHERE `idPregunta`=%s", $conn->real_escape_string($idPregunta));
+        $item = null;
+        $rs = $conn->query($query);
+
+        if ($rs && $rs->num_rows == 1) {
+            $registro = $rs->fetch_assoc();
+            $pregunta = new Pregunta($registro['pregunta'], $registro['respuestaCorrecta'], $registro['respuestaIncorrecta1'], $registro['respuestaIncorrecta2'], $registro['respuestaIncorrecta3'], $registro['idPregunta']);
+        }
+
+        $rs->free();
+
+        return $pregunta;
     }
 
 

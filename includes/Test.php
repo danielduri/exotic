@@ -52,6 +52,7 @@ class Test extends \es\fdi\ucm\aw\Form
                 $pregunta = new Pregunta($registro['pregunta'], $registro['respuestaCorrecta'], $registro['respuestaIncorrecta1'], $registro['respuestaIncorrecta2'], $registro['respuestaIncorrecta3'], $registro['idPregunta']);
                 array_push($preguntas, $pregunta);
             }
+
             $test = new Test($itemID, $preguntas);
         } else if ($rs && $rs->num_rows == 0){
             $pregunta = new Pregunta('No se han añadido preguntas aún. Puedes probar el test a continuación:', 'Respuesta Correcta', 'Respuesta Incorrecta 1', 'Respuesta Incorrecta 2', 'Respuesta Incorrecta 3', null);
@@ -66,7 +67,7 @@ class Test extends \es\fdi\ucm\aw\Form
     public static function getNewTestID(){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = "SELECT MAX(`idTest`) FROM `preguntastest`";
+        $query = "SELECT MAX(`idTest`) FROM `itemscursos`";
 
         $rs = $conn->query($query);
 

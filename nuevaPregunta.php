@@ -1,19 +1,20 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 
-$tituloPagina = 'Exotic Games Academy - Editar Pregunta';
+use es\fdi\ucm\aw\Juego;
 
-$formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioPregunta();
+$tituloPagina = 'Exotic Games Academy - Nuevo Juego';
+
+$formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioPreguntaNueva();
 $procesamiento = $formulario->gestiona();
 
 if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
     $contenidoPrincipal = <<<EOS
     <div class="login">
-    <h1>Editar pregunta: </h1>
-    <h3>Los campos que dejes en blanco no se modificarán</h3>
+    <h1>Nueva pregunta: </h1>
     $procesamiento
     </div>
-    <a href = "adminPreguntas.php" class="submitbtn"> <button> Volver </button></a>
+    <a href = "adminJuegos.php" class="submitbtn"> <button> Volver </button></a>
     EOS;
 }else{
     $contenidoPrincipal="<h1>No tiene permiso para acceder a esta página</h1>";
