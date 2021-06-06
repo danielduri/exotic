@@ -26,7 +26,7 @@ class Test extends \es\fdi\ucm\aw\Form
      * obtiene el test cuyo testID se pasa por parámetro.
      * el parámetro itemID es necesario para que content.php pueda volver a recuperar el test al procesar el formulario
      */
-    public static function getTestFromID($itemID, $testID): ?Test
+    public static function getTestFromID($itemID, $testID):Test
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
@@ -43,11 +43,46 @@ class Test extends \es\fdi\ucm\aw\Form
                 array_push($preguntas, $pregunta);
             }
             $test = new Test($itemID, $preguntas);
+        } else if ($rs && $rs->num_rows == 0){
+            $pregunta = new Pregunta('No se han añadido preguntas aún. Puedes probar el test a continuación:', 'Respuesta Correcta', 'Respuesta Incorrecta 1', 'Respuesta Incorrecta 2', 'Respuesta Incorrecta 3');
+            array_push($preguntas, $pregunta);
+            $test = new Test($itemID, $preguntas);
         }
 
         $rs->free();
-
         return $test;
+    }
+
+    public static function getNewTestID(){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = "SELECT MAX(`idTest`) FROM `preguntastest`";
+
+        $rs = $conn->query($query);
+
+        if ($rs && $rs->num_rows == 1) {
+            $result=$rs->fetch_array();
+            $num=$result[0];
+            return $num+1;
+        }
+
+        return false;
+    }
+
+    public static function nuevoTestenBD(?string $nombre, $curso, $ordenCurso)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $idTest = self::getNewTestID();
+        if($idTest!=false){
+            $query = sprintf("INSERT INTO `itemscursos` (`nombreitem`, `idCurso`, `orden`, `esTest`, `idTest`) 
+                VALUES ('%s', '%s', '%s', '%s', '%s')", $conn->real_escape_string($nombre) ,$conn->real_escape_string($curso),
+                $conn->real_escape_string($ordenCurso),1,$idTest);
+            if ($conn->query($query) === TRUE) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected function generaCamposFormulario($datosIniciales, $errores = array())

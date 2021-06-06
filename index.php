@@ -3,7 +3,6 @@
 require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Exotic Games Academy - Inicio';
-
 $contenidoPrincipal=<<<EOS
 
 

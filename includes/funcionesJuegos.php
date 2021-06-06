@@ -77,10 +77,12 @@ function obtenerJuegoParaDisplay($juego): string
                 <h1>$nombre</h1>
                 <p>$descripcion</p>
                 
-            <form method = "post" action="verCursos.php">
-            <button value="$nombre" name="explore" type="submit">
+                <a href="verCursos.php?juego=$nombre">
+                <button>
                 Explorar cursos
                 </button>
+                </a>
+
                 </form>
                 </div>
         </div>

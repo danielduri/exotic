@@ -6,9 +6,10 @@ use es\fdi\ucm\aw\Curso;
 use es\fdi\ucm\aw\Item;
 use es\fdi\ucm\aw\Aplicacion;
 use es\fdi\ucm\aw\Form;
+use es\fdi\ucm\aw\Test;
 
 
-class FormularioItemsNuevo extends Form
+class FormularioTestNuevo extends Form
 {
     public function __construct() {
         parent::__construct('formPerfil');
@@ -18,19 +19,13 @@ class FormularioItemsNuevo extends Form
     {
 
         $errorNombre = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
-        $errorDesc = self::createMensajeError($errores, 'description', 'span', array('class' => 'error'));
 
-        $nombreItem = "Nombre del ítem: ";
+        $nombreItem = "Nombre del test: ";
 
         $html = <<<EOF
                 
                 <p>
                 <input type="text" name="Nombre" placeholder="$nombreItem"> $errorNombre
-                </p>
-                
-                <p>
-                <textarea id="mytextarea" name="Contenido"></textarea>
-                $errorDesc
                 </p>
                     
                 <p>
@@ -55,16 +50,11 @@ class FormularioItemsNuevo extends Form
             $result['nombre'] = "Introduce un nombre";
         }
 
-        $contenido = isset($datos["Contenido"]) ? $datos["Contenido"] : null;
-        if(empty($contenido)){
-            $result['contenido'] = "Introduce el contenido";
-        }
-
 
         if(count($result) != 0){
             $bool=false;
         }else{
-            $bool=Item::nuevoItemenBD($nombre, $contenido, $_GET["id"], $orden);
+            $bool=Test::nuevoTestenBD($nombre, $_GET["id"], $orden);
         }
 
         if ($bool){

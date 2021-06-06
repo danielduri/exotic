@@ -34,6 +34,7 @@ class Item
         $this->esTest = $esTest;
         $this->numTest = $numTest;
         $this->nombre = $nombre;
+
         if($esTest){
             $this->test = Test::getTestFromID($idItem, $numTest);
         }

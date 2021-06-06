@@ -1,15 +1,17 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 
-$tituloPagina = 'Exotic Games Academy - Nuevo Item';
+use es\fdi\ucm\aw\Juego;
 
-$formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioItemsNuevo();
+$tituloPagina = 'Exotic Games Academy - Nuevo Test';
+
+$formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioTestNuevo();
 $procesamiento = $formulario->gestiona();
 $courseID=$_GET["id"];
 
 if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
     $contenidoPrincipal = <<<EOS
-    <h1>Nuevo item: </h1>
+    <h1>Nuevo test: </h1>
     $procesamiento
     <a href = "contentTable.php?id=$courseID" class="submitbtn"> <button> Volver </button></a>
     EOS;

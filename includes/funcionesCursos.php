@@ -86,14 +86,34 @@ function getItemListForDisplay($items){
                 <a href="content.php?id=$itemID">$itemName</a>
             EOS;
             if ($_SESSION["admin"]){
-                $link.="<p>";
-                $link.='<a href="editarItem.php?id=';
-                $link.=$item->getID();
-                $link.='"><button>Editar</button></a>';
-                $link.='<a href="eliminarItem.php?id=';
-                $link.=$item->getID();
-                $link.='"><button>Eliminar</button></a>';
-                $link.="</p>";
+                if($item->esTest()){
+                    $link.="<p><label>Item ID: ";
+                    $link.=$itemID;
+                    $link.=" - Tipo: test</label>";
+                    $link.="</p><p>";
+                    $link.='<a href="editarNombreTest.php?id=';
+                    $link.=$item->getID();
+                    $link.='"><button>Editar nombre</button></a>';
+                    $link.='<a href="eliminarItem.php?id=';
+                    $link.=$item->getID();
+                    $link.='"><button>Eliminar</button></a>';
+                    $link.='<a href="editarPreguntas.php?id=';
+                    $link.=$item->getID();
+                    $link.='"><button>Editar preguntas</button></a>';
+                    $link.="</p>";
+                }else{
+                    $link.="<p><label>Item ID: ";
+                    $link.=$itemID;
+                    $link.=" - Tipo: item</label>";
+                    $link.="</p><p>";
+                    $link.='<a href="editarItem.php?id=';
+                    $link.=$item->getID();
+                    $link.='"><button>Editar</button></a>';
+                    $link.='<a href="eliminarItem.php?id=';
+                    $link.=$item->getID();
+                    $link.='"><button>Eliminar</button></a>';
+                    $link.="</p>";
+                }
             }
         }else{
             $link = $itemName;
@@ -112,6 +132,9 @@ EOS;
         $html.='<a href="nuevoItem.php?id=';
         $html.=$cursoID;
         $html.='"><button>Nuevo Item</button></a>';
+        $html.='<a href="nuevoTest.php?id=';
+        $html.=$cursoID;
+        $html.='"><button>Nuevo Test</button></a>';
     }
 
     return $html;
