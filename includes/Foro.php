@@ -51,6 +51,11 @@ class Foro
         return $this->autorId;
     }
 
+    public function getAutor()
+    {
+        return Usuario::buscaNombrePorId(getAutorId());
+    }
+
     /**
      * @param mixed $autorId
      */

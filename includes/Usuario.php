@@ -174,6 +174,20 @@ class Usuario
     public function given(){
         return $this->given;
     }
+	
+	    public static function buscaNombrePorId($userID)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT username FROM users WHERE userID=%d", $conn->real_escape_string($userID));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $rs->free();
+            return $fila['username'];
+        }
+        return false;
+    }
 
     public function cambiaGiven($nuevoGiven): bool
     {
