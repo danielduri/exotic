@@ -27,6 +27,16 @@ function obtenerJuegosParaDisplay($array): string
     return $html;
 }
 
+function obtenerJuegosParaDisplayForo($array): string
+{
+    $html = '<div class="wrapper">';
+    foreach ($array as $item) {
+        $html.=obtenerJuegoParaDisplayForo($item);
+    }
+    $html.= '</div>';
+    return $html;
+}
+
 /*
 * obtener informacion formateada para mostrar al usuario en el catalogo de cursos.
 */
@@ -59,6 +69,20 @@ function obtenerCursosJuegoParaDisplay($juego): string
     return $html;
 }
 
+function obtenerForosJuegoParaDisplay($juego): string
+{
+    $html="<h1 class='mainTitle'>";
+    $html.=$juego->getName();
+    $html.="</h1>";
+    $html.= '<div class="wrapper">';
+    foreach ($juego->getForos() as $item) {
+        //$html.=obtenerInfoDisplayForo($item);
+       $html.=obtenerForoParaAdmin($item);
+    }
+    $html.= '</div>';
+    return $html;
+}
+
 /*
  * obtener informacion formateada para mostrar al usuario en el catalogo de juegos.
  */
@@ -77,12 +101,10 @@ function obtenerJuegoParaDisplay($juego): string
                 <h1>$nombre</h1>
                 <p>$descripcion</p>
                 
-                <a href="verCursos.php?juego=$nombre">
-                <button>
+            <form method = "post" action="verCursos.php">
+            <button value="$nombre" name="explore" type="submit">
                 Explorar cursos
                 </button>
-                </a>
-
                 </form>
                 </div>
         </div>
@@ -90,6 +112,34 @@ EOF;
 
     return $html;
 }
+
+function obtenerJuegoParaDisplayForo($juego): string
+{
+    $nombre = $juego->getName();
+    $descripcion = $juego->getDescription();
+
+    $html=<<<EOF
+
+
+        <div class="card">
+            <img src="images/juegos/$nombre.png">
+            <div class="descriptions">
+                <h1>$nombre</h1>
+                <p>$descripcion</p>
+                
+                <a href="verForos.php?juego=$nombre">
+                <button>
+                Ver Foros
+                </button>
+                </a>
+
+                </form>
+                </div>
+        </div>
+EOF;
+    return $html;
+}
+
 
 function obtenerJuegoParaFormulario($juego): string
 {
@@ -110,6 +160,45 @@ function obtenerJuegosParaAdmin($juegos){
         $html.="</tr>";
     }
     $html.="</table>";
+    return $html;
+}
+
+function obtenerForosParaAdmin($juegos){
+    $html="<table class='userData'><th>Titulo</th><th>Autor</th><th>Fecha</th><th>Respuestas</th>";
+    foreach ($juegos as $juego){
+        $html.="<tr>";
+        $html.=obtenerForoParaAdmin($juego);
+        $html.="</tr>";
+    }
+    $html.="</table>";
+    return $html;
+}
+
+function obtenerForoParaAdmin($juego){
+    $html="<td>";
+    $html.='<img src="images/juegos/';
+    $html.=$juego->getName();
+    $html.='.png">';
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$juego->getName();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$juego->getDescription();
+    $html.="</td>";
+    $html.="<td>";
+    $html.=$juego->getCategory();
+    $html.="</td>";
+    $html.="<td>";
+    $html.="<a href='editarJuego.php?juego=";
+    $html.=$juego->getName();
+    $html.="'><button>Editar</button></a>";
+    $html.="</td>";
+    $html.="<td>";
+    $html.="<a href='eliminarJuego.php?juego=";
+    $html.=$juego->getName();
+    $html.="'><button>Eliminar</button></a>";
+    $html.="</td>";
     return $html;
 }
 

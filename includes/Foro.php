@@ -3,28 +3,161 @@
 namespace es\fdi\ucm\aw;
 require_once __DIR__.'/funcionesJuegos.php';
 
-class Juego
+class Foro
 {
-    private $name;
-    private $courses; //array que contiene los cursos correspondientes al juego
-    private $description;
-    private $category;
-	private $foros;
+    private $id;
+    private $autorId; //array que contiene los cursos correspondientes al juego
+    private $nombreJuego;
+    private $titulo;
+	private $mensaje;
+    private $fecha;
+    private $respuestas;
+    private $identificador;
 
-    public function __construct($name, $description, $category)
+
+    public function __construct($id, $autorId, $nombreJuego, $titulo, $mensaje, $fecha, $respuestas, $identificador)
     {
-        $this->name = $name;
-        $this->description = $description;
-        $this->category = $category;
-        $this->courses = [];
-		$this-> foros = [];
-        $this->getCoursesFromDB();
-		$this->getForosFromDB();
+        $this->id = $id;
+        $this->autorId = $autorId;
+        $this->nombreJuego = $nombreJuego;
+        $this->titulo = $titulo;
+        $this->mensaje = $mensaje;
+        $this->fecha = $fecha;
+        $this->respuestas = $respuestas;
+        $this->identificador = $identificador;
     }
 
-    /*
-     * funcion que retorna un objeto de tipo juego dado su nombre
+    /**
+     * @return mixed
      */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAutorId()
+    {
+        return $this->autorId;
+    }
+
+    /**
+     * @param mixed $autorId
+     */
+    public function setAutorId($autorId): void
+    {
+        $this->autorId = $autorId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNombreJuego()
+    {
+        return $this->nombreJuego;
+    }
+
+    /**
+     * @param mixed $nombreJuego
+     */
+    public function setNombreJuego($nombreJuego): void
+    {
+        $this->nombreJuego = $nombreJuego;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    /**
+     * @param mixed $titulo
+     */
+    public function setTitulo($titulo): void
+    {
+        $this->titulo = $titulo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMensaje()
+    {
+        return $this->mensaje;
+    }
+
+    /**
+     * @param mixed $mensaje
+     */
+    public function setMensaje($mensaje): void
+    {
+        $this->mensaje = $mensaje;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * @param mixed $fecha
+     */
+    public function setFecha($fecha): void
+    {
+        $this->fecha = $fecha;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRespuestas()
+    {
+        return $this->respuestas;
+    }
+
+    /**
+     * @param mixed $respuestas
+     */
+    public function setRespuestas($respuestas): void
+    {
+        $this->respuestas = $respuestas;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdentificador()
+    {
+        return $this->identificador;
+    }
+
+    /**
+     * @param mixed $identificador
+     */
+    public function setIdentificador($identificador): void
+    {
+        $this->identificador = $identificador;
+    }
+
+        //$this->getForosFromDB();
+
+
     public static function nuevoJuegoenBD(?string $nombre, $description, $cat)
     {
         $app = Aplicacion::getSingleton();
@@ -58,55 +191,19 @@ class Juego
         return $juego;
     }
 
-    //GETTERS
 
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    public function getCourses()
-    {
-        return $this->courses;
-    }
-	public function getForos()
-    {
-        return $this->foros;
-    }
 
     /*
      * funcion que entra en la base de datos para obtener todos los cursos asociados a ese juego
      * e incluirlos en el array de cursos
      */
-    public function getCoursesFromDB()
+
+	
+	    public function getForosFromDB()
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `courses` WHERE `game`='%s'", $conn->real_escape_string($this->name));
-
-        $rs = $conn->query($query);
-        while ($registro = $rs->fetch_assoc()) {
-            $curso = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'], $registro['level'], $registro['duration'], $registro['description'], $registro['numItems']);
-            array_push($this->courses, $curso);
-        }
-        $rs->free();
-    }
-	
-	public function getForosFromDB()
-    {
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM `foro` WHERE `nombreJuego`='%s'", $conn->real_escape_string($this->name));
 
         $rs = $conn->query($query);
         while ($registro = $rs->fetch_assoc()) {
@@ -182,8 +279,6 @@ class Juego
             return true;
         }
         return false;
-
-
     }
 
 }
