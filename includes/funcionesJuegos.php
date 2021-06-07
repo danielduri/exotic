@@ -77,7 +77,7 @@ function obtenerForosJuegoParaDisplay($juego): string
     $html.= '<div class="wrapper">';
     foreach ($juego->getForos() as $item) {
         //$html.=obtenerInfoDisplayForo($item);
-       $html.=obtenerForoParaAdmin($item);
+       $html.=obtenerForosParaAdmin($item);
     }
     $html.= '</div>';
     return $html;
@@ -163,42 +163,32 @@ function obtenerJuegosParaAdmin($juegos){
     return $html;
 }
 
-function obtenerForosParaAdmin($juegos){
+function obtenerForosParaAdmin($juego){
+
     $html="<table class='userData'><th>Titulo</th><th>Autor</th><th>Fecha</th><th>Respuestas</th>";
-    foreach ($juegos as $juego){
+    foreach ($juego->getForos() as $foro){
         $html.="<tr>";
-        $html.=obtenerForoParaAdmin($juego);
+        $html.=obtenerForoParaAdmin($foro);
         $html.="</tr>";
     }
     $html.="</table>";
     return $html;
 }
 
-function obtenerForoParaAdmin($juego){
+function obtenerForoParaAdmin($foro){
     $html="<td>";
-    $html.='<img src="images/juegos/';
-    $html.=$juego->getName();
-    $html.='.png">';
+    $html.=$foro->getTitulo();
     $html.="</td>";
     $html.="<td>";
-    $html.=$juego->getName();
+    $html.=$foro->getAutor();
     $html.="</td>";
     $html.="<td>";
-    $html.=$juego->getDescription();
+    $html.=$foro->getFecha();
     $html.="</td>";
     $html.="<td>";
-    $html.=$juego->getCategory();
+    $html.=$foro->getRespuestas();
     $html.="</td>";
-    $html.="<td>";
-    $html.="<a href='editarJuego.php?juego=";
-    $html.=$juego->getName();
-    $html.="'><button>Editar</button></a>";
-    $html.="</td>";
-    $html.="<td>";
-    $html.="<a href='eliminarJuego.php?juego=";
-    $html.=$juego->getName();
-    $html.="'><button>Eliminar</button></a>";
-    $html.="</td>";
+
     return $html;
 }
 
