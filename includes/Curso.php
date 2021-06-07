@@ -183,7 +183,11 @@ class Curso
             if ($rs && $rs->num_rows == 1) {
                 $registro = $rs->fetch_assoc();
                 $rs->free();
-                return $registro['completed'];
+                $numero = $registro['completed'];
+                if($numero < 0 || $numero > $this->numItems){
+                    $numero = 1;
+                }
+                return $numero;
             }
             $rs->free();
             return false;

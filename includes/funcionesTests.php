@@ -1,6 +1,7 @@
 <?php
 
 function obtenerPreguntasTestParaAdmin($preguntas){
+
     $html="<table class='userData'><th>ID Pregunta</th><th>Pregunta</th><th>Respuesta Correcta</th><th>Respuesta 1</th><th>Respuesta 2</th><th>Respuesta 3</th><th>Opciones</th>";
     foreach ($preguntas as $pregunta){
         $html.="<tr>";
@@ -12,8 +13,9 @@ function obtenerPreguntasTestParaAdmin($preguntas){
 }
 
 function obtenerPreguntaParaAdmin($pregunta){
+    $html="";
     if ($pregunta->getIDPregunta()!=null){
-        $html="<td>";
+        $html.="<td>";
         $html.=$pregunta->getIDPregunta();
         $html.="</td>";
         $html.="<td>";
@@ -44,5 +46,6 @@ function obtenerPreguntaParaAdmin($pregunta){
         $html.="'><button>Eliminar</button></a>";
         $html.="</td>";
     }
+
     return $html;
 }
