@@ -184,7 +184,7 @@ class Juego
         return false;
     }
 
-    public static function mostrarJuegos($busqueda) {
+    public static function mostrarJuegosBusqueda($busqueda) {
         $array = [];
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
