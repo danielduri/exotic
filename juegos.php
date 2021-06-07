@@ -18,7 +18,7 @@ EOS;
 $busqueda = isset($_POST["busquedaJuego"]) ? $_POST["busquedaJuego"] : null;
 
 if ($busqueda != null){
-    $juegos = \es\fdi\ucm\aw\Juego::mostrarJuegos($busqueda);
+    $juegos = \es\fdi\ucm\aw\Juego::mostrarJuegosBusqueda($busqueda);
 } else {
     $juegos = \es\fdi\ucm\aw\Juego::obtenerTodosLosJuegos();
 }
