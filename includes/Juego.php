@@ -107,7 +107,6 @@ class Juego
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query = sprintf("SELECT * FROM `foro` WHERE `nombreJuego`='%s'", $conn->real_escape_string($this->name));
-
         $rs = $conn->query($query);
         while ($registro = $rs->fetch_assoc()) {
             $foro = new Foro($registro['id'], $registro['autorId'], $registro['nombreJuego'], $registro['titulo'], $registro['mensaje'], $registro['fecha'], $registro['respuestas'], $registro['identificador']);
