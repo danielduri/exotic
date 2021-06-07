@@ -9,6 +9,7 @@ $juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($nombre);
 
 if($nombre!=null && $juego!=null){
     $contenidoPrincipal = obtenerForosParaAdmin($juego);
+    $contenidoPrincipal.='<a href="nuevoJuego.php"><button class="centerButton">Nuevo Tema</button></a>';
 }else{
     $contenidoPrincipal="<p class='contenido'>No se ha encontrado este juego</p>";
 }

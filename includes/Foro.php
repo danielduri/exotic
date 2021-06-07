@@ -53,7 +53,7 @@ class Foro
 
     public function getAutor()
     {
-        return Usuario::buscaNombrePorId(getAutorId());
+        return Usuario::buscaNombrePorId($this->autorId);
     }
 
     /**

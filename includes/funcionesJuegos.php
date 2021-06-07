@@ -177,6 +177,7 @@ function obtenerForosParaAdmin($juego){
         $html.="</tr>";
     }
     $html.="</table>";
+  //  $html.=;
     return $html;
 }
 
