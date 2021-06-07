@@ -5,6 +5,7 @@ namespace es\fdi\ucm\aw;
 
 class FormularioPerfil extends Form
 {
+
     public function __construct() {
         parent::__construct('formPerfil');
     }
@@ -87,7 +88,6 @@ class FormularioPerfil extends Form
     protected function procesaFormulario($datos)
     {
         $result = array();
-        $bool = false;
 
         $perfil = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
 

@@ -69,6 +69,16 @@ function datosUsuarioHTML($username): string
     $html = '<p><table class="userData">';
     $perfil = \es\fdi\ucm\aw\Usuario::buscaUsuario($username);
     $html .= '<tr><td>';
+    $html .= 'Foto de perfil: ';
+    $html .= '</td><td>';
+    if(is_file(DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}")){
+        $html.='<img src="'.DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}".'">';
+    }else{
+        $html .= 'No se ha subido aún';
+    }
+
+    $html .= '</td></tr>';
+    $html .= '<tr><td>';
     $html .= 'Username: ';
     $html .= '</td><td>';
     $html .= $perfil->username();

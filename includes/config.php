@@ -24,6 +24,9 @@ define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
 define('INSTALADA', true);
 
+define('DIR_ALMACEN', dirname(RUTA_APP).'/tmp');
+define('DIR_AVATARS_PROTEGIDOS','images/avatars');
+
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
  */
