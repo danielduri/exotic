@@ -109,7 +109,7 @@ function obtenerJuegoParaDisplay($juego): string
                 <a href="verCursos.php?juego=$nombre">
                 <button>
                 Explorar cursos
-                </button>
+                </button></a>
                 </form>
                 </div>
         </div>
