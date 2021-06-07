@@ -199,3 +199,14 @@ function obtenerHTMLParaAdmin($curso){
     $html.="</tr>";
     return $html;
 }
+
+function obtenerCursosParaBusqueda($array): string
+{
+
+    $html= '<div class="wrapper">';
+    foreach ($array as $item) {
+        $html.=obtenerInfoDisplay($item);
+    }
+    $html.= '</div>';
+    return $html;
+}

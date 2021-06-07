@@ -52,6 +52,7 @@ function obtenerCursosParaDisplay($array): string
     return $html;
 }
 
+
 /*
  * obtener informacion de los cursos correspondientes al juego,
  * formateada para mostrar al usuario en el catalogo de cursos.
@@ -69,6 +70,8 @@ function obtenerCursosJuegoParaDisplay($juego): string
     return $html;
 }
 
+
+
 function obtenerForosJuegoParaDisplay($juego): string
 {
     $html="<h1 class='mainTitle'>";
@@ -82,6 +85,8 @@ function obtenerForosJuegoParaDisplay($juego): string
     $html.= '</div>';
     return $html;
 }
+
+
 
 /*
  * obtener informacion formateada para mostrar al usuario en el catalogo de juegos.

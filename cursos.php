@@ -17,11 +17,13 @@ EOS;
 $busqueda = isset($_POST["busquedaCurso"]) ? $_POST["busquedaCurso"] : null;
 
 if ($busqueda != null){
-    $juegos = \es\fdi\ucm\aw\Juego::mostrarJuegosBusqueda($busqueda);
+    $juegos = \es\fdi\ucm\aw\Curso::mostrarCursosBusqueda($busqueda);
+    $contenidoPrincipal.= obtenerCursosParaBusqueda($juegos);
 } else {
     $juegos = \es\fdi\ucm\aw\Juego::obtenerTodosLosJuegos();
+    $contenidoPrincipal.= obtenerCursosParaDisplay($juegos);
 }
 
-$contenidoPrincipal.= obtenerCursosParaDisplay($juegos);
+
 
 require __DIR__.'/includes/comun/layout.php';

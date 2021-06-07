@@ -361,5 +361,33 @@ class Curso
         return false;
     }
 
+    public static function mostrarCursosBusqueda($busqueda) {
+         $array = [];
+         $app = Aplicacion::getSingleton();
+         $conn = $app->conexionBd();
+         // DEBO PREPARAR LOS TEXTOS QUE VOY A BUSCAR si la cadena existe
 
+         if ($busqueda <> '') {
+             //CUENTA EL NUMERO DE PALABRAS
+             $trozos = explode(" ", $busqueda);
+             $numero = count($trozos);
+             if ($numero > 0) {
+                 $busquedaString = "%$busqueda%";
+                 $curso = sprintf( "SELECT * FROM `courses` WHERE `courseName` LIKE '%s'", $conn->real_escape_string($busquedaString));
+             }
+
+             $rs = $conn->query($curso);
+
+             while ($registro = $rs->fetch_assoc()) {
+                 $course = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'],
+                     $registro['level'], $registro['duration'], $registro['description'], $registro['numItems']);
+                 array_push($array, $course);
+             }
+             $rs->free();
+
+             return $array;
+         }
+
+
+     }
 }
