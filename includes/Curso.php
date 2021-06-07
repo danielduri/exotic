@@ -390,4 +390,39 @@ class Curso
 
 
      }
+
+     public static function mostrarCursosFiltrados($filtro){
+         $array = [];
+         $app = Aplicacion::getSingleton();
+         $conn = $app->conexionBd();
+
+         switch($filtro){
+             case "todos":
+                 $curso = "SELECT * FROM `courses`";
+                break;
+             case "precioAscendente":
+                 $curso = "SELECT * FROM `courses` order by `price` asc";
+                 break;
+             case "precioDescendente":
+                 $curso = "SELECT * FROM `courses` order by `price` desc";
+                 break;
+             case "duracionAscendente":
+                 $curso = "SELECT * FROM `courses` order by `duration` asc";
+                 break;
+             case "duracionDescendente":
+                 $curso = "SELECT * FROM `courses` order by `duration` desc";
+                 break;
+         }
+
+         $rs = $conn->query($curso);
+
+         while ($registro = $rs->fetch_assoc()) {
+             $course = new Curso($registro['courseID'], $registro['game'], $registro['price'], $registro['courseName'],
+                 $registro['level'], $registro['duration'], $registro['description'], $registro['numItems']);
+             array_push($array, $course);
+         }
+         $rs->free();
+
+         return $array;
+     }
 }
