@@ -165,4 +165,33 @@ class Juego
         return false;
     }
 
+    public static function mostrarJuegos($busqueda) {
+        $array = [];
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        // DEBO PREPARAR LOS TEXTOS QUE VOY A BUSCAR si la cadena existe
+
+        if ($busqueda <> '') {
+            //CUENTA EL NUMERO DE PALABRAS
+            $trozos = explode(" ", $busqueda);
+            $numero = count($trozos);
+            if ($numero > 0) {
+                $busquedaString = "%$busqueda%";
+                $juego = sprintf( "SELECT * FROM `games` WHERE `name` LIKE '%s'", $conn->real_escape_string($busquedaString));
+            }
+
+            $rs = $conn->query($juego);
+
+            while ($registro = $rs->fetch_assoc()) {
+                $game = new Juego($registro['name'], $registro['description'], $registro['category']);
+                array_push($array, $game);
+            }
+            $rs->free();
+
+            return $array;
+        }
+
+
+    }
+
 }
