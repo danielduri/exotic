@@ -10,7 +10,7 @@ $juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($nombre);
 if($nombre!=null && $juego!=null){
     $contenidoPrincipal = obtenerForosParaAdmin($juego);
 }else{
-    $contenidoPrincipal="<p class='contenido'>No se ha encontrado este juego</p>";
+    $contenidoPrincipal="<p class='contenidos'>No se ha encontrado este juego</p>";
 }
 
 require __DIR__ . '/includes/comun/layout.php';
