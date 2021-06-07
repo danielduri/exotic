@@ -3,10 +3,11 @@ require_once __DIR__ . '/includes/config.php';
 
 use es\fdi\ucm\aw\Juego;
 
-$tituloPagina = 'Exotic Games Academy - Nuevo Juego';
+$tituloPagina = 'Exotic Games Academy - Nueva Pregunta';
 
 $formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioPreguntaNueva();
 $procesamiento = $formulario->gestiona();
+$id=$_GET["id"];
 
 if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
     $contenidoPrincipal = <<<EOS
@@ -14,7 +15,7 @@ if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
     <h1>Nueva pregunta: </h1>
     $procesamiento
     </div>
-    <a href = "adminJuegos.php" class="submitbtn"> <button> Volver </button></a>
+    <a href = "adminPreguntas.php?id=$id" class="submitbtn"> <button> Volver </button></a>
     EOS;
 }else{
     $contenidoPrincipal="<h1>No tiene permiso para acceder a esta página</h1>";

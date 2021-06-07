@@ -75,9 +75,8 @@ EOF;
  */
 function getItemListForDisplay($items){
     $html="<ol class='itemList'>";
-    $cursoID = null;
+    $cursoID = $_GET["id"];
     foreach ($items as $item){
-        $cursoID = $item->getIdCurso();
         $itemName = $item->getNombre();
         $itemID = $item->getID();
         $link = "";
