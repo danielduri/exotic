@@ -96,7 +96,7 @@ class FormularioImgJuego extends Form {
 
                 // 4. Si fuese necesario guardar en la base de datos la ruta relativa $nombre del archivo
 
-                //return "adminJuegos.php";
+                return "adminJuegos.php";
             }else {
                 $result[] = 'El archivo tiene un nombre o tipo no soportado';
             }
