@@ -2,15 +2,18 @@
 
 use es\fdi\ucm\aw\Aplicacion;
 
-function verUnSoloForo($identificador, $respuestas): string{
+function verUnSoloForo($identificador, $respuestas, $juego): string{
 
     $respuestas=$respuestas;
     $id = $identificador;
 
 $app = Aplicacion::getSingleton();
 $conn = $app->conexionBd();
-$query = "SELECT * FROM  foro WHERE id = '$id' ORDER BY fecha DESC";
+$query = "SELECT * FROM  foro WHERE identificador = '$id' ORDER BY fecha DESC";
 $result = $conn->query($query);
+
+
+    $html="<p></p>";
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
     $id = $row['id'];
     $titulo = $row['titulo'];
@@ -20,12 +23,12 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
     $respuestas = $row['respuestas'];
 
     $nombreAutor=\es\fdi\ucm\aw\Usuario::buscaNombrePorId($autor);
-    $html="<tr><td>$titulo</tr></td>";
+    $html.="<tr><td>$titulo</tr></td>";
     $html.= "<table>";
     $html.= "<tr><td>autor:  $nombreAutor</td></tr>";
     $html.= "<tr><td>$mensaje</td></tr>";
     $html.= "</table>";
-    $html.= "<br /><br /><a href='foroVista.php?id&respuestas=$respuestas&identificador=$id'>Responder</a><br />";
+    $html.= "<br /><br /><a href='nuevoForo.php?juego=$juego&respuestas=$respuestas&identificador=$id'>Responder</a><br />";
 }
 
 $query2 = "SELECT * FROM  foro WHERE identificador = '$id' ORDER BY fecha DESC";
@@ -46,7 +49,7 @@ while($row = mysqli_fetch_array($result2, MYSQLI_ASSOC)) {
     $html.= "<tr><td>autor: $nombreAutor</td></tr>";
     $html.= "<tr><td>$mensaje</td></tr>";
     $html.= "</table>";
-    $html.= "<br /><br /><a href='foroVista.php?id&respuestas=$respuestas&identificador=$id'>Responder</a><br />";
+    $html.= "<br /><br /><a href='nuevoForo.php?juego=$juego&respuestas=$respuestas&identificador=$id'>Responder</a><br />";
 
     }
     return $html;

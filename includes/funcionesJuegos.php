@@ -173,7 +173,7 @@ function obtenerForosParaAdmin($juego){
     $html="<table class='userData'><th>Titulo</th><th>Autor</th><th>Fecha</th><th>Respuestas</th>";
     foreach ($juego->getForos() as $foro){
         $html.="<tr>";
-        $html.=obtenerForoParaAdmin($foro);
+        $html.=obtenerForoParaAdmin($foro, $juego);
         $html.="</tr>";
     }
     $html.="</table>";
@@ -181,13 +181,14 @@ function obtenerForosParaAdmin($juego){
     return $html;
 }
 
-function obtenerForoParaAdmin($foro){
+function obtenerForoParaAdmin($foro, $juego){
+    $vNombreJuego=$juego->getName();
    $vRespuestas=$foro->getRespuestas();
    $vIdentificador=$foro->getIdentificador();
    $vTitulo=$foro->getTitulo();
    //$texto="<a href='foroVista.php?respuestas=$vRespuestas&identificador=$vIdentificador'>$vTitulo</a>";
     $html="<td>";
-    $html.="<a href='verUnForo.php?respuestas=$vRespuestas&identificador=$vIdentificador'>$vTitulo</a>";
+    $html.="<a href='verUnForo.php?juego=$vNombreJuego&respuestas=$vRespuestas&identificador=$vIdentificador'>$vTitulo</a>";
     $html.="</td>";
     $html.="<td>";
     $html.=$foro->getAutor();
