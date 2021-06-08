@@ -163,39 +163,21 @@ class Foro
         //$this->getForosFromDB();
 
 
-    public static function nuevoJuegoenBD(?string $nombre, $description, $cat)
+    public static function nuevoForoenBD($autorId, $nombreJuego, $titulo, $mensaje, $respuestas,  $identificador)
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("INSERT INTO `games` (`name`, `description`, `category`) 
-                VALUES ('%s', '%s', '%s')", $conn->real_escape_string($nombre),
-            $conn->real_escape_string($description), $conn->real_escape_string($cat));
+        $query = sprintf("INSERT INTO `foro` (`autorId`, `nombreJuego`,`titulo`,`mensaje`,`respuestas`,`identificador`) 
+                VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+            $conn->real_escape_string($autorId), $conn->real_escape_string($nombreJuego), $conn->real_escape_string($titulo), $conn->real_escape_string($mensaje), $conn->real_escape_string($respuestas), $conn->real_escape_string($identificador));
+        echo $query;
         if ($conn->query($query) === TRUE) {
+            //echo "biennn";
             return true;
         }
+        //echo "malllllll";
         return false;
     }
-
-    public static function buscarJuegoPorNombre($nombre)
-    {
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM `games` WHERE `name`='%s'", $conn->real_escape_string($nombre));
-
-        $juego = null;
-
-        $rs = $conn->query($query);
-
-        if ($rs && $rs->num_rows == 1) {
-            $registro = $rs->fetch_assoc();
-            $juego = new Juego($registro['name'], $registro['description'], $registro['category']);
-        }
-
-        $rs->free();
-
-        return $juego;
-    }
-
 
 
     /*
