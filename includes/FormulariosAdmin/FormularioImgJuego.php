@@ -24,7 +24,7 @@ class FormularioImgJuego extends Form {
 
         $html="";
         if(is_file(DIR_JUEGOS_PROTEGIDOS. "/{$nombre}.png")){
-            $html.='<img class="cardImg" src="'.RUTA_IMGS. "/juegos/{$nombre}.png".'">';
+            $html.='<img class="cardImg" src="'.DIR_JUEGOS_PROTEGIDOS.'/'.$nombre.'.png">';
         }else{
             $html .= 'No se ha subido aún';
         }
