@@ -187,7 +187,7 @@ function obtenerForoParaAdmin($foro){
    $vTitulo=$foro->getTitulo();
    //$texto="<a href='foroVista.php?respuestas=$vRespuestas&identificador=$vIdentificador'>$vTitulo</a>";
     $html="<td>";
-    $html.="<a href='foroVista.php?respuestas=$vRespuestas&identificador=$vIdentificador'>$vTitulo</a>";
+    $html.="<a href='verUnForo.php?respuestas=$vRespuestas&identificador=$vIdentificador'>$vTitulo</a>";
     $html.="</td>";
     $html.="<td>";
     $html.=$foro->getAutor();

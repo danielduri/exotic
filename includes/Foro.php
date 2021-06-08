@@ -1,7 +1,8 @@
 <?php
 
 namespace es\fdi\ucm\aw;
-require_once __DIR__.'/funcionesJuegos.php';
+require_once __DIR__.'/foroVista.php';
+
 
 class Foro
 {
@@ -203,21 +204,7 @@ class Foro
     /*
      * funcion que devuelve un array con todos los juegos de la base de datos.
      */
-    public static function obtenerTodosLosJuegos(){
-        $array = [];
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $query = "SELECT * FROM `games`";
 
-        $rs = $conn->query($query);
-
-        while ($registro = $rs->fetch_assoc()) {
-            $juego = new Juego($registro['name'], $registro['description'], $registro['category']);
-            array_push($array, $juego);
-        }
-        $rs->free();
-        return $array;
-    }
 
     public function cambiaNombre(string $nuevoNombre)
     {
@@ -233,29 +220,6 @@ class Foro
         return false;
     }
 
-    public function cambiaDescription(string $description)
-    {
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $query = sprintf("UPDATE `games` SET `description` = '%s' WHERE `games`.`name` = '%s'", $conn->real_escape_string($description), $conn->real_escape_string($this->name));
-        if ($conn->query($query) === TRUE) {
-            $this->description = $description;
-            return true;
-        }
-        return false;
-    }
-
-    public function cambiaCat(string $cat)
-    {
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $query = sprintf("UPDATE `games` SET `category` = '%s' WHERE `games`.`name` = '%s'", $conn->real_escape_string($cat), $conn->real_escape_string($this->name));
-        if ($conn->query($query) === TRUE) {
-            $this->category= $cat;
-            return true;
-        }
-        return false;
-    }
 
     public function eliminar()
     {
