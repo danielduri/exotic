@@ -218,11 +218,14 @@ function obtenerJuegoParaAdmin($juego){
     $html.="<td>";
     $html.=$juego->getCategory();
     $html.="</td>";
-    $html.="<td>";
+    $html.="<td><div>";
     $html.="<a href='editarJuego.php?juego=";
     $html.=$juego->getName();
-    $html.="'><button>Editar</button></a>";
-    $html.="</td>";
+    $html.="'><button>Atributos</button></a>";
+    $html.="<a href='imgJuego.php?juego=";
+    $html.=$juego->getName();
+    $html.="'><button>Imagen</button></a>";
+    $html.="</div></td>";
     $html.="<td>";
     $html.="<a href='eliminarJuego.php?juego=";
     $html.=$juego->getName();

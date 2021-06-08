@@ -33,6 +33,11 @@
     align-items: center;
 }
 
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
 .wrapper{
     margin-right: auto; /* 1 */
     margin-left:  auto; /* 1 */
@@ -59,6 +64,10 @@
     transition: all .5s cubic-bezier(.8,.5,.2,1.4);
     overflow: hidden;
     position: relative;
+}
+
+.cardImg{
+    width: 300px;
 }
 .cardprogress{
     flex: 1;

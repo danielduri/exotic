@@ -151,7 +151,7 @@ function obtenerCursosParaAdmin($juegos){
         $html.="<h1 class='mainTitle'>";
         $html.=$juego->getName();
         $html.="</h1>";
-        $html.="<table class='userData'><th>ID</th><th>Imagen</th><th>Nombre</th><th>Precio</th><th>Nivel</th><th>Duración</th><th>Descripción</th><th>Núm. Ítems</th><th>Opciones</th>";
+        $html.="<table class='userData'><th>ID</th><th>Imagen</th><th>Nombre</th><th>Precio</th><th>Nivel</th><th>Duración</th><th>Descripción</th><th>Núm. Ítems</th><th>Editar</th>";
         foreach ($juego->getCourses() as $curso){
             $html.=obtenerHTMLParaAdmin($curso);
         }
@@ -191,13 +191,16 @@ function obtenerHTMLParaAdmin($curso){
     $html.="<td>";
     $html.=$curso->getNumItems();
     $html.="</td>";
-    $html.="<td><div>";
+    $html.="<td><div class='column'>";
     $html.="<a href='editarCurso.php?id=";
     $html.=$curso->getID();
-    $html.="'><button>Editar curso</button></a>";
+    $html.="'><button>Atributos</button></a>";
+    $html.="<a href='imgCurso.php?id=";
+    $html.=$curso->getID();
+    $html.="'><button>Imagen</button></a>";
     $html.="<a href='contentTable.php?id=";
     $html.=$curso->getID();
-    $html.="'><button>Editar contenidos</button></a>";
+    $html.="'><button>Contenidos</button></a>";
     $html.="<a href='eliminarCurso.php?id=";
     $html.=$curso->getID();
     $html.="'><button>Eliminar</button></a>";

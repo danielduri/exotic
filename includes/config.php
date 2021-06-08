@@ -26,6 +26,8 @@ define('INSTALADA', true);
 
 define('DIR_ALMACEN', dirname(RUTA_APP).'/tmp');
 define('DIR_AVATARS_PROTEGIDOS','images/avatars');
+define('DIR_JUEGOS_PROTEGIDOS','images/juegos');
+define('DIR_CURSOS_PROTEGIDOS','images/cursos');
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria

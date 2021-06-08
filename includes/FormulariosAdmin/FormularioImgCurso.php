@@ -1,8 +1,12 @@
 <?php
 
-namespace es\fdi\ucm\aw;
+namespace es\fdi\ucm\aw\FormulariosAdmin;
 
-class FormularioFotoPerfil extends Form {
+use es\fdi\ucm\aw\Curso;
+use es\fdi\ucm\aw\Form;
+use es\fdi\ucm\aw\Juego;
+
+class FormularioImgCurso extends Form {
 
     const EXTENSIONES_PERMITIDAS = array('gif','jpg','jpe','jpeg','png');
 
@@ -11,20 +15,25 @@ class FormularioFotoPerfil extends Form {
         parent::__construct('subir',1, $opciones);
     }
 
+
     protected function generaCamposFormulario($datos, $errores = array()) {
+
         // Se generan los mensajes de error si existen.
+        $curso=Curso::buscarCursoPorID($_GET["id"]);
+        $nombre=$curso->getCourseName();
+        $id=$_GET["id"];
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorArchivo = self::createMensajeError($errores, 'archivo', 'span', array('class' => 'error'));
 
         $html="";
-        if(is_file(DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}")){
-            $html.='<img class="profilePic" src="'.DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}".'">';
+        if(is_file(DIR_CURSOS_PROTEGIDOS. "/{$id}.png")){
+            $html.='<img class="cardImg" src="'.DIR_CURSOS_PROTEGIDOS.'/'.$id.'.png">';
         }else{
             $html .= 'No se ha subido aún';
         }
 
         $camposFormulario=<<<EOS
-      <h1>Nueva foto de perfil</h1>
+      <h1>Nueva imagen para $nombre</h1>
       
       
       <label>Actual:</label>
@@ -41,6 +50,10 @@ class FormularioFotoPerfil extends Form {
     protected function procesaFormulario($datos) {
         $result = array();
         $ok = count($_FILES) == 1 && $_FILES['archivo']['error'] == UPLOAD_ERR_OK;
+
+        //asegurar que el nombre está en la base de datos y es correcto
+        $curso=Curso::buscarCursoPorID($_GET["id"]);
+        $nombreImagen=$curso->getID().".png";
 
         if ( $ok ) {
             $archivo = $_FILES['archivo'];
@@ -69,16 +82,16 @@ class FormularioFotoPerfil extends Form {
                     echo 'Upload directory is not writable';
                 }
 
-                if (!is_dir(DIR_AVATARS_PROTEGIDOS)) {
-                    echo DIR_AVATARS_PROTEGIDOS;
-                    echo 'Avatar directory is not writable';
+                if (!is_writable(DIR_CURSOS_PROTEGIDOS)) {
+                    echo DIR_CURSOS_PROTEGIDOS;
+                    echo 'Image directory is not writable';
                 }
 
                 if ( !move_uploaded_file($tmp_name, DIR_ALMACEN. "/{$nombre}") ) {
                     $result[] = 'Error al mover el archivo';
                 }else{
-                    if ( !copy(DIR_ALMACEN. "/{$nombre}", DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}") ) {
-                        $result[] = 'Error al mover el archivo';
+                    if ( !copy(DIR_ALMACEN. "/{$nombre}", DIR_CURSOS_PROTEGIDOS. "/{$nombreImagen}") ) {
+                        $result[] = 'Error al copiar el archivo';
                     }
                     unlink(DIR_ALMACEN. "/{$nombre}");
                 }
@@ -86,11 +99,12 @@ class FormularioFotoPerfil extends Form {
 
                 // 4. Si fuese necesario guardar en la base de datos la ruta relativa $nombre del archivo
 
-                return "profile.php";
+                return "adminCursos.php";
             }else {
                 $result[] = 'El archivo tiene un nombre o tipo no soportado';
             }
         } else {
+
             $result[] = 'Error al subir el archivo.';
         }
         return $result;
