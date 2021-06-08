@@ -17,12 +17,10 @@ class FormularioFotoPerfil extends Form {
         $errorArchivo = self::createMensajeError($errores, 'archivo', 'span', array('class' => 'error'));
 
         $camposFormulario=<<<EOS
-    <fieldset>
-      <legend>Subida de archivo</legend>
+      <legend>Nueva foto de perfil</legend>
       $htmlErroresGlobales
       <p><label for="archivo">Archivo:</label><input type="file" name="archivo" id="archivo" />$errorArchivo</p>
       <button type="submit">Subir</button>
-    </fieldset>
     EOS;
 
         return $camposFormulario;
