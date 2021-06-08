@@ -7,13 +7,24 @@ $tituloPagina = 'Exotic Games Academy - Foros';
 $nombre = isset($_GET["juego"]) ? $_GET["juego"] : null;
 $juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($nombre);
 
+
 if($nombre!=null && $juego!=null){
     //$contenidoPrincipal = obtenerForosParaAdmin($juego);
     $contenido2 = obtenerForosParaAdmin($juego);
+    if($_SESSION['login']){
     $contenidoPrincipal=<<<EOS
 <p>$contenido2</p>
-<a href="nuevoForo.php?juego=$nombre"><button class="centerButton">Nuevo Tema</button></a>
+
+<a href="nuevoForo.php?juego=$nombre"><button class="boton_personalizado">Escribir mensaje</button></a>
+
+EOS;}
+
+    else{
+        $contenidoPrincipal=<<<EOS
+<p>"Inicia sesion para acceder"</p>
 EOS;
+    }
+
 }else{
     $contenidoPrincipal="<p class='contenido'>No se ha encontrado este juego</p>";
 }

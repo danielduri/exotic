@@ -11,7 +11,7 @@ $juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($nombre);
 $formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioForoNuevo($juego);
 $procesamiento = $formulario->gestiona();
 //$nombre = $juego->getName();
-if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
+if (isset($_SESSION["userID"]) && $_SESSION["login"]){
     $contenidoPrincipal = <<<EOS
     <div class="login">
     <h1>Nuevo Tema: </h1>
