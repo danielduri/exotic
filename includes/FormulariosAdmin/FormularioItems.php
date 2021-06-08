@@ -33,7 +33,7 @@ class FormularioItems extends Form
                 </p>
                 
                 <p>
-                <textarea id="mytextarea" name="Contenido" placeholder="$contenido"></textarea>
+                <textarea id="mytextarea" name="Contenido">$contenido</textarea>
                 </p>
                     
                 <p>

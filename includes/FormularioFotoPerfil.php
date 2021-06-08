@@ -15,9 +15,21 @@ class FormularioFotoPerfil extends Form {
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorArchivo = self::createMensajeError($errores, 'archivo', 'span', array('class' => 'error'));
+        $perfil = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
+
+        $html="";
+        if(is_file(DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}")){
+            $html.='<img class="profilePic" src="'.DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}".'">';
+        }else{
+            $html .= 'No se ha subido aún';
+        }
 
         $camposFormulario=<<<EOS
-      <legend>Nueva foto de perfil</legend>
+      <h1>Nueva foto de perfil</h1>
+      
+      
+      <label>Actual:</label>
+      <p>$html</p>
       $htmlErroresGlobales
       <p><label for="archivo">Archivo:</label><input type="file" name="archivo" id="archivo" />$errorArchivo</p>
       <button type="submit">Subir</button>

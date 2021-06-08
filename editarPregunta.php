@@ -5,6 +5,7 @@ $tituloPagina = 'Exotic Games Academy - Editar Pregunta';
 
 $formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioPregunta();
 $procesamiento = $formulario->gestiona();
+$idTest=$_GET["idTest"];
 
 if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
     $contenidoPrincipal = <<<EOS
@@ -13,7 +14,7 @@ if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
     <h3>Los campos que dejes en blanco no se modificarán</h3>
     $procesamiento
     </div>
-    <a href = "adminPreguntas.php" class="submitbtn"> <button> Volver </button></a>
+    <a href = "adminPreguntas.php?id=$idTest" class="submitbtn"> <button> Volver </button></a>
     EOS;
 }else{
     $contenidoPrincipal="<h1>No tiene permiso para acceder a esta página</h1>";

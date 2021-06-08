@@ -102,6 +102,8 @@ function getItemListForDisplay($items){
                     $link.='"><button>Editar nombre</button></a>';
                     $link.='<a href="adminPreguntas.php?id=';
                     $link.=$item->getIDTest();
+                    $link.='&backTo=';
+                    $link.=$item->getIDCurso();
                     $link.='"><button>Editar preguntas</button></a>';
                 }else{
                     $link.=" - Tipo: item</label>";
@@ -135,6 +137,8 @@ EOS;
         $html.='<a href="nuevoTest.php?id=';
         $html.=$cursoID;
         $html.='"><button>Nuevo Test</button></a>';
+        $html.='<a href="adminCursos.php';
+        $html.='"><button>Panel de administración</button></a>';
     }
 
     return $html;
@@ -147,14 +151,14 @@ function obtenerCursosParaAdmin($juegos){
         $html.="<h1 class='mainTitle'>";
         $html.=$juego->getName();
         $html.="</h1>";
-        $html.="<table class='userData'><th>ID</th><th>Imagen</th><th>Nombre</th><th>Precio</th><th>Nivel</th><th>Duración</th><th>Descripción</th><th>Núm. Ítems</th><th>Opciones</th><th>Eliminar</th>";
+        $html.="<table class='userData'><th>ID</th><th>Imagen</th><th>Nombre</th><th>Precio</th><th>Nivel</th><th>Duración</th><th>Descripción</th><th>Núm. Ítems</th><th>Opciones</th>";
         foreach ($juego->getCourses() as $curso){
             $html.=obtenerHTMLParaAdmin($curso);
         }
         $html.="</table>";
-        $html.='<a href="nuevoCurso.php?juego=';
+        $html.='<div class="navigationButton"><a href="nuevoCurso.php?juego=';
         $html.=$juego->getName();
-        $html.='"><button class="marginbtn">Nuevo Curso</button></a>';
+        $html.='"><button class="marginbtn">Nuevo Curso</button></a></div>';
     }
     return $html;
 }
@@ -187,19 +191,17 @@ function obtenerHTMLParaAdmin($curso){
     $html.="<td>";
     $html.=$curso->getNumItems();
     $html.="</td>";
-    $html.="<td>";
+    $html.="<td><div>";
     $html.="<a href='editarCurso.php?id=";
     $html.=$curso->getID();
-    $html.="'><button>Editar</button></a>";
+    $html.="'><button>Editar curso</button></a>";
     $html.="<a href='contentTable.php?id=";
     $html.=$curso->getID();
-    $html.="'><button>Contenidos</button></a>";
-    $html.="</td>";
-    $html.="<td>";
+    $html.="'><button>Editar contenidos</button></a>";
     $html.="<a href='eliminarCurso.php?id=";
     $html.=$curso->getID();
     $html.="'><button>Eliminar</button></a>";
-    $html.="</td>";
+    $html.="</div></td>";
     $html.="</tr>";
     return $html;
 }

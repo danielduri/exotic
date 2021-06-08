@@ -21,6 +21,7 @@ class FormularioItemsNuevo extends Form
         $errorDesc = self::createMensajeError($errores, 'description', 'span', array('class' => 'error'));
 
         $nombreItem = "Nombre del ítem: ";
+        $contenido=$datos["Contenido"];
 
         $html = <<<EOF
                 
@@ -29,7 +30,7 @@ class FormularioItemsNuevo extends Form
                 </p>
                 
                 <p>
-                <textarea id="mytextarea" name="Contenido"></textarea>
+                <textarea id="mytextarea" name="Contenido">$contenido</textarea>
                 $errorDesc
                 </p>
                     

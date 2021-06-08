@@ -312,6 +312,12 @@ h3{
 .navigationButton{
     display: flex;
     justify-content: center;
+    text-decoration: none;
+    text-underline: none;
+}
+
+.profilePic{
+    width: 200px;
 }
 
 body {
