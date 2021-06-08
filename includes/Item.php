@@ -158,10 +158,10 @@ class Item
     public function eliminar(){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("DELETE FROM `itemsCursos` WHERE `itemsCursos`.`idItem` = '%s'", $conn->real_escape_string($this->idItem));
+        $query = sprintf("DELETE FROM `itemscursos` WHERE `itemscursos`.`idItem` = '%s'", $conn->real_escape_string($this->idItem));
         if ($conn->query($query) === TRUE) {
-            $query = sprintf("UPDATE `itemsCursos` SET `itemsCursos`.`orden`=`itemsCursos`.`orden`-1 
-                WHERE `itemsCursos`.`idCurso` = '%s' AND `itemsCursos`.`orden` > %s", $conn->real_escape_string($this->idCurso), $conn->real_escape_string($this->orden));
+            $query = sprintf("UPDATE `itemscursos` SET `itemscursos`.`orden`=`itemscursos`.`orden`-1 
+                WHERE `itemscursos`.`idCurso` = '%s' AND `itemscursos`.`orden` > %s", $conn->real_escape_string($this->idCurso), $conn->real_escape_string($this->orden));
             if ($conn->query($query) === TRUE) {
                 return true;
             }
