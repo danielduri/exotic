@@ -1,7 +1,7 @@
 <?php
 
 namespace es\fdi\ucm\aw;
-require_once __DIR__.'/foroVista.php';
+
 
 
 class Foro
