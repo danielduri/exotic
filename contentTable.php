@@ -12,6 +12,9 @@ $tituloPagina .= $curso->getCourseName();
 
 $contenidoPrincipal="<h1 class='mainTitle'>";
 $contenidoPrincipal.=$curso->getCourseName();
+if(isset($_SESSION["username"]) && $_SESSION["admin"]){
+    $contenidoPrincipal.=" (ID=".$id.")";
+}
 $contenidoPrincipal.="</h1>";
 $contenidoPrincipal.=$curso->getItemList();
 

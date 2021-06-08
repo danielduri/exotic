@@ -60,6 +60,26 @@
     overflow: hidden;
     position: relative;
 }
+.cardprogress{
+    flex: 1;
+    flex-basis: 300px;
+    flex-grow: 0;
+    height: 450px;
+    background: #fff;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: all .5s cubic-bezier(.8,.5,.2,1.4);
+    overflow: hidden;
+    position: relative;
+}
+.progress{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+progress{
+    margin-left: 10px;
+}
 .card img{
     transition: all .5s cubic-bezier(.8,.5,.2,1.4);
     height: 100%;
@@ -95,6 +115,11 @@
     color: red;
     letter-spacing: 1px;
     margin: 0px;
+}
+.card p{
+    line-height: 24px;
+    height: 50%;
+    margin-left: 0px;
 }
 .card p{
     line-height: 24px;

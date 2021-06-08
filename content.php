@@ -19,6 +19,9 @@ if($item==null){
         $contenidoPrincipal.=$item->getOrden();
         $contenidoPrincipal.=". ";
         $contenidoPrincipal.=$item->getNombre();
+        if($_SESSION["admin"]){
+            $contenidoPrincipal.=" (ID=".$item->getID().")";
+        }
         $contenidoPrincipal.="</h1>";
         $contenidoPrincipal.=$item->getItemForDisplay();
         $contenidoPrincipal.="</div>";
@@ -26,22 +29,25 @@ if($item==null){
         $idCurso=$item->getIdCurso();
 
         $contenidoPrincipal.='<div class="navigationButton">';
-        if($numItem>1){
-            $contenidoPrincipal.=<<<EOS
+        if(\es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $item->getIdCurso())){
+            if($numItem>1){
+                $contenidoPrincipal.=<<<EOS
 
             <a href="anteriorItem.php?curso=$idCurso"><button>< Anterior</button></a>
 
 EOS;
-        }
+            }
 
-        if($numItem<(\es\fdi\ucm\aw\Curso::buscarCursoPorID($item->getIdCurso())->getNumItems())){
+            if($numItem<(\es\fdi\ucm\aw\Curso::buscarCursoPorID($item->getIdCurso())->getNumItems())){
 
-            $contenidoPrincipal.=<<<EOS
+                $contenidoPrincipal.=<<<EOS
 
             <a href="siguienteItem.php?curso=$idCurso"><button>Siguiente ></button></a>
 
 EOS;
+            }
         }
+
         $contenidoPrincipal.='</div>';
         $contenidoPrincipal.='<div class="navigationButton"><a href=contentTable.php?id=';
         $contenidoPrincipal.=$item->getIdCurso();

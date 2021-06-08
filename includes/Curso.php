@@ -185,6 +185,8 @@ class Curso
                 $rs->free();
                 $numero = $registro['completed'];
                 if($numero < 0 || $numero > $this->numItems){
+                    $query= sprintf("UPDATE `purchases` SET `completed` = 1 WHERE `courseID` = $this->id AND `userID` = %d", $conn->real_escape_string($userID));
+                    $rs = $conn->query($query);
                     $numero = 1;
                 }
                 return $numero;

@@ -52,10 +52,12 @@ function obtenerMiCursoDisplay($curso): string
     $descripcion = $curso->getDescription();
     $id = $curso->getID();
 	$itemId = $curso->getItemIDforUser($_SESSION["userID"]);
+	$progress = $curso->getProgreso($_SESSION["userID"]);
+    $total = $curso->getNumItems();
 
     $html=<<<EOF
 
-
+<div class="cardprogress">
         <div class="card">
            <img src="images/cursos/$id.png">
             <div class="descriptions">
@@ -65,6 +67,9 @@ function obtenerMiCursoDisplay($curso): string
             <a href="content.php?id=$itemId"><button>Ir a curso</button></a>
             </div>
         </div>
+        <div class="progress"><label>Progreso: $progress de $total   </label><progress value="$progress" max="$total"></progress></div>
+
+</div>
 EOF;
 
     return $html;
@@ -80,8 +85,8 @@ function getItemListForDisplay($items){
         $itemName = $item->getNombre();
         $itemID = $item->getID();
         $link = "";
-        if(isset($_SESSION["login"]) && $_SESSION["login"]){
-            $link = <<<EOS
+        if(isset($_SESSION["login"]) && $_SESSION["login"] && (\es\fdi\ucm\aw\Curso::existeCompra($_SESSION["userID"], $cursoID)||$_SESSION["admin"])){
+            $link .= <<<EOS
                 <a href="content.php?id=$itemID">$itemName</a>
             EOS;
             if ($_SESSION["admin"]){
