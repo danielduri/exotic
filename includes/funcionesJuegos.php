@@ -182,8 +182,12 @@ function obtenerForosParaAdmin($juego){
 }
 
 function obtenerForoParaAdmin($foro){
+   $vRespuestas=$foro->getRespuestas();
+   $vIdentificador=$foro->getIdentificador();
+   $vTitulo=$foro->getTitulo();
+   //$texto="<a href='foroVista.php?respuestas=$vRespuestas&identificador=$vIdentificador'>$vTitulo</a>";
     $html="<td>";
-    $html.=$foro->getTitulo();
+    $html.="<a href='foroVista.php?respuestas=$vRespuestas&identificador=$vIdentificador'>$vTitulo</a>";
     $html.="</td>";
     $html.="<td>";
     $html.=$foro->getAutor();
