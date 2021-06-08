@@ -12,8 +12,19 @@ use es\fdi\ucm\aw\Form;
 
 class FormularioForoNuevo extends Form
 {
-    public function __construct() {
+    private $Njuego;
+    public function __construct($juego) {
+
         parent::__construct('formPerfil');
+        $this->Njuego = $juego;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNjuego()
+    {
+        return $this->Njuego;
     }
 
     protected function generaCamposFormulario($datos, $errores = array())
@@ -68,14 +79,26 @@ class FormularioForoNuevo extends Form
 
             $bool=false;
         }else{
+            $app = Aplicacion::getSingleton();
+            $conn = $app->conexionBd();
 
+            $Djuego = $this->getNjuego();
             $respuestas=0;
-            $nombreJuego='Call of Duty-Warzone';
+            $nombreJuego= $Djuego->getName();
             $autorId=$_SESSION["userID"];
-            $identificador=0;
+            $identificador=rand();
 
             //$_GET["juego"]
             $bool=Foro::nuevoForoenBD($autorId,$nombreJuego, $titulo, $mensaje, $respuestas, $identificador);
+
+            /* si es un mensaje en respuesta a otro actualizamos los datos */
+            if ($identificador != 0)
+            {
+                $query2 = "UPDATE foro SET respuestas=respuestas+1 WHERE id='$identificador'";
+                $result2 = $conn->query($query2);
+                echo $query2;
+            }
+
             if(!$bool){
                 $result["titulo"]="Ya existe un tema con ese titulo";
             }

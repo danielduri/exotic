@@ -8,11 +8,13 @@ $tituloPagina = 'Exotic Games Academy - Foros';
 
 $identificador = isset($_GET["identificador"]) ? $_GET["identificador"] : null;
 $respuestas = isset($_GET["respuestas"]) ? $_GET["respuestas"] : null;
+$juego = isset($_GET["juego"]) ? $_GET["juego"] : null;
+
 
 
 if($identificador!=null && $respuestas!=null){
     //$contenidoPrincipal = obtenerForosParaAdmin($juego);
-    $contenido2 = verUnSoloForo($identificador, $respuestas);
+    $contenido2 = verUnSoloForo($identificador, $respuestas, $juego);
     $contenidoPrincipal=<<<EOS
 <p>$contenido2</p>
 EOS;
