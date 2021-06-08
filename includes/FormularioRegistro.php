@@ -53,42 +53,42 @@ class FormularioRegistro extends Form
     {
         $result = array();
 
-        $nombreUsuario = $datos['Username'] ?? null;
+        $nombreUsuario = htmlspecialchars(trim(strip_tags($datos['Username']))) ?? null;
 
-        if ( empty($nombreUsuario) || mb_strlen($nombreUsuario) < 5 ) {
-            $result['Username'] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.";
+        if ( empty($nombreUsuario) || mb_strlen($nombreUsuario) < 4 ) {
+            $result['Username'] = "El nombre de usuario tiene que tener una longitud de al menos 4 caracteres.";
         }
 
-        $nombre = $datos['Given'] ?? null;
-        if ( empty($nombre) || mb_strlen($nombre) < 5 ) {
-            $result['Given'] = "El nombre tiene que tener una longitud de al menos 5 caracteres.";
+        $nombre = htmlspecialchars(trim(strip_tags($datos['Given']))) ?? null;
+        if ( empty($nombre) || mb_strlen($nombre) < 4 ) {
+            $result['Given'] = "El nombre tiene que tener una longitud de al menos 4 caracteres.";
         }
 
-        $apellido = $datos['Last'] ?? null;
+        $apellido = htmlspecialchars(trim(strip_tags($datos['Last']))) ?? null;
         if ( empty($apellido) || mb_strlen($apellido) < 3 ) {
             $result['Last'] = "El apellido tiene que tener una longitud de al menos 3 caracteres.";
         }
 
-        $password = $datos['Password'] ?? null;
+        $password = htmlspecialchars(trim(strip_tags($datos['Password']))) ?? null;
         if ( empty($password) || mb_strlen($password) < 4 ) {
             $result['Password'] = "El password tiene que tener una longitud de al menos 4 caracteres.";
         }
-        $password2 = $datos['Password2'] ?? null;
+        $password2 = htmlspecialchars(trim(strip_tags($datos['Password2']))) ?? null;
         if ( empty($password2) || strcmp($password, $password2) !== 0 ) {
             $result['Password2'] = "Los passwords deben coincidir";
         }
 
-        $email = $datos['E-mail'] ?? null;
+        $email = htmlspecialchars(trim(strip_tags($datos['E-mail']))) ?? null;
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $result['E-mail'] = "E-mail inválido";
         }
 
-        $dob = $datos['Date'] ?? null;
+        $dob = htmlspecialchars(trim(strip_tags($datos['Date']))) ?? null;
         if ( empty($dob) ) {
             $result['Date'] = "Especifique una fecha de nacimiento válida";
         }
 
-        $genero = $datos['Gender'] ?? 2;
+        $genero = htmlspecialchars(trim(strip_tags($datos['Gender']))) ?? 2;
 
         $admin = isset($datos['Admin']);
 

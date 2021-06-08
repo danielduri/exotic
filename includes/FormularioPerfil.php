@@ -91,10 +91,10 @@ class FormularioPerfil extends Form
 
         $perfil = \es\fdi\ucm\aw\Usuario::buscaUsuario($_SESSION["username"]);
 
-        $username = isset($datos["Username"]) ? $datos["Username"] : null;
+        $username = isset($datos["Username"]) ? htmlspecialchars(trim(strip_tags($datos['Username']))) : null;
         if($username!=null){
-            if ( empty($username) || mb_strlen($username) < 5 ) {
-                $result['Username'] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.";
+            if ( empty($username) || mb_strlen($username) < 4 ) {
+                $result['Username'] = "El nombre de usuario tiene que tener una longitud de al menos 4 caracteres.";
             }else{
                 $bool = $perfil->cambiaUsername($username);
                 if(!$bool){
@@ -104,7 +104,7 @@ class FormularioPerfil extends Form
         }
 
 
-        $password = isset($datos["Password"]) ? $datos["Password"] : null;
+        $password = isset($datos["Password"]) ? htmlspecialchars(trim(strip_tags($datos['Password']))) : null;
         if($password!=null){
             if ( empty($password) || mb_strlen($password) < 4 ) {
                 $result['Password'] = "El password tiene que tener una longitud de al menos 4 caracteres.";
@@ -119,25 +119,26 @@ class FormularioPerfil extends Form
         }
 
 
-        $given = isset($datos["Given"]) ? $datos["Given"] : null;
+        $given = isset($datos["Given"]) ? htmlspecialchars(trim(strip_tags($datos['Given']))) : null;
+        //$given = isset($datos["Given"]) ? $datos['Given'] : null;
         if($given!=null){
-            if ( empty($given) || mb_strlen($given) < 5 ) {
-                $result['Given'] = "El nombre tiene que tener una longitud de al menos 5 caracteres.";
+            if ( empty($given) || mb_strlen($given) < 4 ) {
+                $result['Given'] = "El nombre tiene que tener una longitud de al menos 4 caracteres.";
             }else{
                 $bool = $perfil->cambiaGiven($given);
             }
         }
 
-        $last = isset($datos["Last"]) ? $datos["Last"] : null;
+        $last = isset($datos["Last"]) ? htmlspecialchars(trim(strip_tags($datos['Last']))) : null;
         if($last!=null){
-            if ( empty($last) || mb_strlen($last) < 5 ) {
-                $result['Last'] = "El apellido tiene que tener una longitud de al menos 5 caracteres.";
+            if ( empty($last) || mb_strlen($last) < 4 ) {
+                $result['Last'] = "El apellido tiene que tener una longitud de al menos 4 caracteres.";
             }else{
                 $bool = $perfil->cambiaLast($last);
             }
         }
 
-        $email = isset($datos["E-mail"]) ? $datos["E-mail"] : null;
+        $email = isset($datos["E-mail"]) ? htmlspecialchars(trim(strip_tags($datos['E-mail']))) : null;
         if($email!=null){
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $result['E-mail'] = "E-mail inválido";
@@ -146,12 +147,12 @@ class FormularioPerfil extends Form
             }
         }
 
-        $description = isset($datos["Description"]) ? $datos["Description"] : null;
+        $description = isset($datos["Description"]) ? htmlspecialchars(trim(strip_tags($datos['Description']))) : null;
         if($description!=null){
             $bool = $perfil->cambiaDescription($description);
         }
 
-        $favg = isset($datos["Favg"]) ? $datos["Favg"] : null;
+        $favg = isset($datos["Favg"]) ? htmlspecialchars(trim(strip_tags($datos['Favg']))) : null;
         if($favg!=null){
             $bool = $perfil->cambiaFavg($favg);
         }

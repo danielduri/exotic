@@ -38,13 +38,13 @@ EOF;
     {
         $result = array();
 
-        $nombreUsuario =$datos['nombreUsuario'] ?? null;
+        $nombreUsuario=htmlspecialchars(trim(strip_tags($datos['nombreUsuario']))) ?? null;
 
         if ( empty($nombreUsuario) ) {
             $result['nombreUsuario'] = "El nombre de usuario no puede estar vacío";
         }
 
-        $password = $datos['password'] ?? null;
+        $password = htmlspecialchars(trim(strip_tags($datos['password']))) ?? null;
         if ( empty($password) ) {
             $result['password'] = "El password no puede estar vacío.";
         }
