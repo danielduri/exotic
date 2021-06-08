@@ -170,7 +170,7 @@ class Foro
         $query = sprintf("INSERT INTO `foro` (`autorId`, `nombreJuego`,`titulo`,`mensaje`,`respuestas`,`identificador`) 
                 VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
             $conn->real_escape_string($autorId), $conn->real_escape_string($nombreJuego), $conn->real_escape_string($titulo), $conn->real_escape_string($mensaje), $conn->real_escape_string($respuestas), $conn->real_escape_string($identificador));
-        echo $query;
+       // echo $query;
         if ($conn->query($query) === TRUE) {
             //echo "biennn";
             return true;
