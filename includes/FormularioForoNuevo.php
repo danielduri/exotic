@@ -1,6 +1,6 @@
 <?php
 
-namespace es\fdi\ucm\aw\FormulariosAdmin;
+namespace es\fdi\ucm\aw;
 
 use es\fdi\ucm\aw\Foro;
 use es\fdi\ucm\aw\Aplicacion;
