@@ -138,7 +138,9 @@ function datosUsuarioHTML($username): string
     return $html;
 }
 
-
+/*
+ * muestra al usuario los cursos que ha comprado
+ */
 function obtenerMisCursosParaDisplay($user){
 
     $html="<h1 class='mainTitle'>Mis cursos:</h1>";

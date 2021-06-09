@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * muestra al administrador las opciones de administración de las preguntas del test
+ */
 function obtenerPreguntasTestParaAdmin($preguntas){
 
     $html="<table class='userData'><th>ID Pregunta</th><th>Pregunta</th><th>Respuesta Correcta</th><th>Respuesta 1</th><th>Respuesta 2</th><th>Respuesta 3</th><th>Opciones</th>";
@@ -12,6 +15,9 @@ function obtenerPreguntasTestParaAdmin($preguntas){
     return $html;
 }
 
+/*
+ * muestra al administrador las opciones de administración de una pregunta del test
+ */
 function obtenerPreguntaParaAdmin($pregunta){
     $html="";
     if ($pregunta->getIDPregunta()!=null){

@@ -27,6 +27,9 @@ function obtenerJuegosParaDisplay($array): string
     return $html;
 }
 
+/*
+ * obtener la lista de juegos para acceder a sus foros
+ */
 function obtenerJuegosParaDisplayForo($array): string
 {
     $html = '<div class="wrapper">';
@@ -70,24 +73,6 @@ function obtenerCursosJuegoParaDisplay($juego): string
     return $html;
 }
 
-
-
-function obtenerForosJuegoParaDisplay($juego): string
-{
-    $html="<h1 class='mainTitle'>";
-    $html.=$juego->getName();
-    $html.="</h1>";
-    $html.= '<div class="wrapper">';
-    foreach ($juego->getForos() as $item) {
-        //$html.=obtenerInfoDisplayForo($item);
-       $html.=obtenerForosParaAdmin($item);
-    }
-    $html.= '</div>';
-    return $html;
-}
-
-
-
 /*
  * obtener informacion formateada para mostrar al usuario en el catalogo de juegos.
  */
@@ -118,6 +103,9 @@ EOF;
     return $html;
 }
 
+/*
+ * obtener la tarjeta de un juego con el enlace a su foro
+ */
 function obtenerJuegoParaDisplayForo($juego): string
 {
     $nombre = $juego->getName();
@@ -145,7 +133,9 @@ EOF;
     return $html;
 }
 
-
+/*
+ * obtener el nombre de un juego como opción para formulario
+ */
 function obtenerJuegoParaFormulario($juego): string
 {
     $html='<option value="';
@@ -157,6 +147,9 @@ function obtenerJuegoParaFormulario($juego): string
     return $html;
 }
 
+/*
+ * muestra al administrador el panel para administrar los juegos
+ */
 function obtenerJuegosParaAdmin($juegos){
     $html="<table class='userData'><th>Imagen</th><th>Nombre</th><th>Descripción</th><th>Categoría</th><th>Editar</th><th>Eliminar</th>";
     foreach ($juegos as $juego){
@@ -168,6 +161,9 @@ function obtenerJuegosParaAdmin($juegos){
     return $html;
 }
 
+/*
+ * muestra al usuario los mensajes del foro
+ */
 function obtenerForos($juego){
 
     $html="<table class='forumData'><th>Usuario</th><th></th><th>Fecha</th><th>Titulo</th><th>Mensaje</th>";
@@ -180,6 +176,9 @@ function obtenerForos($juego){
     return $html;
 }
 
+/*
+ * muestra al usuario un mensaje del foro
+ */
 function obtenerForo($foro){
     $html="<td>";
     $html.=$foro->getAutor();
@@ -210,6 +209,9 @@ function obtenerForo($foro){
     return $html;
 }
 
+/*
+ * muestra al administrador los datos y opciones de edición de un juego
+ */
 function obtenerJuegoParaAdmin($juego){
     $html="<td>";
     $html.='<img src="images/juegos/';

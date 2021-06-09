@@ -44,7 +44,7 @@ EOF;
 }
 
 /*
- * obtener informacion formateada para mostrar al usuario en su apartado de cursos comprados
+ * obtener tarjetas de cursos comprados para mostrar al usuario
  */
 function obtenerMiCursoDisplay($curso): string
 {
@@ -76,7 +76,7 @@ EOF;
 }
 
 /*
- * obtener la lista de contenidos del curso
+ * obtener la lista de contenidos del curso, con links si está comprado y opciones de administrador si procede
  */
 function getItemListForDisplay($items){
     $html="<ol class='itemList'>";
@@ -145,6 +145,9 @@ EOS;
 
 }
 
+/*
+ * muestra al administrador el panel para administrar los cursos
+ */
 function obtenerCursosParaAdmin($juegos){
     $html="";
     foreach ($juegos as $juego){
@@ -163,6 +166,9 @@ function obtenerCursosParaAdmin($juegos){
     return $html;
 }
 
+/*
+ * muestra al administrador los datos y opciones de edición de un curso
+ */
 function obtenerHTMLParaAdmin($curso){
     $html="<tr>";
     $html.="<td>";
@@ -209,6 +215,9 @@ function obtenerHTMLParaAdmin($curso){
     return $html;
 }
 
+/*
+ * muestra al usuario los juegos contenidos en $array
+ */
 function obtenerCursosParaBusqueda($array): string
 {
 
