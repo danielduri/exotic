@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-05-2021 a las 22:08:05
+-- Tiempo de generación: 09-06-2021 a las 22:41:09
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -46,6 +47,27 @@ CREATE TABLE IF NOT EXISTS `courses` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `foro`
+--
+
+DROP TABLE IF EXISTS `foro`;
+CREATE TABLE IF NOT EXISTS `foro` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `autorId` int(4) UNSIGNED NOT NULL,
+  `nombreJuego` varchar(30) NOT NULL,
+  `titulo` varchar(200) NOT NULL,
+  `mensaje` text NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `respuestas` int(11) NOT NULL,
+  `identificador` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `autorId` (`autorId`),
+  KEY `nombreJuego` (`nombreJuego`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `games`
 --
 
@@ -69,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `itemscursos` (
   `idItem` int(3) NOT NULL AUTO_INCREMENT,
   `idCurso` int(3) NOT NULL,
   `orden` int(3) NOT NULL,
-  `codigo` mediumtext NOT NULL,
+  `codigo` mediumtext NOT NULL DEFAULT '',
   `idTest` int(3) DEFAULT NULL,
   `esTest` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`idItem`),
@@ -84,6 +106,11 @@ CREATE TABLE IF NOT EXISTS `itemscursos` (
 DROP TRIGGER IF EXISTS `numItems`;
 DELIMITER $$
 CREATE TRIGGER `numItems` AFTER INSERT ON `itemscursos` FOR EACH ROW UPDATE `courses` SET `numItems` = `numItems` + 1 WHERE courseID=new.idCurso
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `numItems--`;
+DELIMITER $$
+CREATE TRIGGER `numItems--` AFTER DELETE ON `itemscursos` FOR EACH ROW UPDATE `courses` SET `numItems` = `numItems` - 1 WHERE courseID=old.idCurso
 $$
 DELIMITER ;
 
@@ -137,13 +164,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(30) NOT NULL,
   `date_of_birth` date NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT current_timestamp(),
-  `description` mediumtext NOT NULL,
+  `description` mediumtext NOT NULL DEFAULT '',
   `favorite_game` varchar(30) DEFAULT NULL COMMENT 'related to "games" table',
   `gender` int(1) UNSIGNED NOT NULL COMMENT '0 if male, 1 if female, 2 if non-binary',
   `points` int(3) UNSIGNED NOT NULL DEFAULT 0,
   `e-mail` varchar(30) NOT NULL,
   `password` varchar(70) NOT NULL,
-  `role` binary(1) NOT NULL DEFAULT '\0',
+  `role` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`userID`),
   KEY `user_fk_game` (`favorite_game`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -157,6 +184,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 ALTER TABLE `courses`
   ADD CONSTRAINT `game_courses` FOREIGN KEY (`game`) REFERENCES `games` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `foro`
+--
+ALTER TABLE `foro`
+  ADD CONSTRAINT `foro_fk_user` FOREIGN KEY (`autorId`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `foro_ibfk_1` FOREIGN KEY (`nombreJuego`) REFERENCES `games` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `itemscursos`
@@ -182,6 +216,7 @@ ALTER TABLE `purchases`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `user_fk_game` FOREIGN KEY (`favorite_game`) REFERENCES `games` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
