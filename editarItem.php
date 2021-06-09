@@ -21,4 +21,4 @@ if (isset($_SESSION["userID"]) && $_SESSION["admin"]){
 }
 
 
-require __DIR__ . '/includes/comun/layout.php';
+require __DIR__ . '/includes/comun/layoutConEditor.php';
