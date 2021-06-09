@@ -8,7 +8,7 @@ function obtenerInfoDisplay($curso): string
 
     $nombre = $curso->getCourseName();
     $descripcion = $curso->getDescription();
-    $precio = $curso->getPrice();
+    $precio = $curso->getPrice()."€";
     $duracion = $curso->getDuration();
     $id = $curso->getID();
     $btnInscribirse = "";
@@ -28,13 +28,13 @@ function obtenerInfoDisplay($curso): string
                 <h1>$nombre</h1>
                 <p>
                 $descripcion
+                </p>
                 <div class="bttn">
                 $btnInscribirse
                 <a href="contentTable.php?id=$id"><button>Ver contenidos</button></a>
-                </p>
                 </div>
-                <div class="descriptions">
-                 <h2>Precio: $precio    Duración: $duracion</h2>
+                <div>
+                 <p> <strong> • Precio: $precio  • Duración: $duracion </strong> </p>
                 </div>
             </div>
         </div>
