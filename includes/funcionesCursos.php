@@ -27,14 +27,16 @@ function obtenerInfoDisplay($curso): string
             <div class="descriptions">
                 <h1>$nombre</h1>
                 <p>
-$descripcion
-<div class="bttn">
-
-$btnInscribirse
-                  
+                $descripcion
+                <div class="bttn">
+                $btnInscribirse
                   <a href="contentTable.php?id=$id"><button>Ver contenidos</button></a>
-                  </p>
-            </div>
+                </p>
+                </div>
+                <div>
+                <div class="descriptions">
+                 <h2>Precio: $precio         Duración: $duracion</h2>
+                </div>
         </div>
 
 </div>
