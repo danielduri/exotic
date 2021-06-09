@@ -11,6 +11,7 @@ $juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($nombre);
 if($nombre!=null && $juego!=null){
     //$contenidoPrincipal = obtenerForosParaAdmin($juego);
     $contenido2 = obtenerForos($juego);
+    $contenidoPrincipal="";
     if($_SESSION['login']){
 
             $contenidoPrincipal.=<<<EOS
