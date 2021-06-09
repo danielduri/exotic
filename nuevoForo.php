@@ -6,7 +6,7 @@ $tituloPagina = 'Exotic Games Academy - Nuevo Tema';
 $nombre = isset($_GET["juego"]) ? $_GET["juego"] : null;
 $juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($nombre);
 
-$formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioForoNuevo($juego);
+$formulario = new \es\fdi\ucm\aw\FormularioForoNuevo($juego);
 $procesamiento = $formulario->gestiona();
 //$nombre = $juego->getName();
 if (isset($_SESSION["userID"]) && $_SESSION["login"]){

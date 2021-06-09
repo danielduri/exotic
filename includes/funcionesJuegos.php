@@ -198,7 +198,7 @@ function obtenerForo($foro){
     $html.="<td>";
     $html.=$foro->getMensaje();
     $html.="</td>";
-    if($_SESSION["admin"]){
+    if(isset($_SESSION["login"]) && $_SESSION["admin"]){
         $html.="<td>";
         $html.="<a href='eliminarForo.php?id=";
         $html.=$foro->getId();

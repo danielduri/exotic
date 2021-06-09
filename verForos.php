@@ -12,7 +12,7 @@ if($nombre!=null && $juego!=null){
     //$contenidoPrincipal = obtenerForosParaAdmin($juego);
     $contenido2 = obtenerForos($juego);
     $contenidoPrincipal="";
-    if($_SESSION['login']){
+    if(isset($_SESSION['login']) && $_SESSION['login']){
 
             $contenidoPrincipal.=<<<EOS
             <div class='navigationButton'><a href="nuevoForo.php?juego=$nombre"><button class="boton_personalizado">Escribir mensaje</button></a></div>
