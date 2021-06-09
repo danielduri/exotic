@@ -60,7 +60,7 @@ class FormularioJuego extends Form
 
         $juego = Juego::buscarJuegoPorNombre($_GET["juego"]);
 
-        $nuevoNombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
+        $nuevoNombre = isset($datos["Nombre"]) ? htmlspecialchars(trim(strip_tags($datos['Nombre']))) : null;
         if($nuevoNombre!=null){
             if (!filter_var($nuevoNombre, FILTER_SANITIZE_SPECIAL_CHARS)) {
                 $result['nombre'] = "El nombre no puede contener caracteres especiales.";

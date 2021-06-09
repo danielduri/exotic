@@ -74,7 +74,7 @@ class FormularioCursoNuevo extends Form
                 $result['nombre2'] = "El nombre no puede contener caracteres especiales.";
         }
 
-        $description = isset($datos["Descripcion"]) ? $datos["Descripcion"] : null;
+        $description = isset($datos["Descripcion"]) ? htmlspecialchars(trim(strip_tags($datos['Descripcion']))) : null;
         if(empty($description)){
             $result['description'] = "Introduce una descripcion";
         }
@@ -84,7 +84,7 @@ class FormularioCursoNuevo extends Form
             $result['precio'] = "Introduce un precio";
         }
 
-        $nivel = isset($datos["Nivel"]) ? $datos["Nivel"] : null;
+        $nivel = isset($datos["Nivel"]) ? htmlspecialchars(trim(strip_tags($datos['Nivel']))) : null;
         if(empty($nivel)){
             $result['nivel'] = "Introduce un nivel";
         }

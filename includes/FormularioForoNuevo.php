@@ -66,7 +66,7 @@ class FormularioForoNuevo extends Form
             $result['titulo2'] = "El titulo no puede contener caracteres especiales.";
         }
 
-        $mensaje = isset($datos["Mensaje"]) ? $datos["Mensaje"] : null;
+        $mensaje = isset($datos["Mensaje"]) ? htmlspecialchars(trim(strip_tags($datos['Mensaje']))) : null;
         if(empty($mensaje)){
             $result['mensaje'] = "Introduce un mensaje";
         }

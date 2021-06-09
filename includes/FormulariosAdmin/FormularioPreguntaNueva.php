@@ -72,17 +72,17 @@ class FormularioPreguntaNueva extends Form
             $result['respuesta'] = "Rellena todas las opciones de respuesta";
         }
 
-        $r1 = isset($datos["r1"]) ? $datos["r1"] : null;
+        $r1 = isset($datos["r1"]) ? htmlspecialchars(trim(strip_tags($datos['r1']))) : null;
         if(empty($r1)){
             $result['respuesta'] = "Rellena todas las opciones de respuesta";
         }
 
-        $r2 = isset($datos["r2"]) ? $datos["r2"] : null;
+        $r2 = isset($datos["r2"]) ? htmlspecialchars(trim(strip_tags($datos['r2']))) : null;
         if(empty($r2)){
             $result['respuesta'] = "Rellena todas las opciones de respuesta";
         }
 
-        $r3 = isset($datos["r3"]) ? $datos["r3"] : null;
+        $r3 = isset($datos["r3"]) ? htmlspecialchars(trim(strip_tags($datos['r3']))) : null;
         if(empty($r3)){
             $result['respuesta'] = "Rellena todas las opciones de respuesta";
         }

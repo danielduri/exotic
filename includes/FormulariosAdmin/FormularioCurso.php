@@ -84,7 +84,7 @@ class FormularioCurso extends Form
             }
         }
 
-        $description = isset($datos["Descripcion"]) ? $datos["Descripcion"] : null;
+        $description = isset($datos["Descripcion"]) ? htmlspecialchars(trim(strip_tags($datos['Descripcion']))) : null;
         if($description!=null){
             $bool = $curso->cambiaDescription($description);
         }
@@ -94,7 +94,7 @@ class FormularioCurso extends Form
             $bool = $curso->cambiaPrecio($precio);
         }
 
-        $nivel = isset($datos["Nivel"]) ? $datos["Nivel"] : null;
+        $nivel = isset($datos["Nivel"]) ? htmlspecialchars(trim(strip_tags($datos['Nivel']))): null;
         if($nivel!=null){
             $bool = $curso->cambiaNivel($nivel);
         }

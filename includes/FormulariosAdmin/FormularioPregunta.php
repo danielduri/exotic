@@ -66,7 +66,7 @@ class FormularioPregunta extends Form
 
         $item = Pregunta::obtenerPreguntaporID($_GET["id"]);
 
-        $p = isset($datos["Pregunta"]) ? $datos["Pregunta"] : null;
+        $p = isset($datos["Pregunta"]) ? htmlspecialchars(trim(strip_tags($datos['Pregunta']))) : null;
         if(!empty($p)){
             $bool = $item->cambiaPregunta($p);
         }
@@ -81,12 +81,12 @@ class FormularioPregunta extends Form
             $bool = $item->cambiaRespuesta1($r1);
         }
 
-        $r2 = isset($datos["r2"]) ? $datos["r2"] : null;
+        $r2 = isset($datos["r2"]) ? htmlspecialchars(trim(strip_tags($datos['r2']))) : null;
         if(!empty($r2)){
             $bool = $item->cambiaRespuesta2($r2);
         }
 
-        $r3 = isset($datos["r3"]) ? $datos["r3"] : null;
+        $r3 = isset($datos["r3"]) ? htmlspecialchars(trim(strip_tags($datos['r3']))) : null;
         if(!empty($r3)){
             $bool = $item->cambiaRespuesta3($r3);
         }

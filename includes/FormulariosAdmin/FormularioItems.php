@@ -65,7 +65,7 @@ class FormularioItems extends Form
             }
         }
 
-        $contenido = isset($datos["Contenido"]) ? $datos["Contenido"] : null;
+        $contenido = isset($datos["Contenido"]) ? $datos['Contenido'] : null;
         if($contenido!=null){
             $bool = $item->cambiaContenido($contenido);
         }

@@ -52,17 +52,17 @@ class FormularioJuegoNuevo extends Form
         $result = array();
         $bool = false;
 
-        $nuevoNombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
+        $nuevoNombre = isset($datos["Nombre"]) ? htmlspecialchars(trim(strip_tags($datos['Nombre']))) : null;
         if(empty($nuevoNombre)){
             $result['nombre'] = "Introduce un nombre";
         }
 
-        $description = isset($datos["Descripcion"]) ? $datos["Descripcion"] : null;
+        $description = isset($datos["Descripcion"]) ? htmlspecialchars(trim(strip_tags($datos['Descripcion']))) : null;
         if(empty($description)){
             $result['description'] = "Introduce una descripcion";
         }
 
-        $cat = isset($datos["Categoria"]) ? $datos["Categoria"] : null;
+        $cat = isset($datos["Categoria"]) ? htmlspecialchars(trim(strip_tags($datos['Categoria']))) : null;
         if(empty($cat)){
             $result['cat'] = "Introduce una categoria";
         }
