@@ -14,18 +14,18 @@ if($nombre!=null && $juego!=null){
     $contenidoPrincipal="";
     if(isset($_SESSION['login']) && $_SESSION['login']){
 
-            $contenidoPrincipal.=<<<EOS
+            $contenidoPrincipal=<<<EOS
             <div class='navigationButton'><a href="nuevoForo.php?juego=$nombre"><button class="boton_personalizado">Escribir mensaje</button></a></div>
-            <div class='navigationButton'><a href='foros.php'><button>Volver</button></a></div>
-            <p>$contenido2</p>
-            
-            
             EOS;}
     else{
         $contenidoPrincipal=<<<EOS
-        <h1>Inicia sesion para acceder</h1>
+        <h1 class="mainTitle">Inicia sesion para escribir</h1>
         EOS;
     }
+    $contenidoPrincipal.=<<<EOS
+        <div class='navigationButton'><a href='foros.php'><button>Volver</button></a></div>
+        <p>$contenido2</p>
+    EOS;
 
 }else{
     $contenidoPrincipal="<p class='contenido'>No se ha encontrado este juego</p>";
