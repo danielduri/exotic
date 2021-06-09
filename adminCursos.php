@@ -6,6 +6,10 @@ $tituloPagina = 'Exotic Games Academy - Administrar cursos';
 
 if(isset($_SESSION["userID"]) && $_SESSION["admin"]){
     $juegos = \es\fdi\ucm\aw\Juego::obtenerTodosLosJuegos();
+    if(empty($juegos)){
+        require_once __DIR__.'/includes/funcionesCursos.php';
+        //SIN ELLO, CON UNA BASE DE DATOS VACÍA NO FUNCIONA
+    }
     $contenidoPrincipal=obtenerCursosParaAdmin($juegos);
 
 }else{
