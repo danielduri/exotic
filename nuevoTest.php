@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 
-use es\fdi\ucm\aw\Juego;
-
 $tituloPagina = 'Exotic Games Academy - Nuevo Test';
 
 $formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioTestNuevo();

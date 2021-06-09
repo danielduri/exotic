@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 
-use es\fdi\ucm\aw\Juego;
-
 $tituloPagina = 'Exotic Games Academy - Nuevo Tema';
 
 $nombre = isset($_GET["juego"]) ? $_GET["juego"] : null;

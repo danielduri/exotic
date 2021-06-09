@@ -4,7 +4,6 @@ namespace es\fdi\ucm\aw\FormulariosAdmin;
 
 use es\fdi\ucm\aw\Curso;
 use es\fdi\ucm\aw\Form;
-use es\fdi\ucm\aw\Juego;
 
 class FormularioImgCurso extends Form {
 

@@ -3,7 +3,6 @@ require_once __DIR__ . '/includes/config.php';
 
 $tituloPagina = 'Exotic Games Academy - Editar Curso';
 
-use es\fdi\ucm\aw\Curso;
 $formulario = new \es\fdi\ucm\aw\FormulariosAdmin\FormularioCurso();
 $procesamiento = $formulario->gestiona();
 
