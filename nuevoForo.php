@@ -14,7 +14,7 @@ $procesamiento = $formulario->gestiona();
 if (isset($_SESSION["userID"]) && $_SESSION["login"]){
     $contenidoPrincipal = <<<EOS
     <div class="login">
-    <h1>Nuevo Tema: </h1>
+    <h1>Nuevo Mensaje: </h1>
     $procesamiento
     </div>
     

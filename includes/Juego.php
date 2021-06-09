@@ -19,7 +19,6 @@ class Juego
         $this->courses = [];
 		$this-> foros = [];
         $this->getCoursesFromDB();
-		$this->getForosFromDB();
     }
 
     /*
@@ -81,6 +80,7 @@ class Juego
     }
 	public function getForos()
     {
+        $this->getForosFromDB();
         return $this->foros;
     }
 
@@ -106,7 +106,7 @@ class Juego
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM `foro` WHERE `nombreJuego`='%s' ORDER BY fecha ASC", $conn->real_escape_string($this->name));
+        $query = sprintf("SELECT * FROM `foro` WHERE `nombreJuego`='%s' ORDER BY id DESC ", $conn->real_escape_string($this->name));
         $rs = $conn->query($query);
         while ($registro = $rs->fetch_assoc()) {
             $foro = new Foro($registro['id'], $registro['autorId'], $registro['nombreJuego'], $registro['titulo'], $registro['mensaje'], $registro['fecha'], $registro['respuestas'], $registro['identificador']);
@@ -178,6 +178,8 @@ class Juego
         $conn = $app->conexionBd();
         $query = sprintf("DELETE FROM `games` WHERE `games`.`name` = '%s'", $conn->real_escape_string($this->name));
         if ($conn->query($query) === TRUE) {
+            $nombreImagen=$this->name.".png";
+            unlink(DIR_JUEGOS_PROTEGIDOS. "/{$nombreImagen}");
             return true;
         }
         return false;

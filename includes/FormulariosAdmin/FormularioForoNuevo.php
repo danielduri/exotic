@@ -2,9 +2,6 @@
 
 namespace es\fdi\ucm\aw\FormulariosAdmin;
 
-
-use es\fdi\ucm\aw\Juego;
-use es\fdi\ucm\aw\Usuario;
 use es\fdi\ucm\aw\Foro;
 use es\fdi\ucm\aw\Aplicacion;
 use es\fdi\ucm\aw\Form;

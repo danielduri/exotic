@@ -168,37 +168,44 @@ function obtenerJuegosParaAdmin($juegos){
     return $html;
 }
 
-function obtenerForosParaAdmin($juego){
+function obtenerForos($juego){
 
-    $html="<table class='forumData'><th>Usuario</th><th>Fecha</th><th>Titulo</th><th>Mensaje</th>";
+    $html="<table class='forumData'><th>Usuario</th><th></th><th>Fecha</th><th>Titulo</th><th>Mensaje</th>";
     foreach ($juego->getForos() as $foro){
         $html.="<tr>";
-        $html.=obtenerForoParaAdmin($foro, $juego);
+        $html.=obtenerForo($foro);
         $html.="</tr>";
     }
     $html.="</table>";
-  //  $html.=;
     return $html;
 }
 
-function obtenerForoParaAdmin($foro, $juego){
-    $vNombreJuego=$juego->getName();
-   $vRespuestas=$foro->getRespuestas();
-   $vIdentificador=$foro->getIdentificador();
-   $vTitulo=$foro->getTitulo();
-
+function obtenerForo($foro){
     $html="<td>";
     $html.=$foro->getAutor();
+    $html.="</td>";
+    $html.="<td>";
+    if(is_file(DIR_AVATARS_PROTEGIDOS. "/{$foro->getAutorId()}")){
+        $html.='<img src="'.DIR_AVATARS_PROTEGIDOS. "/{$foro->getAutorId()}". "?m=".filemtime(DIR_AVATARS_PROTEGIDOS. "/{$foro->getAutorId()}").'">';
+    }
     $html.="</td>";
     $html.="<td>";
     $html.=$foro->getFecha();
     $html.="</td>";
     $html.="<td>";
-    $html.=$vTitulo;
+    $html.=$foro->getTitulo();
     $html.="</td>";
     $html.="<td>";
     $html.=$foro->getMensaje();
     $html.="</td>";
+    if($_SESSION["admin"]){
+        $html.="<td>";
+        $html.="<a href='eliminarForo.php?id=";
+        $html.=$foro->getId();
+        $html.="&backTo=";
+        $html.=$foro->getNombreJuego();
+        $html.="'><button>Eliminar</button></td>";
+    }
 
     return $html;
 }

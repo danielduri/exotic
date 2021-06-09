@@ -327,6 +327,8 @@ h3{
 
 .profilePic{
     width: 200px;
+    height: 200px;
+    object-fit: cover;
 }
 
 body {
@@ -464,7 +466,8 @@ body {
     background-color: #ff0014;
     border-radius: 4px;
     border: 2px solid #790202;
-    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
     display: block;
     text-decoration: none;
 }
@@ -488,7 +491,9 @@ body {
 }
 
 .forumData img{
-    height: 100px;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
     display: flex;
     justify-content: center;
 }
@@ -508,14 +513,14 @@ body {
 }
 
 .forumData td:nth-child(odd){
-    font: 150% san-serif;
+    font: 150% sans-serif;
     font-weight: 600;
 
 }
 
 .forumData td:nth-child(even){
 
-    font: 110% san-serif;
+    font: 110% sans-serif;
 }
 
 .itemList{

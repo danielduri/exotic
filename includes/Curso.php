@@ -119,6 +119,7 @@ class Curso
                 VALUES ('%s', '%s', '%s','%s', '%s','%s')", $conn->real_escape_string($nombre),
             $conn->real_escape_string($precio), $conn->real_escape_string($juego), $conn->real_escape_string($nivel), $conn->real_escape_string($duracion), $conn->real_escape_string($description));
         if ($conn->query($query) === TRUE) {
+            copy(RUTA_IMGS."/recursos/favicon.png", DIR_CURSOS_PROTEGIDOS."/".$juego.".png");
             return true;
         }
         return false;
@@ -358,6 +359,8 @@ class Curso
         $conn = $app->conexionBd();
         $query = sprintf("DELETE FROM `courses` WHERE `courses`.`courseID` = '%s'", $conn->real_escape_string($this->id));
         if ($conn->query($query) === TRUE) {
+            $nombreImagen=$this->id.".png";
+            unlink(DIR_CURSOS_PROTEGIDOS. "/{$nombreImagen}");
             return true;
         }
         return false;

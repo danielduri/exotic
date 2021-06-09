@@ -72,7 +72,7 @@ function datosUsuarioHTML($username): string
     $html .= 'Foto de perfil: ';
     $html .= '</td><td>';
     if(is_file(DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}")){
-        $html.='<img src="'.DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}".'">';
+        $html.='<img src="'.DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}". "?m=".filemtime(DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}").'">';
     }else{
         $html .= 'No se ha subido aún';
     }

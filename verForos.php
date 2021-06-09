@@ -10,19 +10,20 @@ $juego=\es\fdi\ucm\aw\Juego::buscarJuegoPorNombre($nombre);
 
 if($nombre!=null && $juego!=null){
     //$contenidoPrincipal = obtenerForosParaAdmin($juego);
-    $contenido2 = obtenerForosParaAdmin($juego);
+    $contenido2 = obtenerForos($juego);
     if($_SESSION['login']){
-    $contenidoPrincipal=<<<EOS
-<p>$contenido2</p>
 
-<a href="nuevoForo.php?juego=$nombre"><button class="boton_personalizado">Escribir mensaje</button></a>
-
-EOS;}
-
+            $contenidoPrincipal.=<<<EOS
+            <div class='navigationButton'><a href="nuevoForo.php?juego=$nombre"><button class="boton_personalizado">Escribir mensaje</button></a></div>
+            <div class='navigationButton'><a href='foros.php'><button>Volver</button></a></div>
+            <p>$contenido2</p>
+            
+            
+            EOS;}
     else{
         $contenidoPrincipal=<<<EOS
-<p>"Inicia sesion para acceder"</p>
-EOS;
+        <h1>Inicia sesion para acceder</h1>
+        EOS;
     }
 
 }else{

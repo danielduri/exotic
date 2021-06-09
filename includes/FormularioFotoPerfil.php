@@ -18,7 +18,7 @@ class FormularioFotoPerfil extends Form {
 
         $html="";
         if(is_file(DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}")){
-            $html.='<img class="profilePic" src="'.DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}".'">';
+            $html.='<img class="profilePic" src="'.DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}". "?m=".filemtime(DIR_AVATARS_PROTEGIDOS. "/{$_SESSION["userID"]}").'">';
         }else{
             $html .= 'No se ha subido aún';
         }

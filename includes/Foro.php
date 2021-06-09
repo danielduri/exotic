@@ -7,7 +7,7 @@ namespace es\fdi\ucm\aw;
 class Foro
 {
     private $id;
-    private $autorId; //array que contiene los cursos correspondientes al juego
+    private $autorId;
     private $nombreJuego;
     private $titulo;
 	private $mensaje;
@@ -36,13 +36,6 @@ class Foro
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed
@@ -57,13 +50,6 @@ class Foro
         return Usuario::buscaNombrePorId($this->autorId);
     }
 
-    /**
-     * @param mixed $autorId
-     */
-    public function setAutorId($autorId): void
-    {
-        $this->autorId = $autorId;
-    }
 
     /**
      * @return mixed
@@ -161,9 +147,6 @@ class Foro
         $this->identificador = $identificador;
     }
 
-        //$this->getForosFromDB();
-
-
     public static function nuevoForoenBD($autorId, $nombreJuego, $titulo, $mensaje, $respuestas,  $identificador)
     {
         $app = Aplicacion::getSingleton();
@@ -176,56 +159,15 @@ class Foro
             //echo "biennn";
             return true;
         }
-        //echo "malllllll";
         return false;
     }
 
 
-    /*
-     * funcion que entra en la base de datos para obtener todos los cursos asociados a ese juego
-     * e incluirlos en el array de cursos
-     */
-
-	
-	    public function getForosFromDB()
+    public static function eliminar($id)
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM `courses` WHERE `game`='%s'", $conn->real_escape_string($this->name));
-
-        $rs = $conn->query($query);
-        while ($registro = $rs->fetch_assoc()) {
-            $foro = new Foro($registro['id'], $registro['autorId'], $registro['nombreJuego'], $registro['titulo'], $registro['mensaje'], $registro['fecha'], $registro['respuestas'], $registro['identificador']);
-            array_push($this->foros, $foro);
-        }
-        $rs->free();
-    }
-
-    /*
-     * funcion que devuelve un array con todos los juegos de la base de datos.
-     */
-
-
-    public function cambiaNombre(string $nuevoNombre)
-    {
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        if(self::buscarJuegoPorNombre($nuevoNombre)==null){
-            $query = sprintf("UPDATE `games` SET `name` = '%s' WHERE `games`.`name` = '%s'", $conn->real_escape_string($nuevoNombre), $conn->real_escape_string($this->name));
-            if ($conn->query($query) === TRUE) {
-                $this->name = $nuevoNombre;
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    public function eliminar()
-    {
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $query = sprintf("DELETE FROM `games` WHERE `games`.`name` = '%s'", $conn->real_escape_string($this->name));
+        $query = sprintf("DELETE FROM `foro` WHERE `foro`.`id` = '%s'", $conn->real_escape_string($id));
         if ($conn->query($query) === TRUE) {
             return true;
         }
