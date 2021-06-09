@@ -20,7 +20,10 @@ class FormularioItemsNuevo extends Form
         $errorDesc = self::createMensajeError($errores, 'description', 'span', array('class' => 'error'));
 
         $nombreItem = "Nombre del ítem: ";
-        $contenido=$datos["Contenido"];
+        $contenido="";
+        if(isset($datos["Contenido"])) {
+            $contenido = $datos["Contenido"];
+        }
 
         $html = <<<EOF
                 
