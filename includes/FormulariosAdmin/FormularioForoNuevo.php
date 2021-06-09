@@ -88,13 +88,12 @@ class FormularioForoNuevo extends Form
             //$_GET["juego"]
             $bool=Foro::nuevoForoenBD($autorId,$nombreJuego, $titulo, $mensaje, $respuestas, $identificador);
 
-            /* si es un mensaje en respuesta a otro actualizamos los datos */
-            if ($identificador != 0)
-            {
-                $query2 = "UPDATE foro SET respuestas=respuestas+1 WHERE id='$identificador'";
-                $result2 = $conn->query($query2);
-                echo $query2;
-            }
+//            /* si es un mensaje en respuesta a otro actualizamos los datos */
+//            if ($identificador != 0)
+//            {
+//                $query2 = "UPDATE foro SET respuestas=respuestas+1 WHERE id='$identificador'";
+//                $result2 = $conn->query($query2);
+//            }
 
             if(!$bool){
                 $result["titulo"]="Ya existe un tema con ese titulo";
