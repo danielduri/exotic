@@ -69,12 +69,12 @@ class FormularioJuego extends Form
             }
         }
 
-        $description = isset($datos["Descripcion"]) ? $datos["Descripcion"] : null;
+        $description = isset($datos["Descripcion"]) ? htmlspecialchars(trim(strip_tags($datos['Descripcion']))) : null;
         if($description!=null){
             $bool = $juego->cambiaDescription($description);
         }
 
-        $cat = isset($datos["Categoria"]) ? $datos["Categoria"] : null;
+        $cat = isset($datos["Categoria"]) ? htmlspecialchars(trim(strip_tags($datos['Categoria']))): null;
         if($cat!=null){
             $bool = $juego->cambiaCat($cat);
         }

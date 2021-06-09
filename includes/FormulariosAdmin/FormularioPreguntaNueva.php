@@ -62,12 +62,12 @@ class FormularioPreguntaNueva extends Form
         $result = array();
         $bool = false;
 
-        $p = isset($datos["Pregunta"]) ? $datos["Pregunta"] : null;
+        $p = isset($datos["Pregunta"]) ? htmlspecialchars(trim(strip_tags($datos['Pregunta']))) : null;
         if(empty($p)){
             $result['nombre'] = "Introduce una pregunta";
         }
 
-        $rC = isset($datos["rC"]) ? $datos["rC"] : null;
+        $rC = isset($datos["rC"]) ? htmlspecialchars(trim(strip_tags($datos['rC']))) : null;
         if(empty($rC)){
             $result['respuesta'] = "Rellena todas las opciones de respuesta";
         }

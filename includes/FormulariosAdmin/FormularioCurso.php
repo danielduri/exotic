@@ -75,7 +75,7 @@ class FormularioCurso extends Form
 
         $curso = Curso::buscarCursoPorID($_GET["id"]);
 
-        $nuevoNombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
+        $nuevoNombre = isset($datos["Nombre"]) ? htmlspecialchars(trim(strip_tags($datos['Nombre']))) : null;
         if($nuevoNombre!=null){
             if (!filter_var($nuevoNombre, FILTER_SANITIZE_SPECIAL_CHARS)) {
                 $result['nombre'] = "El nombre no puede contener caracteres especiales.";
@@ -89,7 +89,7 @@ class FormularioCurso extends Form
             $bool = $curso->cambiaDescription($description);
         }
 
-        $precio = isset($datos["Precio"]) ? $datos["Precio"] : null;
+        $precio = isset($datos["Precio"]) ? htmlspecialchars(trim(strip_tags($datos['Precio']))) : null;
         if($precio!=null){
             $bool = $curso->cambiaPrecio($precio);
         }
@@ -99,7 +99,7 @@ class FormularioCurso extends Form
             $bool = $curso->cambiaNivel($nivel);
         }
 
-        $duracion = isset($datos["Duracion"]) ? $datos["Duracion"] : null;
+        $duracion = isset($datos["Duracion"]) ? htmlspecialchars(trim(strip_tags($datos['Duracion']))) : null;
         if($duracion!=null){
             $bool = $curso->cambiaDuracion($duracion);
         }

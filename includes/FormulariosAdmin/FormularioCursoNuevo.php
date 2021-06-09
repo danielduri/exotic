@@ -67,7 +67,7 @@ class FormularioCursoNuevo extends Form
         $result = array();
         $bool = false;
 
-        $nombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
+        $nombre = isset($datos["Nombre"]) ? htmlspecialchars(trim(strip_tags($datos['Nombre']))) : null;
         if(empty($nombre)){
             $result['nombre1'] = "Introduce un nombre";
         }else if (!filter_var($nombre, FILTER_SANITIZE_SPECIAL_CHARS)) {
@@ -79,7 +79,7 @@ class FormularioCursoNuevo extends Form
             $result['description'] = "Introduce una descripcion";
         }
 
-        $precio = isset($datos["Precio"]) ? $datos["Precio"] : null;
+        $precio = isset($datos["Precio"]) ? htmlspecialchars(trim(strip_tags($datos['Precio']))) : null;
         if(empty($precio)){
             $result['precio'] = "Introduce un precio";
         }
@@ -89,7 +89,7 @@ class FormularioCursoNuevo extends Form
             $result['nivel'] = "Introduce un nivel";
         }
 
-        $duracion = isset($datos["Duracion"]) ? $datos["Duracion"] : null;
+        $duracion = isset($datos["Duracion"]) ? htmlspecialchars(trim(strip_tags($datos['Duracion']))) : null;
         if(empty($precio)){
             $result['duracion'] = "Introduce una duracion";
         }

@@ -50,7 +50,7 @@ class FormularioItemsNuevo extends Form
         $orden=$curso->getNumItems();
         $orden=$orden+1;
 
-        $nombre = isset($datos["Nombre"]) ? $datos["Nombre"] : null;
+        $nombre = isset($datos["Nombre"]) ? htmlspecialchars(trim(strip_tags($datos['Nombre']))) : null;
         if(empty($nombre)){
             $result['nombre'] = "Introduce un nombre";
         }

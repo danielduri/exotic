@@ -71,12 +71,12 @@ class FormularioPregunta extends Form
             $bool = $item->cambiaPregunta($p);
         }
 
-        $rC = isset($datos["rC"]) ? $datos["rC"] : null;
+        $rC = isset($datos["rC"]) ? htmlspecialchars(trim(strip_tags($datos['rC']))) : null;
         if(!empty($rC)){
             $bool = $item->cambiaRespuestaCorrecta($rC);
         }
 
-        $r1 = isset($datos["r1"]) ? $datos["r1"] : null;
+        $r1 = isset($datos["r1"]) ? htmlspecialchars(trim(strip_tags($datos['r1']))) : null;
         if(!empty($r1)){
             $bool = $item->cambiaRespuesta1($r1);
         }

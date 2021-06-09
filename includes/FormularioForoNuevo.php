@@ -59,7 +59,7 @@ class FormularioForoNuevo extends Form
         $result = array();
         $bool = false;
 
-        $titulo = isset($datos["Titulo"]) ? $datos["Titulo"] : null;
+        $titulo = isset($datos["Titulo"]) ? htmlspecialchars(trim(strip_tags($datos['Titulo']))) : null;
         if(empty($titulo)){
             $result['titulo1'] = "Introduce un titulo";
         }else if (!filter_var($titulo, FILTER_SANITIZE_SPECIAL_CHARS)) {
